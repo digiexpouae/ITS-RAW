@@ -43,7 +43,7 @@
                 </div>
                 <hr className="w-[80%] border-1 bg-[#FFFFFF]"  />
             </div>
-
+{/* footer fixed*/}
             {/* Bottom links */}
             <div className="flex justify-center md:items-center md:space-x-8 text-[15px] md:text-[20px] mt-6">
                 <Link href="/privacy " className="m-0">Privacy Policy</Link>
