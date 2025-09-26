@@ -3,11 +3,11 @@ const home=()=>{
     const title=<>We’re delighted <br /> <span className="text-[80px] md:text-[130px]"> to have you</span></>
     return(<div className="bg-white h-[90vh] relative  w-full">
 <div className="hidden md:block absolute  top-[40%] lg:top-0 left-0 right-0 bottom-0">
-<Image src="/assets/home/Vector.webp"    alt="section1" width={1400} height={500} className=" object-contain"/>
+<Image src="/assets/home/Vector.webp"    alt="section1" width={1400} height={400} className=" object-contain"/>
 </div>
 <div className="absolute w-full flex items-center justify-center h-full ">
 <div className="h-full flex absolute top-0 lg:-top-[25%] left-[5%] items-end justify-center w-[25%]">
-<div className="  h-[200px] w-[250px]"><Image src={'/assets/home/r-2.webp'} width={200} height={300}  className="object-cover" /></div>
+<div className="  h-[200px] w-[250px]"><Image src={'/assets/home/r-2.webp'} width={200} height={200}  className="object-cover" /></div>
 </div>
     <div className="flex flex-col items-center justify-center">
     <h3 className="text-[#EE3A3D] tracking-tighter uppercase text-2xl md:text-4xl">Welcome to It’s Raw!</h3>
@@ -16,7 +16,7 @@ const home=()=>{
             </div>
 </div>
 <div className="h-full flex absolute top-[25%] right-0 items-start justify-center w-[25%]">
-<div className="  h-[200px] w-[250px]"><Image src={'/assets/home/r-3.webp'} width={200} height={300}  className="object-cover" /></div>
+<div className="  h-[200px] w-[250px]"><Image src={'/assets/home/r-3.webp'} width={200} height={200}  className="object-cover" /></div>
 </div>
 
 

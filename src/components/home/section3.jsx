@@ -61,20 +61,20 @@ And, we’ll pop it all into a neat little list with all the media links and art
 
             </div>
             <div className='w-[80%] gap-[60px] relative flex flex-col   md:flex-row  items-center  justify-center'>
-        <div className='w-full p-[20px] h-[80%] flex flex-col  items-center justify-center border-2 border-dashed border-[#EE3A3D] rounded-2xl'>
-        <h2 className="text-[40px]  uppercase text-center leading-[0.8] " >Write It!</h2>
-<p className='text-center text-[20px] leading-[1] px-4'>
+        <div className='w-full pt-[30px] p-[20px] h-[80%] flex flex-col  items-center justify-center border-2 border-dashed border-[#EE3A3D] rounded-2xl'>
+        <h2 className="text-[30px]  uppercase text-center leading-[0.8] " >Write It!</h2>
+<p className='text-center text-[15px] leading-[1] px-4'>
 Drop in the raw info about your restaurant and offers, and ItsRaw will generate content in seconds
 </p>
 <div className='absolute h-[60px] w-full -top-10 left-0 flex items-center justify-center right-0'>
-<div className='rounded-full h-full flex items-center justify-center w-[60px] bg-[#EE3A3D] relative'>
+<div className='rounded-full h-full flex items-center justify-center w-[60px] bg-[#EE3A3D] relative '>
     <div className=' h-[70%] w-[70%] flex items-center justify-center'> <Image src={'/assets/home/r-3-2.svg'} width={50} height={50} className='object-cover'/></div> </div></div>
   
 
         </div>
-        <div className='w-full h-[80%] p-[20px] flex flex-col items-center relative  justify-center  border-2 border-dashed border-[#EE3A3D] rounded-2xl'>
-        <h2 className="text-[40px]    uppercase text-center leading-[0.8] ">Send It!</h2>
-<p className='text-center text-[20px] leading-[1] px-4'>
+        <div className='w-full h-[80%] pt-[30px]  p-[20px] flex flex-col items-center relative  justify-center  border-2 border-dashed border-[#EE3A3D] rounded-2xl mt-4'>
+        <h2 className="text-[30px]    uppercase text-center leading-[0.8] ">Send It!</h2>
+<p className='text-center text-[15px] leading-[1] px-4'>
 ItsRaw distributes to the Middle East’s biggest list 
 of restaurant media, influencers & food bloggers
 </p>
@@ -82,13 +82,14 @@ of restaurant media, influencers & food bloggers
 <div className='rounded-full h-full flex items-center justify-center w-[60px] bg-[#EE3A3D] relative'>
     <div className=' h-[70%] w-[70%] flex items-center justify-center'> <Image src={'/assets/home/r-3-3.svg'} width={50} height={50} className='object-cover '/></div> </div></div>
         </div>
-        <div className='w-full h-[80%] p-[20px]  flex flex-col items-center relative  justify-center border-2 border-dashed border-[#EE3A3D] rounded-2xl'>
-        <h2 className="text-[40px]  uppercase text-center leading-[0.8] ">Track It!</h2>
-<p className='text-center text-[20px] leading-[1] px-4'>
+        <div className='w-full h-[80%] pt-[35px]  p-[20px]  flex flex-col items-center relative  justify-center border-2 border-dashed border-[#EE3A3D] rounded-2xl'>
+        <h2 className="text-[30px]  uppercase text-center leading-[0.8] ">Track It!</h2>
+<p className='text-center text-[15px] leading-[1] px-4'>
 And, we’ll pop it all into a neat little list with all the media links and articles
 </p>
 <div className='absolute h-[60px] w-full -top-10 left-0 flex items-center justify-center right-0'>
-<div className='rounded-full h-full flex items-center justify-center w-[60px] bg-[#EE3A3D] relative'>
+<div className='rounded-full h-full flex items-center justify-center w-[60px] bg-[#EE3A3D] relative
+'>
     <div className=' h-[70%] w-[70%] flex items-center justify-center'> <Image src={'/assets/home/r-3-5.svg'} width={50} height={50} className='object-cover'/></div> </div></div>
         </div>
 
