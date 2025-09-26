@@ -8,7 +8,7 @@
             {/* Top section */}
             <div className="text-center ">
           <div className="w-[250px] h-[100px]"><Image src={'/assets/home/footerlogo.webp'} width={300} height={200} className="object-cover" /> </div>  </div>
-                <p className="mt-2 text-center text-[20px] max-w-2xl mx-auto">
+                <p className="mt-2 text-center text-[15px] md:text-[20px] max-w-2xl mx-auto">
                 Wow, you really like to read every word on the menu? <br />
                 Hurry up and place your order, we’ve got other guests waiting.
                 </p>
@@ -45,11 +45,11 @@
             </div>
 
             {/* Bottom links */}
-            <div className="flex justify-center items-center space-x-8 text-[20px] mt-6">
+            <div className="flex justify-center md:items-center md:space-x-8 text-[15px] md:text-[20px] mt-6">
                 <Link href="/privacy " className="m-0">Privacy Policy</Link>
-                <span className="w-[1px] h-8 bg-white mx-12"></span>
+                <span className="w-[1px] h-8 bg-white mx-4 md:mx-12"></span>
                 <Link className="legal m-0" href="/legal">Legal</Link>
-                <span className="w-[1px] h-8 bg-white mx-12"></span>
+                <span className="w-[1px] h-8 bg-white mx-4 md:mx-12"></span>
                 <Link href="/terms">Terms of Service</Link>
             </div>
             </footer>
