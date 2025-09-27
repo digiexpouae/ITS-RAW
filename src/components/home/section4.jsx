@@ -27,7 +27,7 @@ export default function SecretSauce() {
        <div className="w-[90%] md:w-[80%] h-full flex ">
         <div className="w-full md:w-[60%] py-16 flex flex-col h-auto md:h-full">
           {/* Title */}
-          <h2 className="text-4xl md:text-[80px] leading-tight">
+          <h2 className="text-[45px] md:text-[80px] leading-tight">
             <span className="text-black">OUR </span>
             <span className="text-red-500">SECRET SAUCE</span>
           </h2>

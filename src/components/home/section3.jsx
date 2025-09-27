@@ -50,17 +50,17 @@ And, we’ll pop it all into a neat little list with all the media links and art
             </div>
         </div>
         {/* mobile */}
-        <div className=" p-6 w-full md:hidden flex flex-col items-center  ">
+        <div className=" p-6 py-12 w-full md:hidden flex flex-col items-center  ">
             <div className="w-[90%]  mb-4 flex flex-col gap-4 items-center justify-center">
                 <div className='h-[20%] w-full flex items-end justify-center'><Image src={'/assets/home/r-3-1.svg'} width={150 } height={90}
                className='object-contain'  /></div>
                <div className='h-[60%] w-full flex flex-col items-center justify-start'  >
-                       <h2 className="text-[40px] md:text-[90px] uppercase text-center leading-[0.8] tracking-tight" >{title}</h2>
-                       <p className='text-[18px] w-[100%] text-center mb-6'>In the time it takes to fry an egg, ItsRaw will automatically create content about your restaurant and send it to the most influential people.</p>
+                       <h2 className="text-[40px] md:text-[90px] text-nowrap uppercase text-center leading-[0.8] tracking-tight" >{title}</h2>
+                       <p className='text-md w-[100%] leading-[1.2] text-center mb-10'>In the time it takes to fry an egg, ItsRaw will automatically create content about your restaurant and send it to the most influential people.</p>
                        </div>
 
             </div>
-            <div className='w-[80%] gap-[60px] relative flex flex-col   md:flex-row  items-center  justify-center'>
+            <div className='w-[80%] gap-[40px] relative flex flex-col   md:flex-row  items-center  justify-center'>
         <div className='w-full pt-[30px] p-[20px] h-[80%] flex flex-col  items-center justify-center border-2 border-dashed border-[#EE3A3D] rounded-2xl'>
         <h2 className="text-[30px]  uppercase text-center leading-[0.8] " >Write It!</h2>
 <p className='text-center text-[15px] leading-[1] px-4'>

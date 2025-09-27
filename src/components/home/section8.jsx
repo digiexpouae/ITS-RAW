@@ -5,15 +5,15 @@ export default function Pricing() {
   return (
     <section className="h-screen w-full flex items-center justify-center">
   <div
-    className="w-[90%] md:w-[70%] md:h-[80%] p-8 mx-auto text-center 
+    className="w-[90%] md:w-[70%] h-[80%] p-8 mx-auto text-center 
                rounded-2xl bg-gradient-to-br from-[#ffffff] to-[#fbb6b6] flex flex-col items-center justify-center"
   >
     <div className="max-w-2xl mx-auto ">
-      <h2 className="text-4xl md:text-[80px] tracking-tight  uppercase leading-tight">
+      <h2 className="text-5xl md:text-7xl tracking-tight  uppercase leading-[0.8] md:leading-tight">
         <span className="text-black">Ready To Get Your </span><br />
         <span className="text-red-500">Restaurant Noticed?</span>
       </h2>
-      <p className="mt-6 text-black text-sm md:text-lg">
+      <p className="mt-6 text-black text-lg">
         Yes Chef! Choose the subscription plan that fits your needs. From
         occasional PR campaigns to comprehensive media coverage, we have
         options to suit restaurants, hospitality groups, agencies and

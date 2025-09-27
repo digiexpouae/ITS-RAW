@@ -6,7 +6,7 @@ const home=()=>{
 <Image src="/assets/home/Vector.webp"    alt="section1" width={1400} height={400} className=" object-contain"/>
 </div>
 <div className="absolute w-full flex items-center justify-center h-full ">
-<div className="h-full flex absolute top-0 lg:-top-[25%] left-[5%] items-end justify-center w-[25%]">
+<div className="h-full flex absolute top-0 xl:-top-[25%] left-[5%] items-end justify-center w-[25%]">
 <div className="  h-[200px] w-[250px]"><Image src={'/assets/home/r-2.webp'} width={200} height={200}  className="object-cover" /></div>
 </div>
     <div className="flex flex-col items-center justify-center">
