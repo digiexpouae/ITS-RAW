@@ -67,7 +67,7 @@ export default function Pricing() {
           {plans.map((plan, idx) => (
             <div
               key={idx}
-              className={`rounded-2xl shadow-sm border ${plan.borderColor} ${plan.bg} p-8 flex flex-col`}
+              className={`rounded-2xl shadow-sm border ${plan.borderColor} ${plan.bg}  lg:p-6 p-8 flex flex-col`}
             >
               {/* Plan Header */}
               <div className="mb-6">

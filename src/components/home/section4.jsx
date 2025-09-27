@@ -22,16 +22,16 @@ export default function SecretSauce() {
     ];
   
     return (
-        <section className="relative flex flex-col-reverse md:flex-row h-auto mt-4  items-center justify-center overflow-hidden  bg-[#FFEFEF] w-full">
+        <section className="relative flex flex-col-reverse md:flex-row h-[90vh] mt-4  items-center justify-center overflow-hidden  bg-[#FFEFEF] w-full">
         {/* Left Content */}
        <div className="w-[90%] md:w-[80%] h-full flex ">
-        <div className="w-full md:w-[60%] py-16 flex flex-col h-auto md:h-full">
+        <div className="w-full md:w-[60%] flex flex-col h-auto md:h-full flex flex-col items-center justify-center">
           {/* Title */}
-          <h2 className="text-[45px] md:text-[80px] leading-tight">
+          <h2 className="text-[45px] md:text-[80px] text-nowrap leading-tight">
             <span className="text-black">OUR </span>
             <span className="text-red-500">SECRET SAUCE</span>
           </h2>
-          <p className="text-lg md:text-[20px] ">
+          <p className="text-lg md:text-xl ">
             Three simple steps to restaurant PR success
           </p>
       <div className="flex gap-4 md:gap-12 items-center justify-center">
@@ -45,7 +45,7 @@ export default function SecretSauce() {
                 {/* Step Content */}
                 <div className="">
                   <h3 className="text-2xl leading-[0.8] md:text-[35px]">{step.title}</h3>
-                  <p className="text-black text-base md:text-[20px] ">{step.description}</p>
+                  <p className="text-black text-base md:text-md ">{step.description}</p>
                 </div>
               </div>
             ))}
@@ -54,14 +54,16 @@ export default function SecretSauce() {
         </div>
       
         {/* Right Image */}
-        <div className="hidden md:flex w-full md:w-[35%]  h-[90%] mb-10 md:mb-0 absolute -bottom-2 right-0">
+        <div className="flex items-end justify-end h-full md:w-[35%]">
+        <div className="hidden md:flex  items-end w-full md:w-[35%] h-[80%] mb-10 md:mb-0 absolute -bottom-10 right-0">
           <Image
             src="/assets/home/r-4-1.webp"
             width={250}
             height={600}
             alt="Chef illustration"
-            className="h-full w-full object-contain"
+            className="object-cover min-h-full min-w-full"
           />
+        </div>
         </div>
         </div>
       </section>
