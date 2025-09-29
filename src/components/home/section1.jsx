@@ -82,7 +82,7 @@ const home=()=>{
   
     return(<div className="bg-white h-[90vh] relative  w-full">
 <div className="hidden md:block absolute  top-[40%] lg:top-0 left-0 right-0 bottom-0">
-<Image src="/assets/home/Vector.webp" ref={ribbonRef}   alt="section1" width={1400} height={400} className="object-contain"/>
+<Image src="/assets/home/Vector.webp" ref={ribbonRef}   alt="section1" width={1900} height={800} className="object-contain"/>
 </div>
 <div className="absolute w-full flex items-center justify-center h-full ">
 <div className="h-full flex absolute top-0  xl:-top-[25%] left-[5%] items-end justify-center w-[25%]">
