@@ -166,15 +166,15 @@ const sectionref=useRef(null)
         <div className="  flex items-end justify-end h-full md:w-[35%]">
         <div className="  hidden md:flex  items-end w-full md:w-[35%] h-[80%] mb-10 md:mb-0 absolute -bottom-10 right-0" ref={chef}>
           <Image
-            src="/assets/home/chef.png"
+            src="/assets/home/Frame 163.svg"
             width={250}
             height={600}
             alt="Chef illustration"
             className="object-cover min-h-full min-w-full"
           />
         </div>
-        <div className="hidden md:flex ball absolute right-38 top-86 opacity-[0.7]"><Image src={'/assets/home/eyes.png'} className="opacity-[0.2]" width={20} height={50} /></div>
-        <div className="hidden md:flex ball absolute right-64 top-86 opacity-[0.7]"><Image src={'/assets/home/eyes.png'} className="opacity-[0.2]" width={20} height={50} /></div>
+        {/* <div className="hidden md:flex ball absolute right-38 top-86 opacity-[0.7]"><Image src={'/assets/home/eyes.png'} className="opacity-[0.2]" width={20} height={50} /></div> */}
+        {/* <div className="hidden md:flex ball absolute right-64 top-86 opacity-[0.7]"><Image src={'/assets/home/eyes.png'} className="opacity-[0.2]" width={20} height={50} /></div> */}
 
         </div>
         </div>
