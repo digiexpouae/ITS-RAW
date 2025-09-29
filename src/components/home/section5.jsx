@@ -96,10 +96,14 @@ export default function Pricing() {
                   ))}
                 </ul>
               </div>
-  
+            
               {/* Button */}
               <button
-                className={`mt-auto w-full py-3 rounded-lg font-semibold ${plan.buttonColor}`}
+        
+                className={`cursor-pointer transition-all  -6 py-2 rounded-lg
+               border-[#EE3A3D]
+               border-b-[4px] hover:brightness-110 hover:-translate-y-[1px] hover:border-b-[6px]
+               active:border-b-[2px] active:brightness-90 active:translate-y-[2px] mt-auto w-full py-3 rounded-lg font-semibold ${plan.buttonColor}`}
               >
                 Get started
               </button>

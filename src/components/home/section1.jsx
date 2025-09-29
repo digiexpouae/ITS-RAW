@@ -11,63 +11,84 @@ const home=()=>{
 
 
     useEffect(() => {
+      if (!ribbonRef.current) return;
     
-      if (ribbonRef.current) {
-        const tl = gsap.timeline();
+      // Create a gsap.matchMedia instance
+      const mm = gsap.matchMedia();
     
-        // Ribbon reveal
-        
-        tl.fromTo(
-          ribbonRef.current,
-          { clipPath: "inset(0 100% 0 0)"}, // hidden
-          { clipPath: "inset(0 0% 0 0)", opacity:1,duration: 4, ease: "power2.inOut" }
-        );
+      mm.add(
+        {
+          // Define your breakpoints (CSS-like syntax)
+          isDesktop: "(min-width: 1025px)",
+          isTablet: "(min-width: 768px) and (max-width: 1024px)",
+          isMobile: "(max-width: 767px)",
+        },
+        (context) => {
+          let { isDesktop, isTablet, isMobile } = context.conditions;
     
-        // Ribbon floating
-        gsap.to(ribbonRef.current, {
-          y: "-=10",
-          duration: 1,
-          repeat: -1,
-          opacity:1,
-          yoyo: true,
-          ease: "power1.inOut",
-        });
+          const tl = gsap.timeline();
     
-        // Shapes floating (independent of timeline, infinite)
-        gsap.to(shape1.current, {
-          y: "-=20",
-          duration: 1.5,
-          repeat: -1,
-          yoyo: true,
-          ease: "power1.inOut",
-        });
-        gsap.to(shape2.current, {
-          y: "-=20",
-          duration: 1.5,
-          repeat: -1,
-          yoyo: true,
-          ease: "power1.inOut",
-        });
+          // Ribbon reveal
+          tl.fromTo(
+            ribbonRef.current,
+            { clipPath: "inset(0 100% 0 0)" }, // hidden
+            {
+              clipPath: "inset(0 0% 0 0)",
+              opacity: 1,
+              duration: isMobile ? 2 : 4, // shorter animation on mobile
+              ease: "power2.inOut",
+            }
+          );
     
-        tl.fromTo(
-          text1.current,
-          {  yPercent: -100, opacity: 0 },
-          {  yPercent :0, opacity: 1, duration: 2, ease: "bounce.out" }
-        )
-        .fromTo(
-          text2.current,
-          { yPercent: -100,opacity:0 },
-          {  yPercent: 0, opacity: 1, duration: 2, ease: "bounce.out" },
-          "-=0.3" // overlap slightly with previous
-        )
-        .fromTo(
-          text3.current,
-          { y: '50%',opacity:0 },
-          { y: 0, opacity: 1, duration: 1, ease:  "sine.out" },
-          "-=0.4"
-        );
-        
-      }
+          // Ribbon floating
+          gsap.to(ribbonRef.current, {
+            y: isMobile ? "-=5" : "-=10", // smaller float on mobile
+            duration: 1,
+            repeat: -1,
+            opacity: 1,
+            yoyo: true,
+            ease: "power1.inOut",
+          });
+    
+          // Shapes floating
+          gsap.to(shape1.current, {
+            y: isMobile ? "-=10" : "-=20",
+            duration: 1.5,
+            repeat: -1,
+            yoyo: true,
+            ease: "power1.inOut",
+          });
+          gsap.to(shape2.current, {
+            y: isMobile ? "-=10" : "-=20",
+            duration: 1.5,
+            repeat: -1,
+            yoyo: true,
+            ease: "power1.inOut",
+          });
+    
+          // Text reveals
+          tl.fromTo(
+            text1.current,
+            { yPercent: -100, opacity: 0 },
+            { yPercent: 0, opacity: 1, duration: 2, ease: "bounce.out" }
+          )
+            .fromTo(
+              text2.current,
+              { yPercent: -100, opacity: 0 },
+              { yPercent: 0, opacity: 1, duration: 2, ease: "bounce.out" },
+              "-=0.3"
+            )
+            .fromTo(
+              text3.current,
+              { y: "50%", opacity: 0 },
+              { y: 0, opacity: 1, duration: 1, ease: "sine.out" },
+              "-=0.4"
+            );
+        }
+      );
+    
+      // Cleanup when component unmounts
+      return () => mm.revert();
     }, []);
     
     const title=   <div className="text-animation">
@@ -81,7 +102,7 @@ const home=()=>{
  
   
     return(<div className="bg-white h-[90vh] relative  w-full">
-<div className="hidden md:block absolute  top-[40%] lg:top-0 left-0 right-0 bottom-0">
+<div className="block absolute top-[35%] top-0 left-0 right-0 bottom-0">
 <Image src="/assets/home/Vector.webp" ref={ribbonRef}   alt="section1" width={1900} height={800} className="object-contain"/>
 </div>
 <div className="absolute w-full flex items-center justify-center h-full ">

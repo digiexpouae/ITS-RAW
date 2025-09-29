@@ -77,11 +77,16 @@ const section2=()=>{
         <div  className="   h-screen w-full rounded-[30px] hidden md:flex items-center justify-center relative overflow-hidden"  style={{backgroundImage: `url('/assets/home/r-2-1.webp')`, backgroundSize: 'cover', backgroundPosition: 'center'}} ref={sectionRef}>
       
       <div className="w-[90%] md:w-[80%] h-[80%] md:h-full flex gap-20 items-center justify-center  rounded-4xl" ref={text}>
-        <div className="h-full w-[90%] md:w-[80%] flex flex-col  justify-center  leading-[1]" >
-        <h2 className=" text-[50px] md:text-[80px]  uppercase" ref={text1}>Get Your </h2>
+        <div className="h-full w-[90%] md:w-[80%] flex flex-col gap-10 justify-center  leading-[1]" >
+      
+        <div> <h2 className=" text-[50px] md:text-[80px]  uppercase" ref={text1}>Get Your </h2>
         <h2 className=" text-[50px] md:text-[70px]  uppercase text-[#EE3A3D] " ref={text2}>Restaurant Noticed</h2>
         <p className="text-[18px] md:text-[20px] leading-[1.5] " ref={text3} >The <span className="font-bold">fastest, easiest and cheapest</span> way for you to create compelling news stories for your restaurant. And, for less than the price of a brunch, we’ll send it to hundreds of media, bloggers and influencers.</p>
-        <button className="bg-[#EE3A3D]  text-sm py-2 px-2 md:w-[30%] text-white mt-10 md:px-2 md:py-2 rounded-md font-medium transition-colors duration-200" ref={btn}>Place Your Order</button>
+        </div> 
+      <button className="cursor-pointer w-[35%] transition-all bg-[#EE3A3D] text-white py-4 rounded-lg
+border-[#EE3A3D]
+border-b-[4px] hover:brightness-110 hover:-translate-y-[1px] hover:border-b-[6px]
+active:border-b-[2px] active:brightness-90 active:translate-y-[2px]">Place Your Order</button>
 
         </div>
 
@@ -99,12 +104,16 @@ const section2=()=>{
          <div className="h-[100vh] w-full  md:hidden flex items-center justify-center relative overflow-hidden"style={{backgroundImage: `url('/assets/home/r-2-1.webp')`, backgroundSize: 'cover', backgroundPosition: 'center'}} >
       
          <div className="w-[90%] md:w-[80%]  flex gap-20 items-center justify-center  rounded-4xl" >
-           <div className="h-full w-[90%] md:w-[80%] flex flex-col text-center justify-center  leading-[1]">
-           <h2 className=" text-6xl md:text-[80px]  uppercase  ">Get Your </h2>
+           <div className="h-full w-[90%] md:w-[80%] flex flex-col gap-6 text-center justify-center  leading-[1]">
+          <div> <h2 className=" text-6xl md:text-[80px]  uppercase  ">Get Your </h2>
            <h2 className=" text-6xl md:text-[70px]  uppercase text-[#EE3A3D] ">Restaurant Noticed</h2>
            <p className="text-xl md:text-7xl leading-[1.5] ">The <span className="font-bold">fastest, easiest and cheapest</span> way for you to create compelling news stories for your restaurant. And, for less than the price of a brunch, we’ll send it to hundreds of media, bloggers and influencers.</p>
-           <button className="bg-[#EE3A3D]  text-sm py-2 px-2 md:w-[30%] text-white mt-4 md:px-2 md:py-2 rounded-md font-medium transition-colors duration-200">Place Your Order</button>
-   
+           </div>
+           <button className="cursor-pointer transition-all bg-[#EE3A3D] text-white px-6 py-2 rounded-lg
+border-[#EE3A3D]
+border-b-[4px] hover:brightness-110 hover:-translate-y-[1px] hover:border-b-[6px]
+active:border-b-[2px] active:brightness-90 active:translate-y-[2px]">Place Your Order</button>
+
            </div>
    
           
