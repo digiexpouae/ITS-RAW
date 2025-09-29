@@ -1,12 +1,25 @@
 // components/Pricing.tsx
 import Image from "next/image";
-
+import { useEffect,useRef } from "react";
+import gsap from "gsap";
 export default function Pricing() {
+  const vector=useRef(null)
+  useEffect(()=>{
+    if (vector.current) {
+      
+    gsap.to(vector.current, {
+      y: "-=20",
+      duration: 1.5,
+      repeat: -1,
+      yoyo: true,
+      ease: "power1.inOut",
+    });}
+  },[])
   return (
-    <section className="w-full h-auto  py-20 md:py-12  flex items-center justify-center ">
+    <section className="w-full h-auto  py-20 md:py-12  flex items-center justify-center " >
     <div className="w-[80%] px-6 md:px-0 md:py-0 flex-col md:flex-row flex gap-4 items-center justify-center ">
       {/* Left Column - Image */}
-      <div className="flex justify-center md:w-[40%] ">
+      <div className="flex justify-center md:w-[40%] " ref={vector} >
         <Image
           src="/assets/home/group-people.png"
           alt="Don't be an idiot"
