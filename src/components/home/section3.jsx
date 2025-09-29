@@ -1,5 +1,26 @@
 import Image from 'next/image'
+import { useEffect } from 'react';
+import gsap from "gsap"
 const section3=()=>{
+    useEffect(() => {
+        const puffs = gsap.utils.toArray(".steam");
+        puffs.forEach((puff, i) => {
+          gsap.fromTo(
+            puff,
+            { y: 0, opacity: 0, scale: 0.5, filter: "blur(2px)" },
+            {
+              y: -100,
+              opacity: 1,
+              scale: 1.5,
+              filter: "blur(8px)",
+              duration: 3,
+              delay: i * 0.8,
+              repeat: -1,
+              ease: "sine.out"
+            }
+          );
+        });
+      }, []);
     const title=<>Why Choose <span className='text-[#EE3A3D]'> ItsRaw.AI? </span></>
     return(
         <>
@@ -7,7 +28,12 @@ const section3=()=>{
         <div className="h-screen w-full hidden py-10 gap-2 md:flex flex-col items-center justify-center ">
             <div className="w-[80%] h-[40%]  flex flex-col gap-12 items-center justify-center">
                 <div className='h-[50%] w-full flex items-center justify-center mb-4'><Image src={'/assets/home/r-3-1.svg'} width={220 } height={220}
-               className='object-cover'  /></div>
+               className='object-cover'  />
+                <div className="absolute -top-10 left-1/2 -translate-x-1/2 flex gap-2" id="steam">
+    <div className="steam w-6 h-6 rounded-full bg-white opacity-30"></div>
+    <div className="steam w-8 h-8 rounded-full bg-white opacity-20"></div>
+    <div className="steam w-5 h-5 rounded-full bg-white opacity-25"></div>
+  </div></div>
                <div className='h-[40%] w-full flex flex-col items-center justify-end'  >
                        <h2 className="text-7xl uppercase text-center leading-[0.8] tracking-tight" >{title}</h2>
                        <p className='text-[20px] w-[80%] text-center'>In the time it takes to fry an egg, ItsRaw will automatically create content about your restaurant and send it to the most influential people.</p>
@@ -22,7 +48,8 @@ Drop in the raw info about your restaurant and offers, and ItsRaw will generate 
 </p>
 <div className='absolute h-[60px] w-full -top-10 left-0 flex items-center justify-center right-0'>
 <div className='rounded-full h-full flex items-center justify-center w-[60px] bg-[#EE3A3D] relative'>
-    <div className=' h-[70%] w-[70%] flex items-center justify-center'> <Image src={'/assets/home/r-3-2.svg'} width={50} height={50} className='object-cover'/></div> </div></div>
+    <div className=' h-[70%] w-[70%] flex items-center justify-center'> <Image src={'/assets/home/r-3-2.svg'} width={50} height={50} className='object-cover'/>
+    </div> </div></div>
   
 
         </div>

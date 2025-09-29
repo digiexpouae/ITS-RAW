@@ -59,7 +59,7 @@ const home=()=>{
         )
         .fromTo(
           text3.current,
-          { y: '500%',opacity:0 },
+          { y: '50%',opacity:0 },
           { y: 0, opacity: 1, duration: 1, ease:  "sine.out" },
           "-=0.4"
         );

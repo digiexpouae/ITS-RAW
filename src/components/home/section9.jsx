@@ -1,7 +1,23 @@
 // components/Pricing.tsx
 import Image from "next/image";
+import gsap from "gsap";
+import { useEffect, useRef } from "react";
+
 
 export default function Pricing() {
+  const headphones=useRef()
+  // useEffect(()=>{
+  //   gsap.to(headphones.current, {
+  //     yPercent: "-10",
+  //     duration: 4,
+  //     repeat: -1,
+  //     yoyo: true,
+  //     ease:'bounce.inOut'
+      
+  //   });
+
+  // },[])
+
   return (
     <section className="w-full lg:px-20 py-12 h-[70vh] flex items-center justify-center overflow-hidden">
     <div className="w-[90%]  grid grid-cols-1 md:grid-cols-2 gap-4  relative items-center ">
@@ -21,7 +37,7 @@ export default function Pricing() {
     </button>
   </div>
   {/* Left Column - Image */}
-  <div className="hidden md:flex justify-center  absolute -bottom-32 right-[0]">
+  <div className="hidden md:flex justify-center  absolute -bottom-32 right-[0]" ref={headphones}>
         <Image
           src="/assets/home/Group-1410103443.png"
           alt="Don't be an idiot"
