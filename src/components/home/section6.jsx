@@ -4,18 +4,18 @@ import { useEffect, useRef } from "react";
 import gsap from "gsap";
 export default function Pricing() {
   const vector=useRef(null)
-  useEffect(() => {
-    if (vector.current) {
-      gsap.to(vector.current, {
-        y: "-=40",
-        rotation: 20,       // rotate 10 degrees
-        duration: 1.5,
-        repeat: -1,
-        yoyo: true,
-        // ease: "elastic.out(1,1)",
-      });
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (vector.current) {
+  //     gsap.to(vector.current, {
+  //       y: "-=40",
+  //       rotation: 20,       // rotate 10 degrees
+  //       duration: 1.5,
+  //       repeat: -1,
+  //       yoyo: true,
+  //       // ease: "elastic.out(1,1)",
+  //     });
+  //   }
+  // }, []);
   return (
     <section className="w-full  flex items-center justify-center ">
     <div className="w-[80%] py-20  border-y-2 border-dashed border-black flex md:flex-row flex-col items-center justify-center gap-12 items-center  ">

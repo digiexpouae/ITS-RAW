@@ -13,68 +13,68 @@ const section2=()=>{
     const section2=useRef(null)
     const text=useRef(null)
     
-    useEffect(() => {
-        gsap.registerPlugin(ScrollTrigger)
-        if (!sectionRef.current) return
+    // useEffect(() => {
+    //     gsap.registerPlugin(ScrollTrigger)
+    //     if (!sectionRef.current) return
     
-        // Initial states
-        gsap.set(text1.current, { yPercent: 100, opacity: 0 })
+    //     // Initial states
+    //     gsap.set(text1.current, { yPercent: 100, opacity: 0 })
 
-        gsap.set([text3.current, btn.current], { yPercent: -20, opacity: 0 })
-        gsap.set(imageref.current, { yPercent: 10, opacity: 0 })
-        gsap.set(sectionRef.current, { scale: 0.4 })
-        gsap.set(text2.current, { yPercent: 100, opacity: 0 })
+    //     gsap.set([text3.current, btn.current], { yPercent: -20, opacity: 0 })
+    //     gsap.set(imageref.current, { yPercent: 10, opacity: 0 })
+    //     gsap.set(sectionRef.current, { scale: 0.4 })
+    //     gsap.set(text2.current, { yPercent: 100, opacity: 0 })
     
-        const tl = gsap.timeline({
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start:"center center",
-            end: "+=4000",
-            pin: true,
-            scrub: 2,
-          },
-        })
+    //     const tl = gsap.timeline({
+    //       scrollTrigger: {
+    //         trigger: sectionRef.current,
+    //         start:"center center",
+    //         end: "+=4000",
+    //         pin: true,
+    //         scrub: 2,
+    //       },
+    //     })
     
-        tl.to(sectionRef.current, { scale: 1, duration: 2 })
-          .to(text1.current, {
-            opacity: 1,
-            yPercent: 0,
-            duration: 2,
-            ease: "elastic.out(1.5,0.7)",
-          })
-          .to(text2.current, {
-            opacity: 1,
-            yPercent: 0,
-            duration: 2,
-            ease: "elastic.out(1.5,0.7)",
-          })
-          .to(imageref.current, {
-            opacity: 1,
-            yPercent: 0,
-            duration: 2,
-            ease: "elastic.out(1,0.2)",
-          })
-          .to(text3.current, {
-            opacity: 1,
-            yPercent: 0,
-            duration: 2,
-            ease: "elastic.out(1.4,0.75)",
-          })
-          .to(
-            btn.current,
-            {
-              opacity: 1,
-              yPercent: 0,
-              duration: 1,
-              ease: "elastic.out(1,0.75)",
-            },
-            "<" // run at same time as previous
-          )
-      }, [])
+    //     tl.to(sectionRef.current, { scale: 1, duration: 2 })
+    //       .to(text1.current, {
+    //         opacity: 1,
+    //         yPercent: 0,
+    //         duration: 2,
+    //         ease: "elastic.out(1.5,0.7)",
+    //       })
+    //       .to(text2.current, {
+    //         opacity: 1,
+    //         yPercent: 0,
+    //         duration: 2,
+    //         ease: "elastic.out(1.5,0.7)",
+    //       })
+    //       .to(imageref.current, {
+    //         opacity: 1,
+    //         yPercent: 0,
+    //         duration: 2,
+    //         ease: "elastic.out(1,0.2)",
+    //       })
+    //       .to(text3.current, {
+    //         opacity: 1,
+    //         yPercent: 0,
+    //         duration: 2,
+    //         ease: "elastic.out(1.4,0.75)",
+    //       })
+    //       .to(
+    //         btn.current,
+    //         {
+    //           opacity: 1,
+    //           yPercent: 0,
+    //           duration: 1,
+    //           ease: "elastic.out(1,0.75)",
+    //         },
+    //         "<" // run at same time as previous
+    //       )
+    //   }, [])
     
     return(<>
         {/* // desktop */}
-        <div  className=" scale-[0.4]  h-screen w-full rounded-[30px] hidden md:flex items-center justify-center relative overflow-hidden"  style={{backgroundImage: `url('/assets/home/r-2-1.webp')`, backgroundSize: 'cover', backgroundPosition: 'center'}} ref={sectionRef}>
+        <div  className="   h-screen w-full rounded-[30px] hidden md:flex items-center justify-center relative overflow-hidden"  style={{backgroundImage: `url('/assets/home/r-2-1.webp')`, backgroundSize: 'cover', backgroundPosition: 'center'}} ref={sectionRef}>
       
       <div className="w-[90%] md:w-[80%] h-[80%] md:h-full flex gap-20 items-center justify-center  rounded-4xl" ref={text}>
         <div className="h-full w-[90%] md:w-[80%] flex flex-col  justify-center  leading-[1]" >

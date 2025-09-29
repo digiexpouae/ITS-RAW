@@ -2,25 +2,25 @@ import Image from 'next/image'
 import { useEffect } from 'react';
 import gsap from "gsap"
 const section3=()=>{
-    useEffect(() => {
-        const puffs = gsap.utils.toArray(".steam");
-        puffs.forEach((puff, i) => {
-          gsap.fromTo(
-            puff,
-            { y: 0, opacity: 0, scale: 0.5, filter: "blur(2px)" },
-            {
-              y: -100,
-              opacity: 1,
-              scale: 1.5,
-              filter: "blur(8px)",
-              duration: 3,
-              delay: i * 0.8,
-              repeat: -1,
-              ease: "sine.out"
-            }
-          );
-        });
-      }, []);
+    // useEffect(() => {
+    //     const puffs = gsap.utils.toArray(".steam");
+    //     puffs.forEach((puff, i) => {
+    //       gsap.fromTo(
+    //         puff,
+    //         { y: 0, opacity: 0, scale: 0.5, filter: "blur(2px)" },
+    //         {
+    //           y: -100,
+    //           opacity: 1,
+    //           scale: 1.5,
+    //           filter: "blur(8px)",
+    //           duration: 3,
+    //           delay: i * 0.8,
+    //           repeat: -1,
+    //           ease: "sine.out"
+    //         }
+    //       );
+    //     });
+    //   }, []);
     const title=<>Why Choose <span className='text-[#EE3A3D]'> ItsRaw.AI? </span></>
     return(
         <>
