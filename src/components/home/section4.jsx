@@ -144,9 +144,9 @@ const sectionref=useRef(null)
           <p className="text-lg md:text-xl ">
             Three simple steps to restaurant PR success
           </p>
-      <div className="flex gap-4 md:gap-12 items-center justify-center">
-        <div className="h-[300px] w-[150px] md:w-[80px]"><Image src={'/assets/home/steps.svg'} className="object-cover" height={300} width={300} /></div>
-          <div className="mt-12  space-y-10">
+      <div className="flex gap-4 md:gap-12 items-center justify-center mt-12">
+        <div className="h-[350px] md:h-[300px]  w-[150px] md:w-[80px]"><Image src={'/assets/home/steps.svg'} className="object-cover" height={300} width={300} /></div>
+          <div className="  space-y-10">
             {steps.map((step, index) => (
               <div key={index} className="flex items-start gap-6">
                 {/* Number circle */}
