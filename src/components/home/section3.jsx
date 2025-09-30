@@ -25,8 +25,8 @@ const section3=()=>{
     return(
         <>
         {/* {desktop} */}
-        <div className="h-screen w-full hidden gap-2 md:flex flex-col items-center justify-center ">
-            <div className="w-[80%] h-[50%]  flex flex-col gap-4 items-center justify-center">
+        <div className="h-screen w-full hidden gap-4 md:flex flex-col items-center justify-center ">
+            <div className="w-[80%] flex flex-col gap-4 items-center justify-center">
                 <div className='h-[30%] w-full flex items-center justify-center '><Image src={'/assets/home/r-3-1.svg'} width={220 } height={220}
                className='object-cover'  />
                 <div className="absolute -top-10 left-1/2 -translate-x-1/2 flex gap-2" id="steam">
