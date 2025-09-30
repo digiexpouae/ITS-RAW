@@ -4,7 +4,7 @@ import gsap from "gsap";
 import { useEffect, useRef } from "react";
 
 
-export default function Pricing() {
+function Pricing() {
   const headphones=useRef()
   // useEffect(()=>{
   //   gsap.to(headphones.current, {
@@ -51,3 +51,4 @@ export default function Pricing() {
   
   );
 }
+export default Pricing
