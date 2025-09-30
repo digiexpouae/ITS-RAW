@@ -75,9 +75,9 @@ const section2=()=>{
     return(<>
         {/* // desktop */}
         <div  className="   h-screen w-full rounded-[30px] hidden md:flex items-center justify-center relative overflow-hidden"  style={{backgroundImage: `url('/assets/home/r-2-1.webp')`, backgroundSize: 'cover', backgroundPosition: 'center'}} ref={sectionRef}>
-      
-      <div className="w-[90%]  h-[80%] md:h-full flex gap-20 items-center justify-center  rounded-4xl" ref={text}>
-        <div className="h-full  flex flex-col gap-10 justify-center  leading-[1]" >
+        <div className="w-[90%] md:w-[80%] h-[80%] md:h-full flex gap-20 items-center justify-center  rounded-4xl" ref={text}>
+        <div className="h-full w-[90%] md:w-[80%] flex flex-col gap-10 justify-center  leading-[1]" >
+
       
         <div> <h2 className=" text-[50px] md:text-[80px]  uppercase" ref={text1}>Get Your </h2>
         <h2 className=" text-[50px] md:text-[70px]  uppercase text-[#EE3A3D] " ref={text2}>Restaurant Noticed</h2>
@@ -92,9 +92,9 @@ active:border-b-[2px] active:brightness-90 active:translate-y-[2px]">Place Your 
 
        
         </div>
-        <div className="hidden lg:block  h-full relative">
-        <div className=" w-full h-full overflow-hidden" ref={imageref} >
-            <Image src="/assets/home/building.svg" alt="section2" className="h-full w-[auto] object-cover object-center "  width={600} height={1000} />
+        <div className="hidden lg:block md:w-[45%] h-full relative">
+        <div className=" w-full h-[100%] " ref={imageref} >
+            <Image src="/assets/home/building.svg" alt="section2" className=" h-full object-cover object-top"  width={500} height={1000} />
         </div>
         </div>
         <div className="w-full h-[20%] flex items-center justify-center absolute bottom-0 right-0 left-0 z-20"><Image  src={'/assets/home/r-2-3.webp'} width={1200} height={200} className="h-[20%] md:h-auto w-full object-cover" /></div>
