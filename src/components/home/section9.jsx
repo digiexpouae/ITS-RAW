@@ -19,7 +19,7 @@ function Pricing() {
   // },[])
 
   return (
-    <section className="w-full lg:px-20 py-12 h-[70vh] flex items-center justify-center overflow-hidden">
+    <section className="w-full lg:px-20 py-12  flex items-center justify-center overflow-hidden">
     <div className="w-[90%]  grid grid-cols-1 md:grid-cols-2 gap-4  relative items-center ">
       
       {/* Right Column - Content */}
@@ -37,13 +37,13 @@ function Pricing() {
     </button>
   </div>
   {/* Left Column - Image */}
-  <div className="hidden md:flex justify-center  absolute -bottom-32 right-[0]" ref={headphones}>
+  <div className="hidden md:flex justify-center w-[45%]  absolute -bottom-24 right-[0]" ref={headphones}>
         <Image
           src="/assets/home/Group-1410103443.png"
           alt="Don't be an idiot"
-          width={350}
+          width={330}
           className="object-cover"
-          height={350}
+          height={330}
         />
       </div>
     </div>

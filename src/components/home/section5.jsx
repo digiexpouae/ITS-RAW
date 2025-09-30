@@ -54,7 +54,7 @@ export default function Pricing() {
     return (
       <section className="py-20  flex flex-col items-center justify-center">
         <div className="text-center">
-          <h2 className="text-[50px] md:text-[80px] font-extrabold">
+          <h2 className="text-[50px] md:text-[80px]">
             <span className="text-black">TRY IT FOR </span>
             <span className="text-red-500">FREE!</span>
           </h2>
