@@ -82,17 +82,17 @@ const section2=()=>{
     <span className="h-18 w-42 flex items-center justify-center"><Image src={'/assets/home/L-2.svg'} width={200} height={80} className="  object-cover"/></span>
 
       <span className="h-18 w-42 flex items-center justify-center"><Image src={'/assets/home/L-6.svg'} width={200} height={80} className=" object-cover"/></span>
-      <span className="h-18 w-42 flex items-center justify-center"><Image src={'/assets/home/L-5.svg'} width={120} height={84} className=" object-cover"/></span>
+      <span className="h-18 w-30 flex items-center justify-center"><Image src={'/assets/home/L-5.svg'} width={120} height={84} className=" object-cover"/></span>
       <span className="h-18 w-42 flex items-center justify-center"><Image src={'/assets/home/L-4.svg'} width={200} height={80} className=" object-cover"/></span>
       <span className="h-18 w-42 flex items-center justify-center"><Image src={'/assets/home/L-3.svg'} width={200} height={80} className=" object-cover"/></span>
-      <span className="h-18 w-42 flex items-center justify-center"><Image src={'/assets/home/L-5.svg'} width={120} height={84} className=" object-cover"/></span>
+      <span className="h-18 w-30 flex items-center justify-center"><Image src={'/assets/home/L-5.svg'} width={120} height={84} className=" object-cover"/></span>
     </div>
 
     <div class="marquee__group flex items-center justify-center">
       <span className="h-18 w-42 flex items-center justify-center"><Image src={'/assets/home/L-2.svg'} width={200} height={80} className="  object-cover"/></span>
       <span className="h-18 w-42 flex items-center justify-center"><Image src={'/assets/home/L-1.svg'} width={120} height={60} className="  object-cover"/></span>
       <span className="h-18 w-42 flex items-center justify-center"><Image src={'/assets/home/L-6.svg'} width={200} height={80} className="  object-cover"/></span>
-      <span className="h-18 w-42 flex items-center justify-center"><Image src={'/assets/home/L-5.svg'} width={120} height={84} className="  object-cover"/></span>
+      <span className="h-18 w-30 flex items-center justify-center"><Image src={'/assets/home/L-5.svg'} width={120} height={84} className="  object-cover"/></span>
     </div>
   </div>
 </div>
@@ -135,7 +135,7 @@ const section2=()=>{
     <div class="marquee__group flex items-center
     ">
       <span className="h-18 w-42 flex items-center justify-center"><Image src={'/assets/home/L-6.svg'} width={200} height={80} className=" object-cover"/></span>
-      <span className="h-18 w-42 flex items-center justify-center"><Image src={'/assets/home/L-5.svg'} width={80} height={60} className=" object-cover"/></span>
+      <span className="h-18 w-30 flex items-center justify-center"><Image src={'/assets/home/L-5.svg'} width={80} height={60} className=" object-cover"/></span>
       <span className="h-18 w-42 flex items-center justify-center"><Image src={'/assets/home/L-4.svg'} width={200} height={80} className=" object-cover"/></span>
       <span className="h-18 w-42 flex items-center justify-center"><Image src={'/assets/home/L-3.svg'} width={200} height={80} className=" object-cover"/></span>
     </div>
@@ -144,7 +144,7 @@ const section2=()=>{
       <span className="h-18 w-42 flex items-center justify-center"><Image src={'/assets/home/L-2.svg'} width={200} height={80} className="  object-cover"/></span>
       <span className="h-18 w-42 flex items-center justify-center"><Image src={'/assets/home/L-1.svg'} width={120} height={60} className="  object-cover"/></span>
       <span className="h-18 w-42 flex items-center justify-center"><Image src={'/assets/home/L-6.svg'} width={200} height={80} className="  object-cover"/></span>
-      <span className="h-18 w-42 flex items-center justify-center"><Image src={'/assets/home/L-5.svg'} width={200} height={80} className="  object-cover"/></span>
+      <span className="h-18 w-30 flex items-center justify-center"><Image src={'/assets/home/L-5.svg'} width={200} height={80} className="  object-cover"/></span>
     </div>
   </div>
 </div>
