@@ -18,7 +18,7 @@ export default function Pricing() {
   // }, []);
   return (
     <section className="w-full  flex items-center justify-center ">
-    <div className="w-[80%] py-20  border-y-2 border-dashed border-black flex md:flex-row flex-col items-center justify-center gap-12 items-center  ">
+    <div className="w-[90%] lg:w-[80%] py-20  border-y-2 border-dashed border-black flex md:flex-row flex-col items-center justify-center gap-12 items-center  ">
   
       {/* Right Column - Content */}
       <div className="md:w-[60%]">

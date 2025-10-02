@@ -65,7 +65,7 @@ export default function Pricing() {
           </p>
         </div>
   
-        <div className="mt-12 grid md:grid-cols-3 gap-8 w-[75%]">
+        <div className="mt-12 grid lg:grid-cols-3 gap-8 w-[75%]">
           {plans.map((plan, idx) => (
             <div
               key={idx}
@@ -113,7 +113,7 @@ export default function Pricing() {
         </div>
         <div className=" text-center mt-10">
         <h2 className="text-4xl  ">
-        <span className="text-red-500 uppercase">Can’t Find What You’re Looking For? </span>
+        <span className="text-red-500 uppercase p-2">Can’t Find What You’re Looking For? </span>
         </h2>
         <p className="mt-3 text-black text-lg">
         Contact <span className="underline">info@itsraw.ai</span>- we’ll reply within 24 hours.

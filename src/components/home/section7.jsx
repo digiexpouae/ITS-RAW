@@ -17,7 +17,7 @@ export default function Pricing() {
   // },[])
   return (
     <section className="w-full h-auto  py-20 md:py-12  flex items-center justify-center " >
-    <div className="w-[80%] px-6 md:px-0 md:py-0 flex-col md:flex-row flex gap-4 items-center justify-center ">
+    <div className="md:w-[90%] lg:w-[80%] px-6 md:px-0 md:py-0 flex-col md:flex-row flex gap-4 items-center justify-center ">
       {/* Left Column - Image */}
       <div className="flex justify-center md:w-[40%] " ref={vector} >
         <Image

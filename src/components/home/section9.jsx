@@ -37,7 +37,7 @@ function Pricing() {
     </button>
   </div>
   {/* Left Column - Image */}
-  <div className="hidden md:flex justify-center w-[45%]  absolute -bottom-24 right-[0]" ref={headphones}>
+  <div className="hidden md:flex justify-center md:w-[40%] lg:w-[45%]  absolute -bottom-24 right-[0]" ref={headphones}>
         <Image
           src="/assets/home/Group-1410103443.png"
           alt="Don't be an idiot"

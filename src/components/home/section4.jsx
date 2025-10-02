@@ -127,7 +127,7 @@ const sectionref=useRef(null)
         <section className="relative flex flex-col-reverse md:flex-row h-[90vh] mt-4  items-center justify-center overflow-hidden  bg-[#FFEFEF] w-full" ref={sectionref}>
         {/* Left Content */}
        <div className="w-[90%] md:w-[80%] h-full flex ">
-        <div className="w-full md:w-[60%] flex flex-col h-auto md:h-full flex flex-col items-center justify-center">
+        <div className="w-full lg:w-[60%] flex flex-col h-auto md:h-full flex flex-col items-center justify-center">
           {/* Title */}
           <h2 className="text-[45px] flex items-center md:text-[80px] text-nowrap leading-tight" ref={headingbounce}>
             <span className="text-black">OUR </span>
@@ -165,7 +165,7 @@ const sectionref=useRef(null)
       
         {/* Right Image */}
         <div className="  flex items-end justify-end h-full md:w-[35%]">
-        <div className="  hidden md:flex  items-end w-full md:w-[35%] h-[80%] mb-10 md:mb-0 absolute -bottom-10 right-0" ref={chef}>
+        <div className="  hidden lg:flex  items-end w-full md:w-[35%] h-[80%] mb-10 md:mb-0 absolute -bottom-10 right-0" ref={chef}>
           <Image
             src="/assets/home/Frame 163.svg"
             width={250}
