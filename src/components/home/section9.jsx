@@ -19,7 +19,7 @@ function Pricing() {
   // },[])
 
   return (
-    <section className="w-full lg:px-20 py-12  flex items-center justify-center overflow-hidden">
+    <section className="w-full lg:px-20 py-12 pt-20  flex items-center justify-center overflow-hidden">
     <div className="w-[90%]  grid grid-cols-1 md:grid-cols-2 gap-4  relative items-center ">
       
       {/* Right Column - Content */}
