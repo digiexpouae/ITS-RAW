@@ -22,11 +22,11 @@ export default function Pricing() {
   
       {/* Right Column - Content */}
       <div className="md:w-[60%]">
-        <h2 className="text-[60px] leading-[1] md:text-[80px]">
+        <h2 className="text-[50px] leading-[1] md:text-[80px]">
           <span className="text-black">MONEY</span><span>-</span><span>BACK</span><br />
           <span className="text-red-500">GUARANTEE!</span>
         </h2>
-        <p className="mt-4 text-black text-xl">
+        <p className="mt-4 text-black text-base md:text-xl">
           If your distribution doesn’t generate any website hits or links after 7 days, we’ll give you your money back. No questions asked, no fuss. We’re so confident, if we let you down, we’ll dress up in a gorilla outfit and hand you your money back in person. How d’ya like them bananas?
         </p>
       </div>

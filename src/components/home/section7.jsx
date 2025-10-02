@@ -30,11 +30,11 @@ export default function Pricing() {
       </div>
       {/* Right Column - Content */}
       <div className="md:w-[60%] flex flex-col items-center ">
-        <h2 className="text-[70px] font-extrabold leading-[1]  md:leading-none">
+        <h2 className="text-[50px] md:text-[70px] font-extrabold leading-[1]  md:leading-none">
           <span className="text-black">DON'T BE AN</span>
           <span className="text-red-500"> IDIOT</span>
         </h2>
-        <p className="mt-4 text-black text-center text-xl">
+        <p className="mt-4 text-black text-center text-base md:text-xl">
         Legally we cannot call you an ‘idiot s*****ch’, as a very famous chap with a ranty personality trademarked it. But if you don’t use ItsRaw, you really are one…
         </p>
       </div>
