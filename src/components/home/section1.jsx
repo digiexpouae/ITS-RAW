@@ -67,23 +67,23 @@ const home=()=>{
           });
     
           // Text reveals
-          tl.fromTo(
-            text1.current,
-            { yPercent: -100, opacity: 0 },
-            { yPercent: 0, opacity: 1, duration: 2, ease: "bounce.out" }
-          )
-            .fromTo(
-              text2.current,
-              { yPercent: -100, opacity: 0 },
-              { yPercent: 0, opacity: 1, duration: 2, ease: "bounce.out" },
-              "-=0.3"
-            )
-            .fromTo(
-              text3.current,
-              { y: "50%", opacity: 0 },
-              { y: 0, opacity: 1, duration: 1, ease: "sine.out" },
-              "-=0.4"
-            );
+          // tl.fromTo(
+          //   text1.current,
+          //   { yPercent: -100, opacity: 0 },
+          //   { yPercent: 0, opacity: 1, duration: 2, ease: "bounce.out" }
+          // )
+          //   .fromTo(
+          //     text2.current,
+          //     { yPercent: -100, opacity: 0 },
+          //     { yPercent: 0, opacity: 1, duration: 2, ease: "bounce.out" },
+          //     "-=0.3"
+          //   )
+          //   .fromTo(
+          //     text3.current,
+          //     { y: "50%", opacity: 0 },
+          //     { y: 0, opacity: 1, duration: 1, ease: "sine.out" },
+          //     "-=0.4"
+          //   );
         }
       );
     
@@ -92,10 +92,10 @@ const home=()=>{
     }, []);
     
     const title=   <div className="text-animation">
-    <span ref={text2} className="block opacity-0 text-[50px] md:text-[100px] uppercase text-center leading-[0.8] tracking-tighter">
+    <span ref={text2} className="block  text-[50px] md:text-[100px] uppercase text-center leading-[0.8] tracking-tighter">
       We’re delighted
     </span>
-    <span ref={text3} className="block opacity-0 text-[80px] md:text-[130px]">
+    <span ref={text3} className="block text-[80px] md:text-[130px]">
       to have you
     </span>
   </div>
@@ -110,7 +110,7 @@ const home=()=>{
 <div className="  h-[200px] w-[250px]"><Image src={'/assets/home/r-2.webp'} ref={shape1} width={200} height={200}  className="object-cover" /></div>
 </div>
     <div className="flex flex-col items-center justify-center">
-    <h3 className="text-[#EE3A3D] tracking-tighter uppercase text-2xl md:text-4xl opacity-0" ref={text1} >Welcome to It’s Raw!</h3>
+    <h3 className="text-[#EE3A3D] tracking-tighter uppercase text-2xl md:text-4xl " ref={text1} >Welcome to It’s Raw!</h3>
         <h2 className="text-[50px] md:text-[100px] uppercase text-center leading-[0.8] tracking-tighter ">{title}</h2>
 <button className="px-2 md:px-4 py-2 border rounded border-[#EE3A3D] ">AI-Powered Press Release Service</button>
             </div>

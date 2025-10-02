@@ -3,47 +3,49 @@ import Image from "next/image";
 export default function Pricing() {
     const plans = [
       {
-        name: "Basic",
+        name: "Walk-in",
         target: "For individuals",
-       price:<span style={{fontFamily:'Subscribe Regular'}}>99</span> ,
+       price:<span  style={{fontFamily: 'Subscribe Regular'}}>FREE</span> ,
 
         icon:"/assets/home/ic-3.svg",
         features: [
-          "All analytics features",
-          "Up to 250,000 tracked visits",
-          "Normal support",
-          "Up to 3 team members",
+          "Up to 5 free press release generations",
+          "Access to AI prompt template",
+       
         ],
         buttonColor: "bg-red-500 text-white",
         borderColor: "border-red-300",
         bg: "bg-white",
       },
       {
-        name: "Pro",
-        target: "For startups",
-        price:<span style={{fontFamily:'Subscribe Regular'}}>199</span> ,
+        name: "Regular",
+        target: "For Restaurants",
+        price:<span className="font-sm" style={{fontFamily: 'Subscribe Regular'}}>AED 365
+       
+</span> ,
       
         icon:"/assets/home/ic-2.svg",
         features: [
-          "All analytics features",
-          "Up to 1,000,000 tracked visits",
-          "Premium support",
-          "Up to 10 team members",
+          "Up to 20 press release drafts",
+          "Up to 3 PR distributions",
+          "Send to 1,000+ media and bloggers",
+          "Automated media monitoring",
+          "Dedicated customer support"
         ],
         buttonColor: "bg-white text-black",
         borderColor: "border-transparent",
         bg: "bg-[#FBEDDF]",
       },
       {
-        name: "Enterprise",
-        target: "For big companies",
+        name: "VIP",
+        target: "For groups",
         icon:"/assets/home/ic-1.svg",
-        price:<span style={{fontFamily:'Subscribe Regular'}}>399</span> ,
+        price:<span  style={{fontFamily: 'Subscribe Regular'}}>Price on request</span> ,
         features: [
-          "All analytics features",
-          "Up to 5,000,000 tracked visits",
-          "Dedicated support",
-          "Up to 50 team members",
+          "Bespoke white-label solutions",
+          "Multi-user dashboards",
+          "Premium account management",
+          "Advanced analytics",
         ],
         buttonColor: "bg-red-500 text-white",
         borderColor: "border-red-300",
@@ -75,12 +77,11 @@ export default function Pricing() {
                 <Image src={plan.icon} width={50} height={50}/>
                 <div className="ml-3">
                 <p className="text-sm text-gray-600">  {plan.target}</p>
-                <h3 className="text-2xl font-bold">{plan.name}</h3>
+                <h3 className="text-2xl " style={{  fontFamily: "DM Sans, sans-serif"}}>{plan.name} </h3>
                 </div>
                 </div>                
-                <p className="mt-4 text-3xl  " >
-                  ${plan.price}
-                  <span className="text-lg font-medium"> /monthly</span>
+                <p className="mt-4 text-3xl flex items-center " >
+                  {plan.price}{(idx === 0 || idx === 1) && <span className="text-sm font-normal">/month</span>}
                 </p>
               </div>
   
@@ -89,7 +90,7 @@ export default function Pricing() {
                 <p className="font-bold mb-3">What’s included</p>
                 <ul className="space-y-2">
                   {plan.features.map((feature, i) => (
-                    <li key={i} className="flex items-center gap-2 text-gray-700">
+                    <li key={i} className="flex items-center gap-2 text-sm text-gray-700">
                       <span className="text-red-500 font-bold">✔</span>
                       {feature}
                     </li>
