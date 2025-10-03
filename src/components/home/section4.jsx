@@ -124,12 +124,12 @@ const sectionref=useRef(null)
     ];
   
     return (
-        <section className="relative flex flex-col-reverse md:flex-row h-[90vh] mt-4  items-center justify-center overflow-hidden  bg-[#FFEFEF] w-full" ref={sectionref}>
+        <section className="relative flex flex-col-reverse py-12 md:flex-row h-[90vh] mt-4  items-center justify-center overflow-hidden  bg-[#FFEFEF] w-full" ref={sectionref}>
         {/* Left Content */}
        <div className="w-[90%] md:w-[80%] h-full flex ">
-        <div className="w-full lg:w-[60%] flex flex-col h-auto md:h-full flex flex-col items-center justify-center">
+        <div className="w-full lg:w-[60%] flex flex-col h-auto md:h-full flex flex-col items-start justify-center md:pl-10">
           {/* Title */}
-          <h2 className="text-[45px] flex items-center md:text-[80px] text-nowrap leading-tight" ref={headingbounce}>
+          <h2 className="text-[45px] flex items-start md:text-[80px] text-nowrap leading-tight" ref={headingbounce}>
             <span className="text-black">OUR </span>
             <span className="text-red-500">SECRET SAUCE</span> 
             {/* <div className="md:flex hidden relative h-[220px] w-[180px]"  ref={ketchup} >
@@ -144,7 +144,7 @@ const sectionref=useRef(null)
           <p className="text-lg md:text-xl ">
             Three simple steps to restaurant PR success
           </p>
-      <div className="flex gap-4 md:gap-12 items-center justify-center mt-12">
+      <div className="flex gap-4  items-center justify-center mt-12">
         <div className="h-[350px] md:h-[300px]  w-[150px] md:w-[80px]"><Image src={'/assets/home/steps.svg'} className="object-cover" height={300} width={300} /></div>
           <div className="  space-y-10">
             {steps.map((step, index) => (
@@ -155,7 +155,7 @@ const sectionref=useRef(null)
                 {/* Step Content */}
                 <div className="">
                   <h3 className="text-2xl leading-[0.8] md:text-[35px]">{step.title}</h3>
-                  <p className="text-black text-base md:text-md ">{step.description}</p>
+                  <p className="text-black text-base md:text-md leading-tighter ">{step.description}</p>
                 </div>
               </div>
             ))}
