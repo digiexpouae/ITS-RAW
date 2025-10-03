@@ -43,7 +43,7 @@ export default function Pricing() {
           xPercent: -20,
           duration: 0.6,
           ease: "power2.out",
-          delay: 1, // stays visible before moving
+          // delay: 1, // stays visible before moving
         })
         .fromTo(
           next,
