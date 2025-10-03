@@ -25,7 +25,7 @@ const section2=()=>{
           }}
           ref={sectionRef}
         >
-          <div className="w-[90%] md:w-[80%] h-[80%] md:h-full flex gap-20 items-center justify-center rounded-4xl">
+          <div className="w-[90%] md:w-[80%] pl-14 h-[80%] md:h-full flex gap-20 items-center justify-center rounded-4xl">
             <div className="h-full w-[90%] md:w-[80%] flex flex-col gap-10 justify-center leading-[1]">
               <div>
                 <h2
@@ -51,7 +51,7 @@ const section2=()=>{
               </div>
               <button
                 ref={btn}
-                className="cursor-pointer w-[35%] transition-all bg-[#EE3A3D] text-white py-4 rounded-lg
+                className="cursor-pointer w-[35%] transition-all bg-[#EE3A3D] text-white py-3 rounded-lg
                 border-[#EE3A3D]
                 border-b-[4px] hover:brightness-110 hover:-translate-y-[1px] hover:border-b-[6px]
                 active:border-b-[2px] active:brightness-90 active:translate-y-[2px]"
