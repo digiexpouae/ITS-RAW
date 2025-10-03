@@ -9,6 +9,7 @@ export default function Pricing() {
   const words = [
     "Dummy",
     "Silly",
+    "Dummy",
     "Stupid",
     "Dumb",
     "Goof",
@@ -16,48 +17,68 @@ export default function Pricing() {
     "Weird",
     "Joker",
     "Loser",
-    "Lame"
+    "Lame",
   ];
+
+  // control refs to kill tweens/delayedCalls on cleanup
+  const started = useRef(false);
+  const activeTween = useRef(null);
+  const delayedCallRef = useRef(null);
+  const displayTime = 1.0; // seconds each word stays before transitioning
+  const transitionDuration = 0.6; // duration of fade / slide
+
   useEffect(() => {
     if (!sectionRef.current) return;
+    if (!words || words.length === 0) return;
 
-    // Hide all words initially
-    gsap.set(wordRefs.current, { opacity: 0 });
-    gsap.set(wordRefs.current[0], { opacity: 1 }); // show first word initially
+    // set initial states: hide all, show first
+    gsap.set(wordRefs.current, { opacity: 0, xPercent: 0 });
+    gsap.set(wordRefs.current[0], { opacity: 1, xPercent: 0 });
 
     let currentIndex = 0;
 
-    const animateNextWord = () => {
-      const current = wordRefs.current[currentIndex];
+    const animateNext = () => {
       const nextIndex = (currentIndex + 1) % words.length;
-      const next = wordRefs.current[nextIndex];
 
-      gsap.timeline({
-        onComplete: () => {
-          currentIndex = nextIndex;
-          animateNextWord(); // recursively call to animate next word
-        },
-      })
-        .to(current, {
+      // kill any previous tween just in case
+      if (activeTween.current) {
+        activeTween.current.kill();
+        activeTween.current = null;
+      }
+
+      // timeline for current -> next
+      activeTween.current = gsap
+        .timeline({
+          onComplete: () => {
+            currentIndex = nextIndex;
+            // schedule next cycle after displayTime
+            delayedCallRef.current = gsap.delayedCall(displayTime, animateNext);
+          },
+        })
+        .to(wordRefs.current[currentIndex], {
           opacity: 0,
           xPercent: -20,
-          duration: 0.6,
-          ease: "power2.in",
-          // delay: 1, // stays visible before moving
+          duration: transitionDuration,
+          ease: "power2.inOut",
         })
         .fromTo(
-          next,
+          wordRefs.current[nextIndex],
           { opacity: 0, xPercent: 20 },
-          { opacity: 1, xPercent: 0, duration: 0.6, ease: "power2.in" }
+          { opacity: 1, xPercent: 0, duration: transitionDuration, ease: "power2.inOut" }
         );
+    };
+
+    const startAnimation = () => {
+      if (started.current) return;
+      started.current = true;
+      // give the first word some display time before starting transition
+      delayedCallRef.current = gsap.delayedCall(displayTime, animateNext);
     };
 
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            animateNextWord(); // start animation when section comes into view
-          }
+          if (entry.isIntersecting) startAnimation();
         });
       },
       { threshold: 0.3 }
@@ -67,6 +88,9 @@ export default function Pricing() {
 
     return () => {
       observer.disconnect();
+      // kill any running tweens / delayedCalls
+      if (activeTween.current) activeTween.current.kill();
+      if (delayedCallRef.current) delayedCallRef.current.kill();
       gsap.killTweensOf(wordRefs.current);
     };
   }, [words]);
@@ -77,7 +101,6 @@ export default function Pricing() {
       ref={sectionRef}
     >
       <div className="md:w-[90%] lg:w-[80%] px-6 md:px-0 flex-col md:flex-row flex gap-4 items-center justify-center">
-        {/* Left Column - Image */}
         <div className="flex justify-center md:w-[40%]">
           <Image
             src="/assets/home/group-people.png"
@@ -88,7 +111,6 @@ export default function Pricing() {
           />
         </div>
 
-        {/* Right Column - Content */}
         <div className="md:w-[60%] flex flex-col items-center">
           <h2 className="text-7xl text-start md:text-[70px] font-extrabold leading-[1] md:leading-none relative">
             <span className="text-black">DON'T BE AN</span>{" "}
