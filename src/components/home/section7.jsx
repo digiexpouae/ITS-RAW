@@ -42,13 +42,13 @@ export default function Pricing() {
           opacity: 0,
           xPercent: -20,
           duration: 0.6,
-          ease: "power2.out",
+          ease: "power2.in",
           // delay: 1, // stays visible before moving
         })
         .fromTo(
           next,
           { opacity: 0, xPercent: 20 },
-          { opacity: 1, xPercent: 0, duration: 0.6, ease: "power2.out" }
+          { opacity: 1, xPercent: 0, duration: 0.6, ease: "power2.in" }
         );
     };
 
