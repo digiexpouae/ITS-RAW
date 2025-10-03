@@ -129,7 +129,7 @@ const sectionref=useRef(null)
        <div className="w-[90%] md:w-[80%] h-full flex ">
         <div className="w-full lg:w-[60%] flex flex-col h-auto md:h-full flex flex-col items-start justify-center md:pl-10">
           {/* Title */}
-          <h2 className="text-[45px] flex items-start md:text-[80px] text-nowrap leading-tight" ref={headingbounce}>
+          <h2 className="text-[45px] flex items-start gap-4 md:text-[80px] text-nowrap leading-tight" ref={headingbounce}>
             <span className="text-black">OUR </span>
             <span className="text-red-500">SECRET SAUCE</span> 
             {/* <div className="md:flex hidden relative h-[220px] w-[180px]"  ref={ketchup} >
