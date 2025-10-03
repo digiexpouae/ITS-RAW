@@ -28,7 +28,7 @@ const Header = () => {
 
   return (
     <header 
-      className={`top-0 z-50 left-0 w-full h-[15vh] transition-all duration-300  ${
+      className={`top-0 z-50 left-0 w-full fixed h-[15vh] transition-all duration-300  ${
         isScrolled ? 'bg-white shadow-md ' : 'bg-transparent '
       }`}
     >
@@ -67,7 +67,7 @@ const Header = () => {
           {/* Mobile menu button */}
           <div className="md:hidden">
             <button
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              // onClick={() => setIsMenuOpen(!isMenuOpen)}
               className="text-gray-700 hover:text-blue-600 focus:outline-none"
             >
               <svg
