@@ -17,7 +17,7 @@ export default function Pricing() {
   "po'boy",
   'panini',
   'banh mi',
-  'croque monsieur',
+  // 'croque monsieur',
   'cubano',
   'tonkatsu',
   'bagel',
