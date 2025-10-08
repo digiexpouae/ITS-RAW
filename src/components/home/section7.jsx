@@ -7,18 +7,24 @@ export default function Pricing() {
   const sectionRef = useRef();
   const wordRefs = useRef([]);
   const words = [
-    "Dummy",
-    "Silly",
-    "Dummy",
-    "Stupid",
-    "Dumb",
-    "Goof",
-    "Crazy",
-    "Weird",
-    "Joker",
-    "Loser",
-    "Lame",
-  ];
+  'baguette',
+  'bap',
+  'roll',
+  'focaccia',
+  'wrap',
+  'sub',
+  'hoagie',
+  'po’boy',
+  'panini',
+  'banh mi',
+  'croque monsieur',
+  'cubano',
+  'tonkatsu',
+  'bagel',
+  'pita'
+]
+
+
 
   // control refs to kill tweens/delayedCalls on cleanup
   const started = useRef(false);
@@ -101,7 +107,7 @@ export default function Pricing() {
       ref={sectionRef}
     >
       <div className="md:w-[90%] lg:w-[80%] px-6 md:px-0 flex-col md:flex-row flex gap-4 items-center justify-center">
-        <div className="flex justify-center md:w-[40%]">
+        <div className="flex justify-center w-full md:w-[40%]">
           <Image
             src="/assets/home/group-people.png"
             alt="Don't be an idiot"
@@ -111,14 +117,14 @@ export default function Pricing() {
           />
         </div>
 
-        <div className="md:w-[60%] flex flex-col items-center">
-          <h2 className="text-7xl text-start md:text-[70px] font-extrabold leading-[1] md:leading-none relative">
-            <span className="text-black">DON'T BE AN</span>{" "}
+        <div className=" w-full md:w-[60%] flex flex-col md:items-center">
+          <h2 className="text-6xl md:w-full text-start mb-8 lg:mb-0 md:text-6xl font-extrabold leading-[1] md:leading-none relative">
+            <span className="text-black  ">DON'T BE AN</span>{" "}
             {words.map((word, i) => (
               <span
                 key={i}
                 ref={(el) => (wordRefs.current[i] = el)}
-                className="text-red-500 absolute px-4 opacity-0 uppercase"
+                className="text-red-500  mt-2 lg:mt-0  top-10 lg:top-0 lg:left-auto left-0 absolute lg:px-4 opacity-0 uppercase"
               >
                 {word}
               </span>
