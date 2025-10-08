@@ -119,13 +119,13 @@ export default function Pricing() {
         </div>
 
         <div className=" w-full md:w-1/2 flex flex-col md:items-center">
-          <h2 className="text-6xl md:w-full text-start mb-8 md:mb-0  md:text-6xl font-extrabold leading-[1] md:leading-none relative">
+          <h2 className="text-5xl md:w-full text-start mb-8 md:mb-0  md:text-6xl font-extrabold leading-[1] md:leading-none relative">
             <span className="text-black  ">DON'T BE AN</span>{" "}
             {words.map((word, i) => (
               <span
                 key={i}
                 ref={(el) => (wordRefs.current[i] = el)}
-                className="text-red-500 top-10 mt-4 md:mt-0 left-0 md:left-auto md:top-0 md:px-4 absolute uppercase"
+                className="text-red-500 top-10 mt-2 md:mt-0 left-0 md:left-auto md:top-0 md:px-4 absolute uppercase"
          style={{whiteSpace:'nowrap'}}
          >
                 {word}
