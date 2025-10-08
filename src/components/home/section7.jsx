@@ -9,19 +9,19 @@ export default function Pricing() {
   const words = [
     'baguette',
   'bap',
-  'roll',
-  'focaccia',
-  'wrap',
-  'sub',
-  'hoagie',
-  "po'boy",
-  'panini',
-  'banh mi',
+  // 'roll',
+  // 'focaccia',
+  // 'wrap',
+  // 'sub',
+  // 'hoagie',
+  // "po'boy",
+  // 'panini',
+  // 'banh mi',
   'croque monsieur',
-  'cubano',
-  'tonkatsu',
-  'bagel',
-  'pita',
+  // 'cubano',
+  // 'tonkatsu',
+  // 'bagel',
+  // 'pita',
 
 ]
 
@@ -107,8 +107,8 @@ export default function Pricing() {
       className="w-full py-20 md:py-12 flex items-center justify-center overflow-hidden"
       ref={sectionRef}
     >
-      <div className="md:w-[90%] lg:w-[80%] px-6 md:px-0 flex-col md:flex-row flex gap-4 items-center justify-center">
-        <div className="flex justify-center w-full md:w-1/2">
+      <div className="md:w-[90%] lg:w-[80%] px-6 md:px-0 flex-col md:flex-row flex  items-center justify-center">
+        <div className="flex justify-start w-full md:w-1/3">
           <Image
             src="/assets/home/group-people.png"
             alt="Don't be an idiot"
@@ -119,13 +119,13 @@ export default function Pricing() {
         </div>
 
         <div className=" w-full md:w-1/2 flex flex-col md:items-center">
-          <h2 className="text-6xl md:w-full text-start mb-8  md:text-6xl font-extrabold leading-[1] md:leading-none relative">
+          <h2 className="text-6xl md:w-full text-start mb-8 md:mb-0  md:text-6xl font-extrabold leading-[1] md:leading-none relative">
             <span className="text-black  ">DON'T BE AN</span>{" "}
             {words.map((word, i) => (
               <span
                 key={i}
                 ref={(el) => (wordRefs.current[i] = el)}
-                className="text-red-500   mt-4  top-10 left-0 absolute uppercase"
+                className="text-red-500 top-10 mt-4 md:mt-0 left-0 md:left-auto md:top-0 md:px-4 absolute uppercase"
          style={{whiteSpace:'nowrap'}}
          >
                 {word}
