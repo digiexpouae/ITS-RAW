@@ -7,21 +7,22 @@ export default function Pricing() {
   const sectionRef = useRef();
   const wordRefs = useRef([]);
   const words = [
-  'baguette',
+    'baguette',
   'bap',
   'roll',
   'focaccia',
   'wrap',
   'sub',
   'hoagie',
-  'po’boy',
+  "po'boy",
   'panini',
   'banh mi',
   'croque monsieur',
   'cubano',
   'tonkatsu',
   'bagel',
-  'pita'
+  'pita',
+
 ]
 
 
@@ -107,7 +108,7 @@ export default function Pricing() {
       ref={sectionRef}
     >
       <div className="md:w-[90%] lg:w-[80%] px-6 md:px-0 flex-col md:flex-row flex gap-4 items-center justify-center">
-        <div className="flex justify-center w-full md:w-[40%]">
+        <div className="flex justify-center w-full md:w-1/2">
           <Image
             src="/assets/home/group-people.png"
             alt="Don't be an idiot"
@@ -117,15 +118,16 @@ export default function Pricing() {
           />
         </div>
 
-        <div className=" w-full md:w-[60%] flex flex-col md:items-center">
-          <h2 className="text-6xl md:w-full text-start mb-8 lg:mb-0 md:text-6xl font-extrabold leading-[1] md:leading-none relative">
+        <div className=" w-full md:w-1/2 flex flex-col md:items-center">
+          <h2 className="text-6xl md:w-full text-start mb-8  md:text-6xl font-extrabold leading-[1] md:leading-none relative">
             <span className="text-black  ">DON'T BE AN</span>{" "}
             {words.map((word, i) => (
               <span
                 key={i}
                 ref={(el) => (wordRefs.current[i] = el)}
-                className="text-red-500  mt-2 lg:mt-0  top-10 lg:top-0 lg:left-auto left-0 absolute lg:px-4 opacity-0 uppercase"
-              >
+                className="text-red-500   mt-4  top-10 left-0 absolute uppercase"
+         style={{whiteSpace:'nowrap'}}
+         >
                 {word}
               </span>
             ))}
