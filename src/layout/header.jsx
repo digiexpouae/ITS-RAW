@@ -28,16 +28,16 @@ const Header = () => {
 
   return (
     <header 
-      className={`top-0 z-50 left-0 w-full sticky h-[15vh] transition-all duration-300  ${
-        isScrolled ? 'bg-white shadow-md ' : 'bg-transparent '
-      }`}
+      className={`top-0 z-50 left-0 w-full sticky h-[15vh] transition-all duration-300
+       bg-transparent`}
     >
       <div className="container mx-auto h-full  w-[80%]">
         <div className="flex items-center h-full justify-between">
           {/* Logo */}
           <div className="flex-shrink-0 w-[50%] sm:w-[40%] md:w-[20%] h-[70px]">
-
+<Link href="/">
              <Image src={'/assets/home/r-logo.svg'} height={100} width={140} className='object-cover'/>
+             </Link>
           </div>
 
           {/* Desktop Navigation */}
