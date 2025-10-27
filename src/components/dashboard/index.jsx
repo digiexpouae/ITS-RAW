@@ -6,7 +6,7 @@ import Mobileform from './mobileform'
 const index=()=>{
     return(
         <>
-        <div className="h-screen w-full bg-cover" style={{backgroundImage:'url(/assets/dashboard/raw.png)'}}>
+        <div className="h-screen md:h-[90vh] w-full bg-cover relative overflow-hidden" style={{backgroundImage:'url(/assets/dashboard/raw.png)'}}>
 <Header />
 <Herosection />
   </div>

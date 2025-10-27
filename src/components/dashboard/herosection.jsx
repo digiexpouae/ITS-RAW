@@ -4,8 +4,8 @@ const herosection=()=>{
     return(
         <div className="h-[85%] w-full ">
 
-<div className=" max-w-5xl mx-auto relative overflow-hidden flex lg:flex-row flex-col justify-between h-full ">
-    <div className="h-[40%] lg:h-full w-full px-4 lg:px-0 lg:w-1/2 flex flex-col justify-center">
+<div className="  md:w-[80%] mx-auto relative overflow-hidden flex lg:flex-row flex-col justify-between h-full ">
+    <div className="h-[50%] lg:h-full w-full px-4 lg:px-0 lg:w-1/2 flex flex-col justify-center">
 <h2 className="text-5xl md:text-7xl uppercase font-bold">
 
 
@@ -32,7 +32,8 @@ press Release</span>
             <p>Drag & drop or browse here</p>
             <input type="file" className="hidden" />
           </div>          
-        <div className="h-[15px] w-[15px] relative"><Image src={'/assets/dashboard/arrow.svg'} fill className="object-cover" /></div>  
+        <div className="h-[15px] w-[15px] relative"><Image src={'/assets/dashboard/arrow.svg'} fill className="object-cover"         
+ /></div>  
           
           
             </div>
@@ -40,9 +41,9 @@ press Release</span>
 </div>
 
 </div>
-<div className=" h-[60%]  w-full  lg:w-1/2 lg:h-full flex items-center justify-center  ">
-<div className="w-full h-full flex items-center items-end md:justify-center justify-end ">
-<div className=" md:h-[450px] relative h-full w-full lg:w-full md:w-[65%] "><Image src={'/assets/dashboard/Layer_1.png'} fill className="object-cover" /></div>
+<div className=" h-[50%]  w-full  lg:w-1/2 lg:h-full flex items-center justify-center  ">
+<div className="w-full h-full flex items-center justify-center md:items-end md:justify-end ">
+<div className=" md:h-full relative h-full w-[80%] lg:w-full md:w-[90%] flex items-end justiy-end"><Image src={'/assets/dashboard/Layer_1.png'} width={500} height={700}/></div>
 </div></div>
 
 </div>

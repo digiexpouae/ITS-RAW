@@ -122,7 +122,7 @@ export default function CampaignForm() {
   };
 
   return (
-    <div className="min-h-screen lg:hidden block bg-[#fffaf9] py-8 px-4 md:px-8">
+    <div className="min-h-screen lg:hidden block  py-8 px-4 md:px-8 my-20">
       <form className="max-w-7xl mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {formSections.map((section, index) => (
