@@ -46,11 +46,11 @@
 {/* footer fixed*/}
             {/* Bottom links */}
             <div className="flex justify-center md:items-center md:space-x-8 text-[15px] md:text-[20px] mt-6">
-                <Link href="/privacy " className="m-0">Privacy Policy</Link>
+                <Link href="/privacy " className="m-0" style={{whiteSpace:'nowrap'}}>Privacy Policy</Link>
                 <span className="w-[1px] h-8 bg-white mx-4 md:mx-12"></span>
-                <Link className="legal m-0" href="/legal">Legal</Link>
+                <Link className="legal m-0" href="/legal" style={{whiteSpace:'nowrap'}}>Legal</Link>
                 <span className="w-[1px] h-8 bg-white mx-4 md:mx-12"></span>
-                <Link href="/terms">Terms of Service</Link>
+                <Link href="/terms" style={{whiteSpace:'nowrap'}}>Terms of Service</Link>
             </div>
             </footer>
         );

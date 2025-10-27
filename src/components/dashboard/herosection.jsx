@@ -6,7 +6,7 @@ const herosection=()=>{
 
 <div className="  md:w-[80%] mx-auto relative overflow-hidden flex lg:flex-row flex-col justify-between h-full ">
     <div className="h-[50%] lg:h-full w-full px-4 lg:px-0 lg:w-1/2 flex flex-col justify-center">
-<h2 className="text-5xl md:text-7xl uppercase font-bold">
+<h2 className="text-5xl md:text-7xl uppercase font-medium">
 
 
 

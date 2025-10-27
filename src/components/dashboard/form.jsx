@@ -1,6 +1,6 @@
 export default function CampaignForm() {
   return (
-    <div className="min-h-screen  hidden lg:flex items-center justify-center p-8 my-20">
+    <div className="min-h-screen  hidden lg:flex items-center justify-center p-8 my-10">
       <form className="flex gap-4 justify-center mx-auto  max-w-4xl w-full">
 
         {/* Headline / Subject */}
