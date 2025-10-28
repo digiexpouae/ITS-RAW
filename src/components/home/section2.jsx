@@ -2,6 +2,8 @@ import Image from "next/image"
 import gsap from "gsap"
 import { useEffect,useRef } from "react"
 import ScrollTrigger from "gsap/dist/ScrollTrigger"
+import Slider from "./slider"
+import Mobileslider from './mobileslider'
 const section2=()=>{
 
     const text1 = useRef(null)
@@ -75,8 +77,8 @@ const section2=()=>{
           </div>
   
           {/* logos slider */}
-          <div className="w-[300%]  marquee h-[15%] flex items-center overflow-hidden absolute bottom-0 right-0 left-0 z-20">
-<div class="marquee">
+          <div className="w-[300%] my-4 marquee h-[15%] flex items-center overflow-hidden absolute bottom-0 right-0 left-0 z-20">
+{/* <div class="marquee">
   <div class="marquee__inner flex items-center justify-center">
     <div class="marquee__group flex items-center justify-center">
     <span className="h-18 w-42 flex items-center justify-center"><Image src={'/assets/home/L-2.svg'} width={200} height={80} className="  object-cover"/></span>
@@ -95,7 +97,8 @@ const section2=()=>{
       <span className="h-18 w-30 flex items-center justify-center"><Image src={'/assets/home/L-5.svg'} width={120} height={84} className="  object-cover"/></span>
     </div>
   </div>
-</div>
+</div> */}
+<Slider />
 
 </div>
 
@@ -129,8 +132,8 @@ const section2=()=>{
               </button>
             </div>
           </div>
-          <div className="w-[300%]  marquee  flex items-center overflow-hidden absolute bottom-0 right-0 left-0 z-20">
-<div class="marquee">
+          <div className="w-[300%] my-10 marquee  flex items-center overflow-hidden absolute bottom-0 right-0 left-0 z-20">
+{/* <div class="marquee">
   <div class="marquee__inner flex items-center justify-center">
     <div class="marquee__group flex items-center
     ">
@@ -147,8 +150,8 @@ const section2=()=>{
       <span className="h-18 w-30 flex items-center justify-center"><Image src={'/assets/home/L-5.svg'} width={200} height={80} className="  object-cover"/></span>
     </div>
   </div>
-</div>
-
+</div> */}
+<Mobileslider />
 </div>
 
         </div>

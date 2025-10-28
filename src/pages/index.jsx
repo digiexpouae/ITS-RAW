@@ -10,6 +10,7 @@ import Section7 from '../components/home/section7'
 import Section8 from '../components/home/section8'
 import Section9 from '../components/home/section9'
 import Footer from "@/layout/footer"
+import Slider from '../components/home/slider'
 const index=()=>{
   return(<div className="relative
   ">
@@ -21,6 +22,7 @@ const index=()=>{
 <Section5 />
 <Section6 />
 <Section7 />
+<Slider/>
 <Section8 />
 <Section9 />
 
