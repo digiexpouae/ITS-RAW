@@ -21,8 +21,8 @@ const section=()=>{
 
   
     return(
-        <div className="h-screen md:h-[90vh]   w-full  " >
-<div className="bg-cover max-w-5xl  mx-auto my-40  relative overflow-hidden h-[90%] md:h-[80%] rounded-2xl " style={{backgroundImage:'url(/assets/dashboard/raw.png)'}}>
+        <div className="h-[100vh] flex flex-col items-end justify-end mb-14 " >
+<div className="bg-cover max-w-5xl w-full mx-auto  relative overflow-hidden h-[90%] md:h-[70%] flex-shrink-0 rounded-2xl " style={{backgroundImage:'url(/assets/dashboard/raw.png)'}}>
    <div className="absolute left-10 h-full flex flex-col  justify-center ">  
 
 <h2 className="text-5xl uppercase">Top Tips For <span className="text-[#EE3A3D]">Great Results</span></h2>
