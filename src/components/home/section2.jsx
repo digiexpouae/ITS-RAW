@@ -132,7 +132,7 @@ const section2=()=>{
               </button>
             </div>
           </div>
-          <div className="w-[300%] my-10 marquee  flex items-center overflow-hidden absolute bottom-0 right-0 left-0 z-20">
+          <div className="w-[300%] my-4 marquee  flex items-center overflow-hidden absolute bottom-0 right-0 left-0 z-20">
 {/* <div class="marquee">
   <div class="marquee__inner flex items-center justify-center">
     <div class="marquee__group flex items-center
