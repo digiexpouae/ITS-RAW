@@ -38,7 +38,7 @@ const section=()=>{
                   0{index + 1}
                 </div>
                 <div>
-                  <h3 className="text-3xl uppercase font-bold mb-2">{tip.title}</h3>
+                  <h3 className="text-3xl uppercase font-medium mb-2">{tip.title}</h3>
                   <p className="text-gray-600">{tip.description}</p>
                 </div>
               </div>
