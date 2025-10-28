@@ -1,6 +1,6 @@
 const section4=()=>{
     return(
-        <div className="py-10 max-w-5xl mx-auto px-4 flex flex-col items-center justify-center">
+        <div className="mb-10 max-w-5xl mx-auto px-4 flex flex-col items-center justify-center">
         <h2 className="text-7xl uppercase">Need Some <span className="text-[#EE3A3D]">Help?</span></h2>
         <div className="flex gap-4">
 
