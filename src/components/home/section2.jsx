@@ -77,7 +77,7 @@ const section2=()=>{
           </div>
   
           {/* logos slider */}
-          <div className="w-[300%] my-4 marquee h-[15%] flex items-center overflow-hidden absolute bottom-0 right-0 left-0 z-20">
+          <div className="w-[300%] my-2 marquee h-[15%] flex items-center overflow-hidden absolute bottom-0 right-0 left-0 z-20">
 {/* <div class="marquee">
   <div class="marquee__inner flex items-center justify-center">
     <div class="marquee__group flex items-center justify-center">

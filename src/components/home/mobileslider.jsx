@@ -10,10 +10,10 @@ export default function Marquee() {
     { src: "/assets/home/L-2.svg", width: 100, height: 70 },
     { src: "/assets/home/L-1.svg", width: 100, height: 70 },
     { src: "/assets/home/L-6.svg", width: 100, height: 70 },
-    { src: "/assets/home/L-5.svg", width: 100, height: 74 },
+    { src: "/assets/home/L-5.svg", width: 80, height: 54 },
     { src: "/assets/home/L-4.svg", width: 100, height: 70 },
     { src: "/assets/home/L-3.svg", width: 100, height: 70 },
-    { src: "/assets/home/L-5.svg", width: 100, height: 74 },
+    { src: "/assets/home/L-5.svg", width: 80, height: 54 },
   ];
   useEffect(() => {
     const container = containerRef.current;

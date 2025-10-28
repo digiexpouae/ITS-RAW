@@ -14,10 +14,10 @@ export default function Marquee() {
     { src: "/assets/home/L-2.svg", width: 170, height: 80 },
     { src: "/assets/home/L-1.svg", width: 120, height: 60 },
     { src: "/assets/home/L-6.svg", width: 170, height: 80 },
-    { src: "/assets/home/L-5.svg", width: 120, height: 84 },
+    { src: "/assets/home/L-5.svg", width: 80, height: 54  },
     { src: "/assets/home/L-4.svg", width:170, height: 80 },
     { src: "/assets/home/L-3.svg", width: 170, height: 80 },
-    { src: "/assets/home/L-5.svg", width: 120, height: 84 },
+    { src: "/assets/home/L-5.svg", width: 80, height: 54 },
   ];
   useEffect(() => {
     const container = containerRef.current;
