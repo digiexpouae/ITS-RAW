@@ -6,7 +6,10 @@ import gsap from "gsap";
 export default function Pricing() {
   const sectionRef = useRef();
   const wordRefs = useRef([]);
-  const words = [
+  const words = [ 
+
+
+    'idiot',
     'baguette',
   'bap',
   'roll',
