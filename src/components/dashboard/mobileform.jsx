@@ -123,6 +123,8 @@ export default function CampaignForm() {
 
   return (
     <div className="min-h-screen lg:hidden block  py-8 px-4 md:px-8 my-20">
+                  <h2 className="text-5xl uppercase mb-4  text-left">Fill In Press Release Details</h2>
+
       <form className="max-w-7xl mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {formSections.map((section, index) => (

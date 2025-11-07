@@ -1,6 +1,9 @@
 export default function CampaignForm() {
-  return (
-    <div className="min-h-screen  hidden lg:flex items-center justify-center p-8 my-10">
+  return (<>
+
+    <div className="min-h-screen  hidden lg:flex flex-col  items-center justify-center p-8 my-10">
+             <h2 className="text-5xl uppercase mb-4  text-left">Fill In Press Release Details</h2>
+
       <form className="flex gap-4 justify-center mx-auto  max-w-4xl w-full">
 
         {/* Headline / Subject */}
@@ -100,5 +103,5 @@ If Applicable</label>
 
       </form>
     </div>
-  );
+  </>);
 }
