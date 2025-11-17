@@ -72,7 +72,7 @@ import Form from './form'
   ];
     return(
         <>
-                       <div className="h-auto md:h-screen w-full bg-cover" style={{backgroundImage:'url(/assets/dashboard/raw.png)'}}>
+                       <div className="h-auto md:h-[90vh] w-full bg-cover overflow-hidden" style={{backgroundImage:'url(/assets/dashboard/raw.png)'}}>
 
         <Header />
 <Herosection image={'/assets/dashboardcustom/vector-2.svg'}  btn2={' bg-[#FFFFFF] hover:bg-zinc-100 !text-black'}/>

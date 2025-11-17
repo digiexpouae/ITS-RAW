@@ -68,7 +68,7 @@ const [currentPage,setCurrentPage]=useState(false)
              <h2 className="text-5xl uppercase mb-4  text-center">Step 1-Core Information</h2>
              <div className="flex gap-4 flex-col">
 <div className="flex gap-4">
-     <div className="col-span-1 bg-[#FBEDDF] w-[500px]  h-[180px] p-4 rounded-2xl flex flex-col justify-between">
+     <div className="col-span-1 bg-[#FBEDDF] w-[500px] h-[180px] p-4 rounded-2xl flex flex-col justify-between">
           <label className="font-medium text-sm mb-1">Contact Email
 </label>
           <input type="email" name='email' value={formData.email} placeholder="Example@gmail.com" className="border border-gray-300 bg-white  text-gray-500 rounded-md p-2 text-sm" />

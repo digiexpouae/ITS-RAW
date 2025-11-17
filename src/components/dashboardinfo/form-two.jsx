@@ -8,8 +8,8 @@ const formtwo=({formData, handleChange})=>{
        <p className="text-xl  mb-2 font-medium text-center md:text-left">Digital Accounts Links</p> 
 <div className="flex md:flex-row flex-col gap-4 mb-4 items-center justify-center ">
 
-<div className="flex flex-col gap-4">   
-  <div className="col-span-1 bg-[#FBEDDF] h-[300px] w-[310px] md:w-[250px] p-4 rounded-2xl flex flex-col justify-between">
+<div className="flex flex-col gap-4 w-full items-center">   
+  <div className="col-span-1 bg-[#FBEDDF] h-[150px] md:h-[300px] w-[90%] md:w-[250px] p-4 rounded-2xl flex flex-col justify-between">
           <label className="font-medium text-sm mb-1">Website</label>
             <input type="text" 
                  name="website"
@@ -18,7 +18,7 @@ const formtwo=({formData, handleChange})=>{
             placeholder="https" className="border border-gray-300  text-gray-500 bg-white rounded-md p-2 text-sm" />
       </div>
           
-                <div className="col-span-1 bg-[#FBDFDF] h-[200px] w-[310px]  md:w-[250px] p-4 rounded-2xl flex flex-col justify-between">
+                <div className="col-span-1 bg-[#FBDFDF] h-[150px] md:h-[200px] w-[90%]  md:w-[250px] p-4 rounded-2xl flex flex-col justify-between">
           <label className="font-medium text-sm mb-1">TikTok</label>
               <input
                    name="tiktok"
@@ -27,14 +27,14 @@ const formtwo=({formData, handleChange})=>{
                type="text" placeholder="https" className="border border-gray-300  text-gray-500 bg-white rounded-md p-2 text-sm" />
       </div>
           </div>
-<div className="flex flex-col gap-4">  
-   <div className="col-span-1 bg-[#FBDFDF] h-[200px] w-[310px] md:w-[250px] p-4 rounded-2xl flex flex-col justify-between">
+<div className="flex flex-col gap-4 w-full items-center">  
+   <div className="col-span-1 bg-[#FBDFDF] h-[150px] md:h-[200px] w-[90%]  md:w-[250px] p-4 rounded-2xl flex flex-col justify-between">
           <label className="font-medium text-sm mb-1">WhatsApp Business</label>
             <input   name="whatsapp"
               value={formData.whatsapp || ''}
               onChange={handleChange} type="text" placeholder="https" className="border border-gray-300  text-gray-500 bg-white rounded-md p-2 text-sm" />
      </div>
-                <div className="col-span-1 bg-[#FBEDDF] h-[300px] w-[310px]  md:w-[250px] p-4 rounded-2xl flex flex-col justify-between">
+                <div className="col-span-1 bg-[#FBEDDF]  h-[150px] md:h-[300px] w-[90%]  md:w-[250px] p-4 rounded-2xl flex flex-col justify-between">
           <label className="font-medium text-sm mb-1">Youtube</label>
             <input type="text"
               name="youtube"
@@ -43,8 +43,8 @@ const formtwo=({formData, handleChange})=>{
             placeholder="https" className="border border-gray-300  text-gray-500 bg-white rounded-md p-2 text-sm" />
      </div>
           </div>
-<div className="flex flex-col gap-4">   
-      <div className="col-span-1 bg-[#FBEDDF] h-[300px] w-[310px] md:w-[250px] p-4 rounded-2xl flex flex-col justify-between">
+<div className="flex flex-col gap-4 w-full items-center">   
+      <div className="col-span-1 bg-[#FBEDDF] h-[150px] md:h-[300px] w-[90%]  md:w-[250px] p-4 rounded-2xl flex flex-col justify-between">
           <label className="font-medium text-sm mb-1">Instagram</label>
             <input type="text"
                name="instagram"
@@ -52,7 +52,7 @@ const formtwo=({formData, handleChange})=>{
               onChange={handleChange}
             placeholder="https" className="border border-gray-300  text-gray-500 bg-white rounded-md p-2 text-sm" />
     </div>
-                <div className="col-span-1 bg-[#FBDFDF] h-[200px] w-[310px]  md:w-[250px] p-4 rounded-2xl flex flex-col justify-between">
+                <div className="col-span-1 bg-[#FBDFDF] h-[150px] md:h-[200px]  w-[90%]   md:w-[250px] p-4 rounded-2xl flex flex-col justify-between">
           <label className="font-medium text-sm mb-1">Linkedin</label>
             <input type="text"
                name="linkedin"
@@ -61,8 +61,8 @@ const formtwo=({formData, handleChange})=>{
             placeholder="https" className="border border-gray-300  text-gray-500 bg-white rounded-md p-2 text-sm" />
      </div>
           </div>
-          <div className="flex flex-col gap-4">   
-      <div className="col-span-1 bg-[#FBDFDF] h-[200px] w-[310px]  md:w-[250px] p-4 rounded-2xl flex flex-col justify-between">
+          <div className="flex flex-col gap-4 w-full items-center">   
+      <div className="col-span-1 bg-[#FBDFDF] h-[150px] md:h-[200px]  w-[90%]   md:w-[250px] p-4 rounded-2xl flex flex-col justify-between">
           <label className="font-medium text-sm mb-1">Facebook</label>
             <input type="text"
               name="facebook"
@@ -70,7 +70,7 @@ const formtwo=({formData, handleChange})=>{
               onChange={handleChange}
             placeholder="https" className="border border-gray-300  text-gray-500 bg-white rounded-md p-2 text-sm" />
     </div>
-                <div className="col-span-1 bg-[#FBEDDF] h-[300px] w-[310px]  md:w-[250px] p-4 rounded-2xl flex flex-col justify-between">
+                <div className="col-span-1 bg-[#FBEDDF] h-[150px] md:h-[300px] w-[90%]  md:w-[250px] p-4 rounded-2xl flex flex-col justify-between">
           <label className="font-medium text-sm mb-1">Website</label>
             <input type="text"
               name="website2"
@@ -85,7 +85,7 @@ const formtwo=({formData, handleChange})=>{
 
 
 <div className="flex gap-4 flex-col items-center justify-center md:flex-row mb-4">
-     <div className="col-span-1 bg-[#FBEDDF]  w-[310px] md:w-1/2  h-[180px] p-4 rounded-2xl flex flex-col justify-between">
+     <div className="col-span-1 bg-[#FBEDDF]  w-[90%] md:w-1/2  h-[180px] p-4 rounded-2xl flex flex-col justify-between">
      <div>
           <label className="font-medium text-sm mb-4">Booking Reservation Link
 </label>
@@ -97,7 +97,7 @@ restaurant uses. Leave blank if N/A.</p></div>
             onChange={handleChange}
            placeholder="https" className="border border-gray-300 bg-white  text-gray-500 rounded-md p-2 text-sm" />
         </div>
-             <div className="col-span-1 bg-[#FBDFDF]  w-[310px] md:w-1/2 h-[180px] p-4 rounded-2xl flex flex-col justify-between">
+             <div className="col-span-1 bg-[#FBDFDF]  w-[90%] md:w-1/2 h-[180px] p-4 rounded-2xl flex flex-col justify-between">
          <div>
           <label className="font-medium text-sm mb-1">Location
 </label>
@@ -113,7 +113,7 @@ restaurant uses. Leave blank if N/A.</p></div>
         </div></div>
 </div>
 <div className=" flex gap-4 flex-col md:flex-row items-center justify-center  mb-4 "> 
-<div className="flex flex-col h-[400px] gap-4  w-[310px] md:w-1/2">  
+<div className="flex flex-col h-[200px] md:h-[400px] gap-4  w-[90%] md:w-1/2">  
    <div className="col-span-1 bg-[#FBDFDF]  h-1/2 w-full p-4 rounded-2xl flex flex-col justify-between">
           <label className="font-medium text-sm mb-1">Select Emirate*</label>
   <select
@@ -149,7 +149,7 @@ restaurant uses. Leave blank if N/A.</p></div>
       <option value="Al Barsha">Al Barsha</option>
     </select>     </div>
           </div>
-            <div className="col-span-1 bg-[#FBEDDF]  md:h-[400px]   w-[310px] md:w-1/2 p-6 rounded-2xl flex flex-col justify-between">
+            <div className="col-span-1 bg-[#FBEDDF]  md:h-[400px]   w-[90%] md:w-1/2 p-6 rounded-2xl flex flex-col justify-between">
      <Business />
 
      </div>

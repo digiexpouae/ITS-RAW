@@ -43,7 +43,7 @@ press Release</span>
 </div>
 <div className=" h-[50%]  w-full  lg:w-1/2 lg:h-full flex items-center justify-center  ">
 <div className="w-full h-full flex items-center justify-center md:items-end md:justify-end ">
-<div className=" md:h-full relative h-full  w-[80%] lg:w-full md:w-[90%] flex items-end justiy-end"><Image src={image} className="md:aspect-[16/14]" width={500} height={500}/></div>
+<div className=" md:h-full relative h-full  w-[80%] lg:w-full md:w-[90%] flex items-end justiy-end"><Image src={image} className="md:aspect-[16/14]" width={800} height={800}/></div>
 </div></div>
 
 </div>
