@@ -29,7 +29,7 @@ className='object-cover'
        <div className=' bg-[#FBEDDF] md:w-1/2 p-4 rounded-lg'> <div className="flex-1 flex items-center justify-between">
           <div>
             <p className="text-sm text-gray-600">Total AVE</p>
-            <span className="text-5xl  text-[#EE3A3D]" style={{ fontFamily: 'Subscribe Regular'}}>$839,250</span>
+            <span className="text-5xl  text-[#EE3A3D] flex items-center" style={{ fontFamily: 'Subscribe Regular,sans-serif'}}> $839,250</span>
         <p className='text-sm'>(Via Hypestat)</p>
           </div>
           <div>
