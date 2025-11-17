@@ -1,0 +1,88 @@
+ import Header from '../../layout/header'
+ import Footer from '../../layout/footer'
+ import Herosection from '../dashboard/herosection'
+ import Mobileform from '../dashboard/mobileform'
+import Form from './form'
+ const dashboardAi=()=>{
+        const formSections = [
+    {
+      title: "Press Release Style",
+      type: "select",
+      options: ["Select", "Brand Awareness", "Product Launch", "Event"],
+      bgColor: "bg-[#FBDFDF]",
+      height: "h-[180px] md:h-[300px]",
+      fullWidth: true
+    },
+    {
+      title: "Primary Spokesperson (If Applicable)",
+      type: "select",
+      options: ["Select", "Brand Awareness", "Product Launch", "Event"],
+      bgColor: "bg-[#FBEDDF]",
+      height: "h-[120px] md:h-[180px]"
+    },
+    {
+      title: "Designation Title of spokesperson",
+      type: "text",
+      placeholder: "Enter the title and designation of spokesperson",
+      bgColor: "bg-[#FBEDDF]",
+      height: "h-[120px] md:h-[180px]"
+    },
+    {
+      title: "Select the primary focus of the campaign or release*",
+      type: "select",
+      options: ["Select", "Brand Awareness", "Product Launch", "Event"],
+      bgColor: "bg-[#FBDFDF]",
+      height: "h-[180px] md:h-[300px]"
+    },
+    {
+      title: "Name of spokesperson",
+      type: "text",
+      placeholder: "Enter the name of spokesperson",
+      bgColor: "bg-[#FBEDDF]",
+      height: "h-[120px] md:h-[180px]"
+    },
+    {
+      title: "Go-Live Date / Event / Offer Date*",
+      type: "date",
+      bgColor: "bg-[#FBEDDF]",
+      height: "h-[180px] md:h-[300px]"
+    },
+    {
+      title: "Key highlights / Selling points (Max 3 bullet points)*",
+      type: "text",
+      placeholder: "Enter upto 3 key highlights or selling points",
+      bgColor: "bg-[#FBDFDF]",
+      height: "h-[120px] md:h-[180px]",
+    //   fullWidth: isMobile
+    },
+    {
+      title: "Duration (If Applicable)",
+      type: "select",
+      options: ["Select", "Brand Awareness", "Product Launch", "Event"],
+      bgColor: "bg-[#FBEDDF]",
+      height: "h-[120px] md:h-[180px]"
+    },
+    {
+      title: "Preferred quote for Press (if any) ",
+      type: "text",
+      placeholder: "Enter a quote from the spokesperson Enter a quote from the spokesperson for the press release the press release",
+      bgColor: "bg-[#FBDFDF]",
+      height: "h-[120px] md:h-[180px]"
+    }
+  ];
+    return(
+        <>
+                       <div className="h-auto md:h-screen w-full bg-cover" style={{backgroundImage:'url(/assets/dashboard/raw.png)'}}>
+
+        <Header />
+<Herosection image={'/assets/dashboardcustom/vector-2.svg'}  btn2={' bg-[#FFFFFF] hover:bg-zinc-100 !text-black'}/>
+
+      
+        </div>  
+        <Form />
+        <Mobileform formSections={formSections} />
+              <Footer />
+        </>
+    )
+ }
+ export default dashboardAi

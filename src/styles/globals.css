@@ -119,3 +119,13 @@ h1,h2,h3{  font-family: 'Subscribe Regular';}
   font-style: normal;
 }
 
+.recharts-wrapper{
+  width: 450px!important;
+ 
+}
+ @media(max-width:768px){
+.recharts-wrapper{
+    width: 300px!important;
+
+}
+  }
