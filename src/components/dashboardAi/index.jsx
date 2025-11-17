@@ -10,7 +10,7 @@ import Form from './form'
       type: "select",
       options: ["Select", "Brand Awareness", "Product Launch", "Event"],
       bgColor: "bg-[#FBDFDF]",
-      height: "h-[180px] md:h-[300px]",
+      height: "h-[120px] md:h-[300px]",
       fullWidth: true
     },
     {
@@ -32,7 +32,7 @@ import Form from './form'
       type: "select",
       options: ["Select", "Brand Awareness", "Product Launch", "Event"],
       bgColor: "bg-[#FBDFDF]",
-      height: "h-[180px] md:h-[300px]"
+      height: "h-[120px] md:h-[300px]"
     },
     {
       title: "Name of spokesperson",
@@ -45,7 +45,7 @@ import Form from './form'
       title: "Go-Live Date / Event / Offer Date*",
       type: "date",
       bgColor: "bg-[#FBEDDF]",
-      height: "h-[180px] md:h-[300px]"
+      height: "h-[120px] md:h-[300px]"
     },
     {
       title: "Key highlights / Selling points (Max 3 bullet points)*",
