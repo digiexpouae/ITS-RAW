@@ -16,8 +16,8 @@ export default function StepTwo({ formData, handleChange }) {
 
   const traits = [
     "Sophisticated","Refined","Polished","Chic","Upscale","Prestigious","Exclusive",
-    "Gourmet","Inviting","Welcoming","Adventurous","Comfortable","Cozy","Relaxed",
-    "Humble","Homey","Energetic","Lively","Vibrant","Trendy","Fun","Whimsical","Unique","Edgy"
+    "Gourmet","Inviting","Welcoming","Comfortable","Cozy","Relaxed","Approachable",
+    "Humble","Homey", "Energetic","Lively","Vibrant","Trendy","Fun","Whimsical","Unique","Edgy"
   ];
 
   return (
