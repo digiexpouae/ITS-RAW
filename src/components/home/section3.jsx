@@ -58,9 +58,7 @@ Drop in the raw info about your restaurant and offers, and ItsRaw will generate 
         <div className='w-[32%] h-54  flex flex-col items-center  absolute  bottom-0 right-0 justify-center  border-2 border-dashed border-[#EE3A3D] rounded-2xl'>
         <h2 className="text-[40px]  uppercase text-center leading-[0.8] mb-2">Track It!</h2>
 <p className='text-center text-xl  leading-[1] px-4'>
-And, we’ll pop it all into a neat little list with all the media links and articles
-s
-</p>
+And, we’ll pop it all into a neat little list with all the media links and articles</p>
 <div className='absolute h-[60px] w-full -top-10 left-0 flex items-center justify-center right-0'>
 <div className='rounded-full h-full flex items-center justify-center w-[60px] bg-[#EE3A3D] relative'>
     <div className=' h-[70%] w-[70%] flex items-center justify-center'> <Image src={'/assets/home/r-3-5.svg'} width={50} height={50} className='object-cover '/></div>

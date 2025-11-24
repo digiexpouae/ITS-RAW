@@ -78,7 +78,7 @@ export default function StepTwo({ formData, handleChange }) {
             </div>
           </div>
           <div className="bg-[#FBDFDF] h-[30%] p-5 rounded-xl">
-            <p className="font-semibold mb-3">What is the coverage area per person?</p>
+            <p className="font-semibold mb-3">What is the average cost of a meal per person? (Optional)</p>
             <input
               type="range"
               name="coverage"
