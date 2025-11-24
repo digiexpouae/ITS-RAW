@@ -10,7 +10,7 @@ const herosection=({image,btn,btn2})=>{
 
 
 
-Restraunt<br />
+Restaurant <br />
 <span className="">
 Information</span>
 </h2>
