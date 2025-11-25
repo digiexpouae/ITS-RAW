@@ -66,7 +66,7 @@ export default function CampaignForm({formSections}) {
           {formSections.map((section, index) => (
             <div 
               key={index}
-              className={`${section.bgColor} p-4 rounded-2xl flex flex-col ${section.height} ${section.fullWidth ? 'md:col-span-2' : ''}`}
+              className={`${section.bgColor} p-4 rounded-2xl flex flex-col justify-between ${section.height} ${section.fullWidth ? 'md:col-span-2' : ''}`}
             >
               <label className="font-medium text-sm mb-2">
                 {section.title.split('\n').map((line, i) => (
