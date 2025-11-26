@@ -3,6 +3,7 @@ import Footer from "@/layout/footer"
 import Form from './form'
 import Herosection from "./herosection"
 import Mobileform from './mobileform'
+import { useState } from "react"
 const index=()=>{
     const formSections = [
     {
@@ -69,13 +70,46 @@ const index=()=>{
       height: "h-[120px] md:h-[335px]"
     }
   ];
+   const initialFormData = formSections.reduce((acc, section) => {
+    acc[section.title] = section.type === "file" ? null : "";
+    return acc;
+  }, {});
+  
+  const [loading,setLoading]=useState(false)
+  const [formData,setFormData]=useState(initialFormData)
+  
+  console.log("fomdata:", formData);
+  
+  const handleChange = (key, value) => {
+    setFormData(prev => ({
+      ...prev,
+      [key]: value
+    }));
+  };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+  
+    const formDataToSend = new FormData();
+  
+    Object.entries(formData).forEach(([key, value]) => {
+      formDataToSend.append(key, value);
+    });
+  
+    console.log("API-ready FormData:", [...formDataToSend.entries()]);
+    
+    setLoading(true);
+    setFormData(initialFormData);
+    setTimeout(() => {
+      setLoading(false)
+    }, 5000);
+  };
     return(
         <>
         <div className="h-screen md:h-[90vh] w-full bg-cover relative overflow-hidden" style={{backgroundImage:'url(/assets/dashboard/raw.png)'}}>
 <Header />
 <Herosection image={'/assets/dashboard/Layer_1.png'} />
   </div>
-  {/* <Mobileform formSections={formSections}/> */}
+         <Mobileform handleSubmit={handleSubmit} formData={formData} loading={loading} handleChange={handleChange} formSections={formSections}  />
   <Form />
 <Footer />
 </>
