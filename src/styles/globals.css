@@ -129,3 +129,27 @@ h1,h2,h3{  font-family: 'Subscribe Regular';}
 
 }
   }
+  .game-drop {
+  animation: gameDrop 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+  transform-origin: top;
+  opacity: 0;
+}
+
+@keyframes gameDrop {
+  0% {
+    transform: translateY(-80px) scale(0.9);
+    opacity: 0;
+    clip-path: inset(0 0 100% 0);
+  }
+  
+  60% {
+    transform: translateY(0px) scale(1.05);
+    opacity: 1;
+    clip-path: inset(0 0 0 0);
+  }
+
+  100% {
+    transform: translateY(0px) scale(1);
+    opacity: 1;
+  }
+}

@@ -1,10 +1,20 @@
- import Header from '../../layout/header'
+
+import Header from '../../layout/header'
  import Footer from '../../layout/footer'
  import Herosection from '../dashboard/herosection'
  import Mobileform from '../dashboard/mobileform'
 import Form from './form'
+import { useState } from 'react'
  const dashboardAi=()=>{
         const formSections = [
+            {
+      title: "Upload Your Image",
+      type: "file",
+      // options: ["Select", "Brand Awareness", "Product Launch", "Event"],
+      bgColor: "bg-[#FBDFDF]",
+      height: "h-[120px]",
+      fullWidth: true
+    },
     {
       title: "Press Release Style",
       type: "select",
@@ -69,8 +79,42 @@ import Form from './form'
       bgColor: "bg-[#FBDFDF]",
       height: "h-[120px] md:h-[180px]"
     }
-  ];
-    return(
+  ]
+  const initialFormData = formSections.reduce((acc, section) => {
+  acc[section.title] = section.type === "file" ? null : "";
+  return acc;
+}, {});
+
+const [loading,setLoading]=useState(false)
+const [formData,setFormData]=useState(initialFormData)
+
+console.log("fomdata:", formData);
+
+const handleChange = (key, value) => {
+  setFormData(prev => ({
+    ...prev,
+    [key]: value
+  }));
+};
+const handleSubmit = async (e) => {
+  e.preventDefault();
+
+  const formDataToSend = new FormData();
+
+  Object.entries(formData).forEach(([key, value]) => {
+    formDataToSend.append(key, value);
+  });
+
+  console.log("API-ready FormData:", [...formDataToSend.entries()]);
+  
+  setLoading(true);
+  setFormData(initialFormData);
+  setTimeout(() => {
+    setLoading(false)
+  }, 5000);
+};
+
+  return(
         <>
                        <div className="h-auto md:h-[90vh] w-full bg-cover overflow-hidden" style={{backgroundImage:'url(/assets/dashboard/raw.png)'}}>
 
@@ -79,8 +123,8 @@ import Form from './form'
 
       
         </div>  
-        <Form />
-        <Mobileform formSections={formSections} />
+        <Form  />
+         <Mobileform handleSubmit={handleSubmit} formData={formData} loading={loading} handleChange={handleChange} formSections={formSections} dashboardAi={true}  />
               <Footer />
         </>
     )

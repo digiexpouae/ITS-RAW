@@ -25,7 +25,7 @@ press Release</span>
             </button>
 </div>
 
-<div className="flex gap-4 lg:flex-row flex-col md:items-center pt-4 font-semibold whitespace-nowrap">
+{/* <div className="flex gap-4 lg:flex-row flex-col md:items-center pt-4 font-semibold whitespace-nowrap">
     <p>Upload Your Image</p>
 <div className="bg-white flex gap-4  cursor-pointer  items-center px-4 text-white rounded-md font-medium transition-colors duration-200">
 <div className="borderborder-gray-400 rounded-md flex flex-col md:items-center md:justify-center p-2 text-sm text-gray-500">
@@ -38,7 +38,7 @@ press Release</span>
           
             </div>
 
-</div>
+</div> */}
 
 </div>
 <div className=" h-[50%]  w-full  lg:w-1/2 lg:h-full flex items-center justify-center  ">

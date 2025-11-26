@@ -10,7 +10,9 @@ return(
 <Header />
 <Herosection image={'/assets/dashboardrelease/stats.png'}  btn2={' bg-[#FFFFFF] hover:bg-zinc-100 !text-black'} />
         </div>
+
         <AnalyticsSection />
+    
 <Footer />
 </>
 )

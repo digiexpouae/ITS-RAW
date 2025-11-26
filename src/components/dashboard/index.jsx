@@ -75,7 +75,7 @@ const index=()=>{
 <Header />
 <Herosection image={'/assets/dashboard/Layer_1.png'} />
   </div>
-  <Mobileform formSections={formSections}/>
+  {/* <Mobileform formSections={formSections}/> */}
   <Form />
 <Footer />
 </>

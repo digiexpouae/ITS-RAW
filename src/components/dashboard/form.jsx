@@ -64,7 +64,7 @@ Campaign</label>
             <option value="">Select</option>
           </select>
         </div>
-        <div className="col-span-1 bg-[#FBDFDF] w-1/2 p-4 h-[180px] rounded-2xl flex flex-col justify-between">
+        <div className="col-span-1 bg-[#FBDFDF] w-1/2 p-6 h-[180px] rounded-2xl flex flex-col justify-between">
           <label className="font-medium text-sm mb-1">Offer Date <br />
 If Applicable</label>
           
