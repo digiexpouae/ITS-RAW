@@ -102,7 +102,7 @@ const home=()=>{
  
   
     return(<div className="bg-white h-[90vh] relative  w-full">
-<div className="block absolute top-[35%] lg:top-0 left-0 right-0 bottom-0">
+<div className="block absolute  lg:top-6 h-full flex lg:items-end lg:justify-end left-0 right-0 bottom-0">
 <Image src="/assets/home/Vector.webp" ref={ribbonRef}   alt="section1" width={1900} height={800} className="object-contain"/>
 </div>
 <div className="absolute w-full flex items-center justify-center h-full ">

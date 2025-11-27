@@ -12,7 +12,7 @@ const AnalyticsSection = () => {
        <div className='flex flex-col md:w-1/2 justify-center bg-[#FBDFDF] p-4 rounded-lg'> <div className="flex-1  flex items-center gap-4 md:gap-0 justify-between">
           <div className='md:w-1/2'>
             <p className="text-sm text-gray-600">Site monthly visits</p>
-            <span className="text-5xl  text-[#EE3A3D]" style={{ fontFamily: 'Subscribe Regular'}}>833,925,212</span>
+            <span className="text-5xl  text-[#EE3A3D]" style={{ fontFamily: 'Subscribe'}}>833,925,212</span>
              <p className='text-sm'>(Via Hypestat)</p>
           </div>
 <div className='relative md:w-1/3 h-full flex items-center justify-center md:items-end md:justify-end '>
@@ -29,7 +29,7 @@ className='object-cover'
        <div className=' bg-[#FBEDDF] md:w-1/2 p-4 rounded-lg'> <div className="flex-1 flex items-center justify-between">
           <div>
             <p className="text-sm text-gray-600">Total AVE</p>
-            <span className="text-5xl  text-[#EE3A3D] flex items-center" style={{ fontFamily: 'Subscribe Regular,sans-serif'}}> $839,250</span>
+            <span className="text-5xl  text-[#EE3A3D] flex items-center" style={{ fontFamily: 'Subscribe,sans-serif'}}> $839,250</span>
         <p className='text-sm'>(Via Hypestat)</p>
           </div>
           <div>
@@ -46,7 +46,7 @@ className='object-cover'
         <div className="bg-white p-4 rounded-lg ">
           {/* <p className="font-semibold mb-2">Performance by Release</p> */}
           {/* <div className="h-48 bg-gray-200 rounded"></div> */}
-       <Chart />
+       {/* <Chart /> */}
        </div>
 
         {/* <div className="bg-white p-4 rounded-lg shadow">

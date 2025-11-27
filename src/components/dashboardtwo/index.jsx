@@ -1,4 +1,4 @@
-import Header from "@/layout/header"
+import Header from "@/layout/header-2"
 import Herosection from "./herosection"
 import Sectionthree from "./sectionthree"
 import Footer from '../../layout/footer'

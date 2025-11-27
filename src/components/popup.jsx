@@ -69,7 +69,7 @@ useEffect(()=>{
 
        
       </div>
-       <p className="mt-4 text-3xl font-bold  tracking-wide" style={{  fontFamily: 'Subscribe Regular'}}>
+       <p className="mt-4 text-3xl font-bold  tracking-wide" style={{  fontFamily: 'Subscribe'}}>
           LOADING
         </p>
       </div>

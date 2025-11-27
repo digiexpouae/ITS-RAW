@@ -1,5 +1,5 @@
 
-import Header from '../../layout/header'
+import Header from '../../layout/header-2'
  import Footer from '../../layout/footer'
  import Herosection from '../dashboard/herosection'
  import Mobileform from '../dashboard/mobileform'

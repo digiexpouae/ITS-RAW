@@ -1,5 +1,5 @@
 import Herosection from "./herosection"
-import Header from '../../layout/header'
+import Header from '../../layout/header-2'
 import Footer from '../../layout/footer'
 import DashboardInfo from "./dashboardinfoform"
 const index=()=>{

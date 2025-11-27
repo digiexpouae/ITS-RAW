@@ -28,7 +28,7 @@ export default function StepTwo({ formData, handleChange }) {
 
       {/* Restaurant Features */}
       <div className="bg-[#FBEDDF] py-12 px-4 flex flex-col justify-between rounded-xl mb-6">
-        <p className="font-semibold mb-3">Restaurant Features</p>
+        <p className="font-medium mb-3">Restaurant Features</p>
         <div className="flex flex-wrap text-[#9B9B9B] font-medium gap-4 text-sm">
           {[
             'Is licensed (i.e. serves alcohol)',
@@ -38,7 +38,7 @@ export default function StepTwo({ formData, handleChange }) {
             'Valet parking available',
             'Kids Friendly',
             'Take away'
-          ].map((feature, index) => (
+          ].map((feature,index) => (
             <label key={index} className="flex items-center gap-2">
               <input
                 type="checkbox"
@@ -46,7 +46,7 @@ export default function StepTwo({ formData, handleChange }) {
                 value={feature}
                 checked={formData.features?.includes(feature) || false}
                 onChange={handleChange}
-                className="accent-red-500"
+                className="accent-red-500 h-4 w-4"
               />
               {feature}
             </label>
@@ -58,9 +58,9 @@ export default function StepTwo({ formData, handleChange }) {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
 
         {/* Cuisine */}
-        <div className="flex flex-col gap-4 justify-between h-[450px]">
-          <div className="bg-[#FBEDDF] flex flex-col justify-between p-5 rounded-xl h-[70%]">
-            <p className="font-semibold mb-3">What type of cuisine do you serve (max.2)</p>
+        <div className="flex flex-col gap-4 justify-between h-[500px]">
+          <div className="bg-[#FBEDDF] flex flex-col justify-between py-8 p-5 rounded-xl h-[70%]">
+            <p className="font-medium mb-3">What type of cuisine do you serve (max.2)</p>
             <div className="grid grid-cols-3 md:grid-cols-4 gap-2 text-[#9B9B9B] font-medium text-sm">
               {cuisines.map((item, i) => (
                 <label key={i} className="flex items-center gap-2">
@@ -70,15 +70,15 @@ export default function StepTwo({ formData, handleChange }) {
                     value={item}
                     checked={formData.cuisines?.includes(item) || false}
                     onChange={handleChange}
-                    className="accent-red-500"
+                    className="accent-red-500 h-4 w-4"
                   />
                   {item}
                 </label>
               ))}
             </div>
           </div>
-          <div className="bg-[#FBDFDF] h-[30%] p-5 rounded-xl">
-            <p className="font-semibold mb-3">What is the average cost of a meal per person? (Optional)</p>
+          <div className="bg-[#FBDFDF] h-[30%] py-8 p-5 rounded-xl">
+            <p className="font-medium  mb-3">What is the average cost of a meal per person? (Optional)</p>
             <input
               type="range"
               name="coverage"
@@ -97,8 +97,8 @@ export default function StepTwo({ formData, handleChange }) {
         </div>
 
         {/* Best Dishes */}
-        <div className="bg-[#FBDFDF] h-[450px] flex flex-col justify-between p-5 rounded-xl">
-          <p className="font-semibold mb-3">What best describes your menu?</p>
+        <div className="bg-[#FBDFDF] h-[500px] flex flex-col justify-between py-8 p-5 rounded-xl">
+          <p className="font-medium  mb-3">What best describes your menu?</p>
           <div className="grid grid-cols-2 text-[#9B9B9B] font-medium gap-2 text-sm">
             {bestDishes.map((item, i) => (
               <label key={i} className="flex items-center gap-2">
@@ -108,7 +108,7 @@ export default function StepTwo({ formData, handleChange }) {
                   value={item}
                   checked={formData.bestDishes?.includes(item) || false}
                   onChange={handleChange}
-                  className="accent-red-500"
+                  className="accent-red-500     h-4 w-4"
                 />
                 {item}
               </label>
@@ -118,28 +118,28 @@ export default function StepTwo({ formData, handleChange }) {
       </div>
 
       {/* Describe Restaurant */}
-      <div className="bg-[#FBDFDF] p-5 rounded-xl mb-6">
-        <p className="font-semibold mb-3">Describe your restaurant</p>
+      <div className="bg-[#FBDFDF] h-[250px]  flex flex-col justify-between  py-8 p-5 rounded-xl mb-6">
+        <p className="font-medium mb-3">Describe your restaurant</p>
         <textarea
           name="description"
           rows={4}
           value={formData.description || ''}
           onChange={handleChange}
-          className="w-full border p-3 rounded-md bg-white"
+          className="w-full border p-3 resize-none rounded-md bg-white"
           placeholder="Write here..."
         />
       </div>
 
       {/* Personality */}
-      <div className="bg-[#FBEDDF] flex flex-col justify-between px-4  md:h-[350px] py-6 rounded-xl mb-6">
-        <p className="font-semibold mb-3">
-          Pick the words that describe your restaurant’s personality/style
+      <div className="bg-[#FBEDDF] flex flex-col justify-between px-6  md:h-[450px] py-8 rounded-xl mb-6">
+        <p className="font-medium mb-3">
+Pick the words that describe your restaurant's personality/vibe
         </p>
-        <div className="text-[#9B9B9B] font-medium">
-          {['Formal & Elegant', 'Casual & Friendly', 'Bold & Playful'].map((category, idx) => (
-            <div key={idx} className="my-4">
-              <p className="text-sm mb-2">{category}</p>
-              <div className="grid grid-cols-2 md:grid-cols-7 gap-2 text-sm">
+        <div className="text-[#9B9B9B] font-medium flex flex-col gap-2">
+          {['Formal & Elegant:', 'Casual & Friendly:', 'Bold & Playful:'].map((category, idx) => (
+            <div key={idx} className="my-4 flex flex-col gap-2">
+              <p className="text-sm mb-2 text-black">{category}</p>
+              <div className="grid grid-cols-2 md:flex gap-4 text-sm">
                 {traits.slice(idx * 8, idx * 8 + 8).map((trait, i) => (
                   <label key={i} className="flex items-center gap-2">
                     <input
@@ -148,7 +148,7 @@ export default function StepTwo({ formData, handleChange }) {
                       value={trait}
                       checked={formData.traits?.includes(trait) || false}
                       onChange={handleChange}
-                      className="accent-red-500"
+                      className="accent-red-500 h-4 w-4"
                     />
                     {trait}
                   </label>

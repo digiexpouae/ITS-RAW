@@ -6,41 +6,39 @@ body {
   overflow-x: hidden;
 
 }
-h1,h2,h3{  font-family: 'Subscribe Regular';}
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap');
-
+h1,h2,h3{  font-family: 'Subscribe';}
+/* @import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap'); */
+/* Regular */
 @font-face {
-  font-family: 'Subscribe Regular';
-  font-style: normal;
+  font-family: 'Subscribe';
+  src: url('/assets/fonts/Subscribe.ttf') format('truetype');
   font-weight: normal;
-  src: local('Subscribe Regular'), url('/assets/fonts/Subscribe.woff') format('woff');
+  font-style: normal;
 }
 
 /* Italic */
 @font-face {
-  font-family: 'Subscribe Italic';
-  font-style: italic;
+  font-family: 'Subscribe';
+  src: url('/assets/fonts/Subscribe-Italic.ttf') format('truetype');
   font-weight: normal;
-  src: local('Subscribe Italic'), url('/assets/fonts/Subscribe-Italic.woff') format('woff');
+  font-style: italic;
 }
 
 /* Shadow Regular */
 @font-face {
-  font-family: 'Subscribe Shadow Regular';
-  font-style: normal;
+  font-family: 'SubscribeShadow';
+  src: url('/assets/fonts/SubscribeShadow.ttf') format('truetype');
   font-weight: normal;
-  src: local('Subscribe Shadow Regular'), url('/assets/fonts/SubscribeShadow.woff') format('woff');
+  font-style: normal;
 }
 
 /* Shadow Italic */
 @font-face {
-  font-family: 'Subscribe Shadow Italic';
-  font-style: italic;
+  font-family: 'SubscribeShadow';
+  src: url('/assets/fonts/SubscribeShadow-Italic.ttf') format('truetype');
   font-weight: normal;
-  src: local('Subscribe Shadow Italic'), url('/assets/fonts/SubscribeShadow-Italic.woff') format('woff');
+  font-style: italic;
 }
-
-
 
 
 @keyframes tpupdown {

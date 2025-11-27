@@ -5,7 +5,7 @@ export default function Pricing() {
       {
         name: "Walk-in",
         target: "For individuals",
-       price:<span  style={{fontFamily: 'Subscribe Regular'}}>FREE</span> ,
+       price:<span  style={{fontFamily: 'Subscribe'}}>FREE</span> ,
 
         icon:"/assets/home/ic-3.svg",
         features: [
@@ -20,7 +20,7 @@ export default function Pricing() {
       {
         name: "Regular",
         target: "For Restaurants",
-        price:<span className="font-sm" style={{fontFamily: 'Subscribe Regular'}}>AED 365
+        price:<span className="font-sm" style={{fontFamily: 'Subscribe'}}>AED 365
        
 </span> ,
       
@@ -40,7 +40,7 @@ export default function Pricing() {
         name: "VIP",
         target: "For groups",
         icon:"/assets/home/ic-1.svg",
-        price:<span  style={{fontFamily: 'Subscribe Regular'}}>Price on request</span> ,
+        price:<span  style={{fontFamily: 'Subscribe'}}>Price on request</span> ,
         features: [
           "Bespoke white-label solutions",
           "Multi-user dashboards",

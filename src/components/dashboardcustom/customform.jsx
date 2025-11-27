@@ -75,7 +75,7 @@ const CustomForm = () => {
         className="max-w-5xl mx-auto px-4 flex flex-col items-center gap-3 justify-between"
       >
         {/* File Upload */}
-        <div className="py-8 w-full px-4 flex flex-col gap-2 bg-[#FBDFDF] rounded-xl">
+        <div className="py-8 w-full px-4 flex flex-col gap-2 bg-[#FBDFDF] h-[180px] justify-between rounded-xl">
           <label className="font-medium">Upload Your Image</label>
           <div
             className="bg-white flex justify-between w-full items-center px-2 cursor-pointer text-white rounded-md font-medium transition-colors duration-200"
@@ -102,7 +102,7 @@ const CustomForm = () => {
         </div>
 
         {/* Press Release Title */}
-        <div className="py-8 w-full px-4 flex flex-col gap-2 bg-[#FBEDDF] rounded-xl">
+        <div className="py-8 w-full px-4 flex flex-col justify-between h-[180px] gap-2 bg-[#FBEDDF] rounded-xl">
           <label className="font-medium">Press Release Title</label>
           <input
             type="text"
@@ -115,14 +115,14 @@ const CustomForm = () => {
         </div>
 
         {/* Press Release Content */}
-        <div className="py-8 w-full px-4 flex flex-col gap-2 bg-[#FBDFDF] rounded-xl">
+        <div className="py-8 w-full px-4 flex flex-col  justify-between h-[350px] gap-2 bg-[#FBDFDF] rounded-xl">
           <label className="font-medium">Write your press release here</label>
           <textarea
             name="content"
             placeholder="Write"
             value={formData.content}
             onChange={handleChange}
-            className="border border-gray-300 bg-white rounded-md p-2 h-64 text-sm focus:outline-none resize-none"
+            className="border border-gray-300 bg-white rounded-md p-2 h-[70%] text-sm focus:outline-none resize-none"
           />
         </div>
 

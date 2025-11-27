@@ -1,4 +1,4 @@
-import Header from "@/layout/header"
+import Header from "@/layout/header-2"
 import Herosection from "../dashboard/herosection"
 import Footer from '../../layout/footer'
 import Customform from './customform'
