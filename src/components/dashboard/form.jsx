@@ -1,4 +1,58 @@
+import { FolderInputIcon } from "lucide-react";
+import { useState } from "react";
 export default function CampaignForm() {
+
+  const [formData, setFormData] = useState({
+    headline: "",
+    speakerName: "",
+    keyHighlights: "",
+    quote: "",
+    speakerTitle: "",
+    campaignFocus: "",
+    offerDate: "",
+    offerDuration: "",
+    speakerRole: "",
+    images: null,
+  });
+
+  
+  // Handle form submission
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const data = new FormData();
+    for (const key in formData) {
+      if (key === "images" && formData.images) {
+        Array.from(formData.images).forEach((file) => {
+          data.append("images", file);
+        });
+      } else {
+        data.append(key, formData[key]);
+      }
+    }
+
+    try {
+      const response = await fetch("/api/campaign", {
+        method: "POST",
+        body: data,
+      });
+      const result = await response.json();
+      console.log("Success:", result);
+      alert("Campaign submitted successfully!");
+    } catch (error) {
+      console.error("Error:", error);
+      alert("Submission failed.");
+    }
+  };
+    const handleChange = (e) => {
+    const { name, value, type, files } = e.target;
+    if (type === "file") {
+      setFormData({ ...formData, [name]: files });
+    } else {
+      setFormData({ ...formData, [name]: value });
+    }
+  };
+
+
   return (<>
 
     <div className="min-h-screen  hidden lg:flex flex-col  items-center justify-center p-8 my-10">
@@ -15,11 +69,15 @@ export default function CampaignForm() {
         <div className="flex flex-col gap-4">
         <div className="col-span-1 bg-[#FBDFDF] h-[250px] py-8 w-[250px] p-3 rounded-2xl flex flex-col justify-between">
           <label className="font-medium text-sm mb-1">Headline / Subject</label>
-          <input type="text" placeholder="Write" className="border border-gray-300 bg-white rounded-md p-2 h-24 text-sm" />
+          <input type="text" name="headline"   value={formData.headline}
+                onChange={handleChange}  placeholder="Write" className="border border-gray-300 bg-white text-black rounded-md p-2 h-24 text-sm" />
         </div>
    <div className="col-span-1 bg-[#FBEDDF] p-3 h-[180px] py-8  w-[250px] rounded-2xl flex flex-col justify-between">
           <label className="font-medium text-sm mb-1">Speaker name</label>
-                   <input type="text" placeholder="Write" className="border border-gray-300 bg-white rounded-md p-2 text-sm" />
+                   <input type="text" 
+                   name="speakerName"
+                       value={formData.speakerName}
+                onChange={handleChange}  placeholder="Write" className="border border-gray-300 bg-white rounded-md p-2 text-sm" />
 
         </div>
         </div>
@@ -30,20 +88,25 @@ export default function CampaignForm() {
 your story</label>
 
            
-          <select className="border bg-white text-start  border-gray-400 rounded-md flex flex-col items-center justify-center p-2 text-sm text-gray-500">
+          <select   name="keyHighlights" value={formData.keyHighlights}
+                onChange={handleChange} className="border bg-white text-start  border-gray-400 rounded-md flex flex-col items-center justify-center p-2 text-sm text-gray-500">
             <option value="">Formal</option>
           </select>
         </div>
           <div className="col-span-1 bg-[#FBDFDF] h-[250px] p-3 py-8 rounded-2xl flex flex-col justify-between">
           <label className="font-medium text-sm mb-1">Quote for media</label>
-          <input type="text" placeholder="Write" className="border border-gray-300 bg-white rounded-md p-2 text-sm" />
+          <input type="text"  name="quote"
+              value={formData.quote}
+              onChange={handleChange} placeholder="Write" className="border border-gray-300 bg-white rounded-md p-2 text-sm" />
         </div>
         </div></div>
         <div className="flex gap-4">
      
         <div className="col-span-1 bg-[#FBDFDF] h-[180px] w-[500px] py-8 p-3 rounded-2xl flex flex-col justify-between">
           <label className="font-medium text-sm mb-1">Speaker Title </label>
-          <input type="text" placeholder="Write" className="border border-gray-300 bg-white rounded-md p-2 text-sm" />
+          <input type="text" name="speakerTitle"
+          value={formData.speakerTitle}
+              onChange={handleChange} placeholder="Write" className="border border-gray-300 bg-white rounded-md p-2 text-sm" />
         </div>
   
 
@@ -60,7 +123,8 @@ your story</label>
 Campaign</label>
 
            
-          <select className="border bg-white text-start  border-gray-400 rounded-md flex flex-col items-center justify-center p-2 text-sm text-gray-500">
+          <select name="campaignFocus" value={formData.campaignFocus} onChange={handleChange} className="border bg-white text-start  border-gray-400 rounded-md flex flex-col items-center justify-center p-2 text-sm text-gray-500">
+
             <option value="">Select</option>
           </select>
         </div>
@@ -68,14 +132,18 @@ Campaign</label>
           <label className="font-medium text-sm mb-1">Offer Date <br />
 If Applicable</label>
           
-            <input type="date" className="border border-gray-400 bg-white rounded-md flex flex-col items-center justify-center px-6 py-2 text-sm text-gray-500"/>
+            <input type="date"   name="offerDate" value={formData.offerDate}
+                onChange={handleChange}  className="border border-gray-400 bg-white rounded-md flex flex-col items-center justify-center px-6 py-2 text-sm text-gray-500"/>
           
         </div>
         </div>
           <div className="col-span-1 bg-[#FBEDDF] w-full py-8  h-[250px] p-3 rounded-2xl flex flex-col justify-between">
           <label className="font-medium text-sm mb-1">Insert images 
 (optional)</label>
-          <input type="file" placeholder="Write" className="border border-gray-300 bg-white rounded-md p-2 text-sm" />
+          <input type="file" 
+              name="images"
+              multiple
+              onChange={handleChange} placeholder="Write" className="border border-gray-300 bg-white rounded-md p-2 text-sm" />
         </div>
                  <div className="flex gap-4 w-full">
    <div className="col-span-1 bg-[#FBDFDF] p-3 w-1/2  h-[180px] rounded-2xl py-8 flex flex-col justify-between">
@@ -86,7 +154,7 @@ If Applicable</label>
             <div className="col-span-1 bg-[#FBEDDF] w-1/2 h-[180px] p-3  py-8 rounded-2xl flex flex-col justify-between">
           <label className="font-medium text-sm mb-1">Offer Duration 
 (if applicable)</label>
-            <input type="date" className="border border-gray-400 bg-white rounded-md flex flex-col items-center justify-center px-6 py-2 text-sm text-gray-500"/>
+            <input type="date" name="offerDuration"  value={formData.offerDuration}             onChange={handleChange} className="border border-gray-400 bg-white rounded-md flex flex-col items-center justify-center px-6 py-2 text-sm text-gray-500"/>
         </div>
         </div>
         </div>

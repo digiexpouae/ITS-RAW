@@ -1,6 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { SignInButton,
+  SignUpButton,
+  SignedIn,
+  SignedOut,
+  UserButton} from '@clerk/nextjs'
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -55,14 +60,24 @@ const Header = () => {
 
           {/* Contact Button */}
           <div className="hidden md:flex gap-2 ">
-            <button className="bg-[#000000] hover:bg-zinc-500 cursor-pointer  text-white px-6 py-2 rounded-md font-medium transition-colors duration-200">
-            Signup
-            </button>
-            <button className="bg-white-600 hover:bg-zinc-100 cursor-pointer border text-black px-6 py-2 rounded-md font-medium transition-colors duration-200">
+            <SignedOut>
+              <SignInButton >
+                  <button className="bg-white-600 hover:bg-zinc-100 cursor-pointer border text-black px-6 py-2 rounded-md font-medium transition-colors duration-200">
               Login
             </button>
+              </SignInButton>
+              <SignUpButton>
+                 <button className="bg-[#000000] hover:bg-zinc-500 cursor-pointer  text-white px-6 py-2 rounded-md font-medium transition-colors duration-200">
+            Signup
+            </button>
+              </SignUpButton>
+            </SignedOut>
+            <SignedIn>
+              <UserButton />
+            </SignedIn>
+          
           </div>
-        
+       
 
           {/* Mobile menu button */}
           <div className="md:hidden">
