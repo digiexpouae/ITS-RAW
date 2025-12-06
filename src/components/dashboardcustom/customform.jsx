@@ -1,12 +1,12 @@
 import { useState, useRef } from 'react';
 import Popup from '../popup';
 import Image from 'next/image';
-
+import { useRouter } from 'next/router';
 const CustomForm = () => {
   const [loading, setLoading] = useState(false);
 
   // Single object to hold all form values
-
+const router= useRouter()
   const [formData, setFormData] = useState({
     title: '',
     content: '',
@@ -63,6 +63,7 @@ const CustomForm = () => {
     setTimeout(() => {
      setLoading(false);
    }, 5000);
+       router.push("/dashboard-dashboard");
 
 
     }
@@ -72,10 +73,10 @@ const CustomForm = () => {
     <div className="py-18 w-full">
       <form
         onSubmit={handleSubmit}
-        className="max-w-5xl mx-auto px-4 flex flex-col items-center gap-3 justify-between"
+        className="max-w-5xl mx-auto px-4 md:px-0 flex flex-col items-center gap-3 justify-between"
       >
         {/* File Upload */}
-        <div className="py-8 w-full px-4 flex flex-col gap-2 bg-[#FBDFDF] h-[180px] justify-between rounded-xl">
+        <div className="md:py-8 p-4 w-full md:px-4 flex flex-col gap-2 bg-[#FBDFDF] h-[120px]  md:h-[180px] justify-between rounded-xl">
           <label className="font-medium">Upload Your Image</label>
           <div
             className="bg-white flex justify-between w-full items-center px-2 cursor-pointer text-white rounded-md font-medium transition-colors duration-200"
@@ -102,7 +103,7 @@ const CustomForm = () => {
         </div>
 
         {/* Press Release Title */}
-        <div className="py-8 w-full px-4 flex flex-col justify-between h-[180px] gap-2 bg-[#FBEDDF] rounded-xl">
+        <div className="md:py-8 w-full p-4 md:px-4 flex flex-col justify-between h-[120px] md:h-[180px] gap-2 bg-[#FBEDDF] rounded-xl">
           <label className="font-medium">Press Release Title</label>
           <input
             type="text"
@@ -115,7 +116,7 @@ const CustomForm = () => {
         </div>
 
         {/* Press Release Content */}
-        <div className="py-8 w-full px-4 flex flex-col  justify-between h-[350px] gap-2 bg-[#FBDFDF] rounded-xl">
+        <div className="md:py-8 w-full md:px-4 flex flex-col  justify-between p-4 h-[220px] md:h-[350px] gap-2 bg-[#FBDFDF] rounded-xl">
           <label className="font-medium">Write your press release here</label>
           <textarea
             name="content"

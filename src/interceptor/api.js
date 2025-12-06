@@ -14,7 +14,7 @@ export default function useApi() {
       request.headers.set('Authorization', `Bearer ${await getToken()}`);
       return request;
     }
-
+// run code before sending request
     client.interceptors.request.use(authInterceptor);
     return () => client.interceptors.request.eject(authInterceptor);
   }, [getToken])

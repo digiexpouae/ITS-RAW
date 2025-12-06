@@ -2,6 +2,7 @@
 import React from 'react';
 import Image from 'next/image'
 import Chart from './chart'
+import Link from 'next/link';
 const AnalyticsSection = () => {
 
   return (
@@ -60,9 +61,9 @@ className='object-cover'
 
       <div className="bg-[#FBEDDF]  py-10 p-4 rounded-lg">
         <p className="mb-8 font-medium">No Draft press release yet</p>
-        <button className="bg-red-600 text-white cursor-pointer px-4 py-2 rounded hover:bg-red-300">
+      <Link href="/new">  <button className="bg-red-600 text-white cursor-pointer px-4 py-2 rounded hover:bg-red-300">
           Create new press release
-        </button>
+        </button></Link>
       </div>
     </div>
   );

@@ -2,6 +2,7 @@
 import { useRef, useState } from 'react';
 import Popup from '../popup'
 import Image from 'next/image';
+import { useRouter } from "next/navigation";
 export default function CampaignForm() {
       const [loading, setLoading] = useState(false);
       const inputRef=useRef()
@@ -9,6 +10,7 @@ export default function CampaignForm() {
    const [formData, setFormData] = useState({
     file: null,
   });
+  const router=useRouter()
 
   // ⭐ Handle text/select/date changes
   const handleChange = (e) => {
@@ -28,6 +30,7 @@ export default function CampaignForm() {
       ...prev,
       file,
     }));
+ 
   };
 
 
@@ -48,6 +51,7 @@ export default function CampaignForm() {
     setTimeout(() => {
       setLoading(false);
     }, 3000);
+       router.push("/dashboard-dashboard");
   };
 
   return (<>
@@ -96,13 +100,22 @@ export default function CampaignForm() {
   <select   name="pressReleaseStyle"
                           onChange={handleChange}  className="border bg-white text-start  border-gray-400 rounded-md flex flex-col items-center justify-center p-2 text-sm text-gray-500">
             <option value="">Select</option>
+          <option value="">Formal</option>
+          <option value="">Fun</option>
+
           </select>        </div>
    <div className="col-span-1 bg-[#FBEDDF] p-3 py-8 h-[180px]  w-[250px] rounded-2xl flex flex-col justify-between">
           <label className="font-medium text-sm mb-1">Primary Spokesperson
 (If Applicable)</label>
  <select    name="primarySpokesperson"
                           onChange={handleChange} className="border bg-white text-start  border-gray-400 rounded-md flex flex-col items-center justify-center p-2 text-sm text-gray-500">
-            <option value="">Select</option>
+<option value="">Owner</option>
+<option value="">General Manager</option>
+<option value="">Head Chef</option>
+<option value="">Marketing Manager</option>
+<option value="">F&amp;B Director</option>
+<option value="">Other</option>
+
           </select> 
         </div>
         </div>
@@ -115,13 +128,25 @@ of the campaign or release*</label>
            
           <select       name="campaignFocus"
                           onChange={handleChange} className="border bg-white text-start  border-gray-400 rounded-md flex flex-col items-center justify-center p-2 text-sm text-gray-500">
-            <option value="">Select primary focus</option>
+
+            <option value="">New Opening</option>
+<option value="">New Menu / Seasonal Menu</option>
+<option value="">New Chef Announcement</option>
+<option value="">Collaboration / Guest Chef</option>
+<option value="">New Offer / Deal (e.g., Happy Hour, Business Lunch)</option>
+<option value="">Seasonal Campaign (e.g., Ramadan, NYE, Christmas)</option>
+<option value="">Special Event (e.g., Live DJ, Tasting Menu, Workshop)</option>
+<option value="">Venue Redesign / Refurbishment</option>
+<option value="">Awards / Recognitions</option>
+<option value="">Brand Partnership</option>
+<option value="">CSR Initiative / Sustainability Update</option>
+<option value="">Other</option>
           </select>
         </div>
           <div className="col-span-1 bg-[#FBDFDF] h-[250px] p-3 py-8  rounded-2xl flex flex-col justify-between">
           <label className="font-medium text-sm mb-1">Name of spokesperson</label>
-          <input type="text"   name="spokespersonName"
-                          onChange={handleChange} placeholder="Enter the name of spokesperson" className="border border-gray-300 bg-white rounded-md p-2  text-sm" />
+          <textarea type="text"   name="spokespersonName"
+                          onChange={handleChange} placeholder="Enter the name of spokesperson" className="border border-gray-300 resize-none bg-white rounded-md p-2   text-sm" />
         </div>
         </div></div>
         <div className="flex gap-4">
@@ -162,14 +187,17 @@ Offer Date*</label>
            
   <select       name="duration"
                           onChange={handleChange} className="border bg-white text-start  border-gray-400 rounded-md flex flex-col items-center justify-center p-2 text-sm text-gray-500">
-            <option value="">Select primary focus</option>
-          </select>        </div>
+<option value="">One-day only</option>
+<option value="">Week-long</option>
+<option value="">Month-long</option>
+<option value="">Ongoing</option>
+<option value="">Seasonal (e.g., Summer, Ramadan)</option>          </select>        </div>
         </div>
           <div className="col-span-1 bg-[#FBEDDF] w-[500px]  h-[250px]  p-3 py-8 rounded-2xl flex flex-col justify-between">
           <label className="font-medium text-sm mb-1">Key highlights / Selling points (Max 3 bullet points)*</label>
-          <input type="text" placeholder="Enter upto 3 key highlights or selling points
+          <textarea type="text" placeholder="Enter upto 3 key highlights or selling points
 
-" className="border border-gray-300 bg-white rounded-md p-2 text-sm" />
+" className="border border-gray-300 resize-none bg-white rounded-md p-2 h-[120px] text-sm" />
         </div>
              
 
@@ -181,7 +209,7 @@ Offer Date*</label>
 
         <div className="col-span-1 bg-[#FBDFDF] h-[180px] w-[500px]  p-3 py-8 rounded-2xl flex flex-col justify-between">
           <label className="font-medium text-sm mb-1">Preferred quote for Press (if any)  </label>
-          <input type="text" placeholder="Enter the title and designation of spokesperson" className="border border-gray-300 bg-white rounded-md p-2 text-sm" />
+          <textarea type="text" placeholder="Enter the title and designation of spokesperson" className="border border-gray-300 bg-white rounded-md p-2 resize-none h-[70px] text-sm" />
         </div>
           {/* <div className="col-span-1 bg-[#FBEDDF]  h-[335px] p-4 rounded-2xl flex flex-col justify-between">
           <label className="font-medium text-sm mb-1">Headline / Subject</label>

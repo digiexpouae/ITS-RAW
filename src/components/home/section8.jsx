@@ -1,6 +1,6 @@
 // components/Pricing.tsx
 import Image from "next/image";
-
+import Link from "next/link";
 export default function Pricing() {
   return (
     <section className="w-full flex items-center justify-center">
@@ -21,12 +21,14 @@ export default function Pricing() {
         freelancers.
       </p>
       </div>
+      <Link href="/restaurant">
       <button   className="cursor-pointer transition-all  bg-[#EE3A3D] text-white px-2 md:px-6 py-2 rounded-lg
 border-[#EE3A3D]
 border-b-[4px] hover:brightness-110 hover:-translate-y-[1px] hover:border-b-[6px]
-active:border-b-[2px] active:brightness-90 active:translate-y-[2px]">
+active:border-b-[2px] active:brightness-90 active:translate-y-[2px]" >
         Start Your PR Campaign
       </button>
+      </Link>
     </div>
   </div>
 </section>

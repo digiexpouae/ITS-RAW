@@ -4,6 +4,7 @@ import Header from '../../layout/header-2'
  import Herosection from '../dashboard/herosection'
  import Mobileform from '../dashboard/mobileform'
 import Form from './form'
+ import Customform from '../dashboardcustom/customform'
 import { useState } from 'react'
  const dashboardAi=()=>{
         const formSections = [
@@ -84,7 +85,7 @@ import { useState } from 'react'
   acc[section.title] = section.type === "file" ? null : "";
   return acc;
 }, {});
-
+ const [activeForm,setActiveform]=useState("ai")
 const [loading,setLoading]=useState(false)
 const [formData,setFormData]=useState(initialFormData)
 
@@ -119,12 +120,21 @@ const handleSubmit = async (e) => {
                        <div className="h-auto md:h-[90vh] w-full bg-cover overflow-hidden" style={{backgroundImage:'url(/assets/dashboard/raw.png)'}}>
 
         <Header />
-<Herosection image={'/assets/dashboardcustom/vector-2.svg'}  btn2={' bg-[#FFFFFF] hover:bg-zinc-100 !text-black'}/>
+<Herosection image={'/assets/dashboardcustom/vector-2.svg'} activeForm={activeForm} setActiveform={setActiveform}  btn2={' bg-[#FFFFFF] hover:bg-zinc-100 !text-black'}/>
 
       
         </div>  
-        <Form  />
-         <Mobileform handleSubmit={handleSubmit} formData={formData} loading={loading} handleChange={handleChange} formSections={formSections} dashboardAi={true}  />
+{activeForm === "ai" &&(
+      <>  <Form  />
+               <Mobileform handleSubmit={handleSubmit} formData={formData} loading={loading} handleChange={handleChange} formSections={formSections} dashboardAi={true}  />
+</>
+      )}
+
+
+      {activeForm === "custom" && (
+         <Customform />
+      )}
+             
               <Footer />
         </>
     )

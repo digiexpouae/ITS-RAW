@@ -1,5 +1,7 @@
 // components/Pricing.tsx
 import Image from "next/image";
+import { useUser, useAuth } from "@clerk/nextjs";
+import { useRouter } from "next/router";
 export default function Pricing() {
     const plans = [
       {
@@ -52,9 +54,20 @@ export default function Pricing() {
         bg: "bg-white",
       },
     ];
+    const router = useRouter();
+const { isSignedIn } = useUser();
+
+  const handleGetStarted = () => {
+    if (!isSignedIn) {
+router.push("'/sign-in(.*)");
+      return;
+    }
+    router.push("/dashboard");
+  };
+
   
     return (
-      <section className="py-20  flex flex-col items-center justify-center">
+      <section className="py-20  flex flex-col items-center justify-center" id="pricing">
         <div className="text-center">
           <h2 className="text-[50px] md:text-[80px]">
             <span className="text-black">TRY IT FOR </span>
@@ -100,7 +113,7 @@ export default function Pricing() {
             
               {/* Button */}
               <button
-        
+          onClick={handleGetStarted}
                 className={`cursor-pointer transition-all  -6 py-2 rounded-lg
                border-[#EE3A3D]
                border-b-[4px] hover:brightness-110 hover:-translate-y-[1px] hover:border-b-[6px]
