@@ -110,6 +110,7 @@ const index=()=>{
 <Herosection image={'/assets/dashboard/Layer_1.png'} activeform={activeform} Setactiveform={Setactiveform} />
   </div>
          <Mobileform handleSubmit={handleSubmit} formData={formData} loading={loading} handleChange={handleChange} formSections={formSections}  />
+ 
   <Form />
 <Footer />
 </>

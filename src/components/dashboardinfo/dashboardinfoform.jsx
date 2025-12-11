@@ -6,18 +6,19 @@ import Mobileform from './mobileform'
 import {useForm,Controller} from 'react-hook-form'
 import * as Slider from '@radix-ui/react-slider';
 
+import toast, { Toaster } from "react-hot-toast";
 import {zodResolver} from "@hookform/resolvers/zod";
 import {z} from "zod";
 import { register } from 'next/dist/next-devtools/userspace/pages/pages-dev-overlay-setup'
 const dashboardinfoform=()=>{
   const days = [
-  "Monday",
-  "Tuesday",
-  "Wednesday",
-  "Thursday",
-  "Friday",
-  "Saturday",
-  "Sunday",
+  "monday",
+  "tuesday",
+  "wednesday",
+  "thursday",
+  "friday",
+  "saturday",
+  "sunday",
 ];
      
   const cuisines = [
@@ -86,7 +87,6 @@ traits:'',
   })
   
 const restaurantSchema = z.object({
-  restaurantName: z.string().min(2, "Restaurant name must be at least 2 characters").max(100),
   menu: z.string().url("Invalid URL format").optional().or(z.literal("")).optional(),
   website: z.string().url("Invalid URL format").optional().or(z.literal("")),
   whatsapp: z.string().optional(),
@@ -100,10 +100,12 @@ const restaurantSchema = z.object({
   cityArea: z.string().min(2, "Area must be at least 2 characters"),
   emirate: z.string().min(2, "Emirate must be selected"),
   businessHours: z.record(z.object({
-    open: z.string().optional(),
-    close: z.string().optional(),
+open: z.string().optional(),
+close: z.string().optional(),
     closed: z.boolean().optional()
-  })).optional(),
+  }).optional()
+).optional(),
+    restaurantName: z.string().min(2, "Restaurant name must be at least 2 characters").max(100),
   isLicensed: z.boolean().optional(),
   hasValetParking: z.boolean().optional(),
   allowsSmoking: z.boolean().optional(),
@@ -111,8 +113,8 @@ const restaurantSchema = z.object({
   isPetsFriendly: z.boolean().optional(),
   hasTakeaway: z.boolean().optional(),
   hasOutdoorDining: z.boolean().optional(),
-  cuisineType: z.array(z.string()).min(1, "Please select at least one cuisine type").max(2, "Maximum 2 cuisine types allowed"),
-  restaurantType: z.array(z.string()).min(1, "Please select at least one restaurant type").max(4, "Maximum 4 restaurant types allowed"),
+  cuisineType: z.array(z.string()).min(1, "Please select at least two cuisine type").max(2, "Maximum 2 cuisine types allowed"),
+  restaurantType: z.array(z.string()).min(1, "Please select at least four restaurant type").max(4, "Maximum 4 restaurant types allowed"),
   averageSpend: z.string().regex(/^\d+-\d+$/, "Invalid price range format").optional(),
   description: z.string().min(10, "Description must be at least 10 characters").max(700, "Description cannot exceed 700 words"),
   personalityVibe: z.array(z.string()).optional(),
@@ -187,49 +189,79 @@ const restaurantSchema = z.object({
   setFormData(prev => ({ ...prev, [name]: value }));
 };
   // Send data to API
-  const handleSubmit = async () => {
+  const submitForm = async () => {
+
     try {
-      const response = await fetch('/api/your-endpoint', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData)
-      })
+        
 
-      if (!response.ok) {
-        throw new Error('Failed to submit form')
-      }
+  // Temporarily set the plain object before validation
+       const validation = await form.trigger();
+    if (!validation) {
+      console.log("❌ FORM ERRORS:", form.formState.errors);
+    console.log("❌ SPECIFIC FIELD ERRORS:", JSON.stringify(form.formState.errors, null, 2));
+   const bh = form.getValues().businessHours;
+  console.log("businessHours typeof:", typeof bh);
+  console.log("businessHours keys:", bh ? Object(bh) : bh);
+  console.log("monday value:", bh?.monday);
+    toast.error("Please fix the highlighted fields.");
+    return;
+    }
 
-      const data = await response.json()
-      console.log('Success:', data)
+
+      console.log("formdata" + form)
+
+    // }
+      // const response = await fetch('/api/your-endpoint', {
+      //   method: 'POST',
+      //   headers: { 'Content-Type': 'application/json' },
+        // body: JSON.stringify(formData)
+      // })
+
+    //   if (!response.ok) {
+    //     throw new Error('Failed to submit form')
+    //   }
+
+    //   const data = await response.json()
+    //   console.log('Success:', data)
       // Optionally go to next page
       // Optionally go to next page
-      setCurrentPage(true)
+      // setCurrentPage(true)
     } catch (error) {
       console.error('Error submitting form:', error)
     }
   }
 // add register in the form
+const Error = ({ name, form }) => {
+  return form.formState.errors[name] ? (
+    <p className="text-red-500 text-sm mt-1">
+      {form.formState.errors[name]?.message}
+    </p>
+  ) : null;
+};
+
 
 const [currentPage,setCurrentPage]=useState(false)
      return(
           <div className='py-12'>
 
           
-          <div><div className="w-full hidden md:flex flex-col items-center justify-center ">
+          <div><div className="w-full flex flex-col items-center justify-center ">
         <div className="max-w-5xl mx-auto">
 
              <h2 className="text-5xl uppercase mb-4  text-center">Step 1-Core Information</h2>
-      <form action="">
-      <div className="flex gap-4 flex-col">
-<div className="flex gap-4">
-     <div className="col-span-1 bg-[#FBEDDF] w-[500px] h-[180px] py-8 p-4 rounded-2xl flex flex-col justify-between">
+      <form action="submit"  onSubmit={(e) => { e.preventDefault(); submitForm(); }}
+ className="flex flex-col items-center " >
+      <div className="flex gap-4 flex-col  w-full">
+<div className="flex flex-col md:flex-row gap-4 w-full  items-center justify-center">
+     <div className="col-span-1 bg-[#FBEDDF] w-[90%]  md:w-[500px]   h-[180px] py-8 p-4 rounded-2xl flex flex-col justify-between">
           <label className="font-medium text-sm mb-1">Contact Email
 </label>
           <input type="email" {...form.register('email')} 
           // name='email' value={formData.email} 
           placeholder="Example@gmail.com" className="border border-gray-300 bg-white  text-gray-500 rounded-md p-2 text-sm" />
+          <Error name="email" form={form} />
         </div>
-             <div className="col-span-1 bg-[#FBDFDF] w-[500px] h-[180px]  py-8  p-4 rounded-2xl flex flex-col justify-between">
+             <div className="col-span-1 bg-[#FBDFDF]  w-[90%]  md:w-[500px]   h-[180px]  py-8  p-4 rounded-2xl flex flex-col justify-between">
           <label className="font-medium text-sm mb-1">Phone number
 </label>
 <div className="flex gap-2 flex-col w-full">
@@ -238,25 +270,33 @@ const [currentPage,setCurrentPage]=useState(false)
           
            placeholder="phone no" 
           className="border border-gray-300  text-gray-500 bg-white rounded-md p-2 text-sm" />
+      <Error name="phone" form={form} />
         </div></div>
 </div>
-<div className="flex gap-4">
+<div className="flex gap-4 flex-col md:flex-row w-full  items-center justify-center">
 
 
   
-     <div className="col-span-1 bg-[#FBEDDF] w-[500px]  py-8   h-[180px] p-4 rounded-2xl flex flex-col justify-between">
+     <div className="col-span-1 bg-[#FBEDDF]  w-[90%] md:w-[500px]   py-8   h-[180px] p-4 rounded-2xl flex flex-col justify-between">
           <label className="font-medium text-sm mb-1">Restaurant name*
 </label>
           <input 
      {...form.register('restaurantName')} type="text"  placeholder="Intersect by Lexus" className="border border-gray-300 text-gray-500 bg-white rounded-md p-2 text-sm" />
+        {form.formState.errors.restaurantName && (
+                      <p className="text-red-500 text-sm mt-1 mb-2">
+                      {form.formState.errors.restaurantName.message }
+                      </p>
+                    )}
         </div>
-             <div className="col-span-1 bg-[#FBDFDF]  py-8  w-[500px] h-[180px] p-4 rounded-2xl flex flex-col justify-between">
+             <div className="col-span-1 bg-[#FBDFDF]  py-8   w-[90%] md:w-[500px]  h-[180px] p-4 rounded-2xl flex flex-col justify-between">
           <label className="font-medium text-sm mb-1">Menu URL</label>
           <input
           type="text" 
           {...form.register('menu')}
           // value={formData.menuUrl} onChange={handleChange}
            placeholder="https://discoverlexus.com/stories/intersect-by-lexus" className="border border-gray-300 text-gray-500 bg-white rounded-md p-2 text-sm" />
+<Error name="menu" form={form} />
+
         </div>
 </div>
 </div>
@@ -271,6 +311,7 @@ const [currentPage,setCurrentPage]=useState(false)
                     <input type="text" 
                     {...form.register('website')}
                     placeholder="https" className="border border-gray-300  text-gray-500 bg-white rounded-md p-2 text-sm" />
+<Error name="website" form={form} />
               </div>
                   
                         <div className="col-span-1 bg-[#FBDFDF] h-[150px] md:h-[200px] w-[90%] py-8  md:w-[250px] p-3 rounded-2xl flex flex-col justify-between">
@@ -278,6 +319,7 @@ const [currentPage,setCurrentPage]=useState(false)
                       <input
                       {...form.register('tiktok')}
                        type="text" placeholder="https" className="border border-gray-300  text-gray-500 bg-white rounded-md p-2 text-sm" />
+                       <Error name="tiktok" form={form} />
               </div>
                   </div>
         <div className="flex flex-col gap-4 w-full items-center">  
@@ -285,12 +327,21 @@ const [currentPage,setCurrentPage]=useState(false)
                   <label className="font-medium text-sm mb-1">WhatsApp Business</label>
                     <input  
             {...form.register('whatsapp')}           type="text" placeholder="https" className="border border-gray-300  text-gray-500 bg-white rounded-md p-2 text-sm" />
+
+            
+                {form.formState.errors._form && (
+  <p className="text-red-500 text-sm mt-1">
+    {form.formState.errors._form.message }
+  </p>
+)}
+        
              </div>
                         <div className="col-span-1 bg-[#FBEDDF]  h-[150px] md:h-[250px] py-8 w-[90%]  md:w-[250px] p-3 rounded-2xl flex flex-col justify-between">
                   <label className="font-medium text-sm mb-1">Youtube</label>
                     <input type="text"
                     {...form.register('youtube')}
                     placeholder="https" className="border border-gray-300  text-gray-500 bg-white rounded-md p-2 text-sm" />
+                    <Error name="youtube" form={form} />
              </div>
                   </div>
         <div className="flex flex-col gap-4 w-full items-center">   
@@ -299,12 +350,14 @@ const [currentPage,setCurrentPage]=useState(false)
                     <input type="text"
                     {...form.register('instagram')}
                     placeholder="https" className="border border-gray-300  text-gray-500 bg-white rounded-md p-2 text-sm" />
+                    <Error name="instagram" form={form} />
             </div>
                         <div className="col-span-1 bg-[#FBDFDF] h-[150px] md:h-[200px] py-8  w-[90%]   md:w-[250px] p-3 rounded-2xl flex flex-col justify-between">
                   <label className="font-medium text-sm mb-1">Linkedin</label>
                     <input type="text"
                     {...form.register('linkedin')}
                     placeholder="https" className="border border-gray-300  text-gray-500 bg-white rounded-md p-2 text-sm" />
+                    <Error name="linkedin" form={form} />
              </div>
                   </div>
                   <div className="flex flex-col gap-4 w-full items-center">   
@@ -313,6 +366,7 @@ const [currentPage,setCurrentPage]=useState(false)
                     <input type="text"
                     {...form.register('facebook')}
                     placeholder="https" className="border border-gray-300  text-gray-500 bg-white rounded-md p-2 text-sm" />
+                    <Error name="facebook" form={form} />
             </div>
                         {/* <div className="col-span-1 bg-[#FBEDDF] h-[150px] md:h-[250px] w-[90%]  md:w-[250px] py-8 p-3 rounded-2xl flex flex-col justify-between"> */}
                   {/* <label className="font-medium text-sm mb-1">Website</label>
@@ -341,7 +395,8 @@ const [currentPage,setCurrentPage]=useState(false)
                     // value={formData.bookingLink || ''}
                     // onChange={handleChange}
                    placeholder="https" className="border border-gray-300 bg-white  text-gray-500 rounded-md p-2 text-sm" />
-                </div>
+              
+              <Error name="bookingLink" form={form} />  </div>
                      <div className="col-span-1 bg-[#FBDFDF]  w-[90%] md:w-1/2 h-[180px] py-8 p-4 rounded-2xl flex flex-col justify-between">
                  <div>
                   <label className="font-medium text-sm mb-1">Location
@@ -356,6 +411,7 @@ const [currentPage,setCurrentPage]=useState(false)
                     // value={formData.location || ''}
                     // onChange={handleChange}
                   placeholder="https://discoverlexus.com/stories/intersect-by-lexus" className="border border-gray-300  text-gray-500 bg-white rounded-md p-2 text-sm" />
+                <Error name="location" form={form} />
                 </div></div>
         </div>
         <div className=" flex gap-4 flex-col md:flex-row items-center md:items-start justify-center  mb-4 "> 
@@ -377,13 +433,14 @@ const [currentPage,setCurrentPage]=useState(false)
               <option value="Fujairah">Fujairah</option>
               <option value="Ras Al Khaimah">Ras Al Khaimah</option>
               <option value="Umm Al Quwain">Umm Al Quwain</option>
-            </select>     </div>
+            </select>     
+            <Error name="emirate" form={form} />
+            </div>
                  { form.watch("emirate") == "Dubai" &&    <div className="col-span-1 bg-[#FBEDDF] h-1/2    w-full p-3 py-8 rounded-2xl flex flex-col justify-between">
                   <label className="font-medium text-sm mb-1">Dubai Area</label>
            <select
-              name="dubaiArea"
-              value={formData.dubaiArea || ''}
-              onChange={handleChange}
+              name="cityArea"
+            {...form.register("cityArea")}
               className="border border-gray-300 text-gray-500 bg-white rounded-md p-2 text-sm"
             >
             <option value="">Select Area</option>
@@ -408,7 +465,10 @@ const [currentPage,setCurrentPage]=useState(false)
   <option value="Palm Jumeirah">Palm Jumeirah</option>
   <option value="Sheikh Zayed Road">Sheikh Zayed Road</option>
   <option value="Umm Suqeim">Umm Suqeim</option>
-            </select>   
+            </select>  
+            <Error name="dubaiArea" form={form} />
+
+
               </div>}
                   </div>
                     <div className="col-span-1 bg-[#FBEDDF]  md:h-[400px]   w-[90%] md:w-1/2 p-6 py-8 rounded-2xl flex flex-col justify-between">
@@ -420,7 +480,7 @@ const [currentPage,setCurrentPage]=useState(false)
         {days.map((day, index) => (
           <div
             key={index}
-            className="grid grid-cols-3 gap-4 h-[25px] gap-x-10 md:gap-0  md:grid-cols-[80px_auto_auto_auto_auto] items-center  text-[10px]"
+            className="grid grid-cols-4 gap-4 h-[25px] gap-x-10 md:gap-0  md:grid-cols-[80px_auto_auto_auto_auto] items-center  text-[10px]"
           >
             {/* Day Name */}
             <p className="font-medium text-[#9B9B9B]">{day}</p>
@@ -439,22 +499,29 @@ const [currentPage,setCurrentPage]=useState(false)
             <div className="flex gap-2 items-center">
               <input
                 type="checkbox"
+                                            id={`${day}-closed`}
+                            checked={form.watch(`businessHours.${day.toLowerCase()}.closed`) }
                 // name={`checl-${index}`}
   // checked={form.watch(`businessHours.monday.closed`)}
  onChange={(e) => {
-                              form.setValue(`businessHours.${day}.closed`, e.target.checked);
+                              form.setValue(`businessHours.${day.toLowerCase()}.closed`, e.target.checked);
                             }}
                 className="accent-red-500"
               />
+
               <span className="text-[10px]">Closed</span>
             </div>
-  {!form.watch(`businessHours.${day}.closed`) && (<>
+  {!form.watch(`businessHours.${day.toLowerCase()}.closed`) && (<>
             {/* Open Time */}
          <div className="flex items-center gap-2">
               <span className="text-[10px]">Open:</span>
               <input
                 type="time"
+   id={`${day}-open`}
+
                 placeholder="_ _ : _ _"
+   {...form.register(`businessHours.${day.toLowerCase()}.open`)}
+
                 className="w-22 px-2 py-1 text-[10px] border rounded-md bg-white"
               />
             </div>
@@ -464,8 +531,11 @@ const [currentPage,setCurrentPage]=useState(false)
               <span className="text-[10px]">Close:</span>
               <input
                 type="time"
+                   id={`${day}-close`}
                 placeholder="_ _ : _ _"
                 className="w-22 px-2 py-1 border text-[10px] rounded-md bg-white"
+                                            {...form.register(`businessHours.${day.toLowerCase()}.close` )}
+
               />
             </div> </>)}
           </div>
@@ -476,10 +546,7 @@ const [currentPage,setCurrentPage]=useState(false)
    
     </div>
              </div>
- 
-                     
-                  </div>
-                             <div className="bg-[#FBEDDF] py-8 h-[180px] px-4 flex flex-col justify-between rounded-xl mb-6">
+                       <div className="flex md:hidden bg-[#FBEDDF] py-8 h-[280px] md:h-[180px] px-4 w-[90%] md:w-full  flex-col justify-between rounded-xl mb-6">
         <p className="font-medium mb-3">Restaurant Features</p>
         <div className="flex flex-wrap text-[#9B9B9B] font-medium gap-4 text-sm">
           {[
@@ -495,17 +562,103 @@ const [currentPage,setCurrentPage]=useState(false)
               <input
                 type="checkbox"
                 name="features"
-                value={feature}
-                checked={formData.features?.includes(feature) || false}
+   {...form.register('featue')}
                 onChange={handleChange}
                 className="accent-red-500 h-4 w-4"
               />
+              <Error name="featue" form={form} />
               {feature}
             </label>
           ))}
         </div>
+        
+      </div>
+                     
+                  </div>
+                             <div className="hidden md:flex bg-[#FBEDDF] py-4 h-[280px] md:h-[230px] px-4 w-[90%] md:w-full  flex-col justify-between rounded-xl mb-6">
+        <p className="font-medium mb-3">Restaurant Features</p>
+      <div className="grid md:grid-cols-2 gap-y-2 gap-x-8">
+                      <div className="flex  space-x-2">
+                        <input
+                          type="checkbox"
+                          id="isLicensed"
+                          className='accent-red-500 h-4 w-4'
+                          {...form.register('isLicensed')}
+                        />
+                                   <Error name="isLicensed" form={form} />
+
+                        <label htmlFor="isLicensed">Is licensed (i.e. serves alcohol)</label>
+                      </div>
+
+                      <div className="flex items-center space-x-2">
+                        <input
+                          type="checkbox"
+                          id="hasValetParking"
+                                                    className='accent-red-500 h-4 w-4'
+
+                          {...form.register('hasValetParking')}
+                        />
+                        <label htmlFor="hasValetParking">Valet parking available</label>
+                      </div>
+
+                      <div className="flex items-center space-x-2">
+                        <input
+                          type="checkbox"
+                          id="allowsSmoking"
+                                                    className='accent-red-500 h-4 w-4'
+
+                          {...form.register('allowsSmoking')}
+                        />
+                        <label htmlFor="allowsSmoking">Allows smoking</label>
+                      </div>
+
+                      <div className="flex items-center space-x-2">
+                        <input
+                          type="checkbox"
+                          id="isKidsFriendly"
+                                                    className='accent-red-500 h-4 w-4'
+
+                          {...form.register('isKidsFriendly')}
+                        />
+                        <label htmlFor="isKidsFriendly">Kids friendly</label>
+                      </div>
+
+                      <div className="flex items-center space-x-2">
+                        <input
+                          type="checkbox"
+                          id="isPetsFriendly"
+                                                    className='accent-red-500 h-4 w-4'
+
+                          {...form.register('isPetsFriendly')}
+                        />
+                        <label htmlFor="isPetsFriendly">Pets friendly</label>
+                      </div>
+
+                      <div className="flex items-center space-x-2">
+                        <input
+                          type="checkbox"
+                          id="hasTakeaway"
+                                                    className='accent-red-500 h-4 w-4'
+
+                          {...form.register('hasTakeaway')}
+                        />
+                        <label htmlFor="hasTakeaway">Take away</label>
+                      </div>
+
+                      <div className="flex items-center space-x-2">
+                        <input
+                          type="checkbox"
+                          id="hasOutdoorDining"
+                                                    className='accent-red-500 h-4 w-4'
+
+                          {...form.register('hasOutdoorDining')}
+                        />
+                        <label htmlFor="hasOutdoorDining">Has outdoor dining area</label>
+                      </div>
+                    </div>
       </div>
                 
+              
                 </div>
                 
 
@@ -556,7 +709,10 @@ const [currentPage,setCurrentPage]=useState(false)
         }}
       />
       {item}
+                  <Error name="cuisineType" form={form} />
+
     </label>
+    
   ))}
 
   {/* Other (custom input) */}
@@ -748,7 +904,10 @@ Pick the words that describe your restaurant's personality/vibe
                       className="accent-red-500 h-4 w-4"
                     />
                     {vibe}
+                                <Error name="personalityVibe" form={form} />
+
                   </label>
+                  
                 ))}
               </div>
             </div>
@@ -757,9 +916,18 @@ Pick the words that describe your restaurant's personality/vibe
       </div>
 
       <div className="flex justify-center w-full mt-8">
-        <button className="px-6 py-2 bg-[#EE3A3D] w-full text-white rounded hover:bg-red-500 cursor-pointer">
+        <button  className="px-6 py-2 bg-[#EE3A3D] w-full text-white rounded hover:bg-red-500 cursor-pointer">
           Save Review and Continue 
         </button>
+           <Toaster   position="bottom-right"  toastOptions={{
+    style: {
+      background: "#333",
+      color: "#fff",
+      borderRadius: "8px",
+      padding: "12px 16px",
+      fontSize: "14px",
+    },
+  }}/>
       </div>
     </div>
 
@@ -771,9 +939,8 @@ Pick the words that describe your restaurant's personality/vibe
         
         <div className='block md:hidden '>
           
-          <Mobileform />
+         
         {/* <Formtwo formData={formData} handleChange={handleChange}/> */}
-                          <StepTwo formData={formData} handleChange={handleChange}/>
 
                   </div>
 
