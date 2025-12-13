@@ -5,8 +5,10 @@ import Header from '../../layout/header-2'
  import Mobileform from '../dashboard/mobileform'
 import Form from './form'
  import Customform from '../dashboardcustom/customform'
+ import api from '@/api/axiosinterceptor'
+ import ENDPOINTS from '@/utils/ENDPOINTS'
 import { useState } from 'react'
- const dashboardAi=()=>{
+ const dashboardAi=({fetchData})=>{
         const formSections = [
             {
       title: "Upload Your Image",
@@ -99,12 +101,19 @@ const handleChange = (key, value) => {
 };
 const handleSubmit = async (e) => {
   e.preventDefault();
+  
 
   const formDataToSend = new FormData();
 
   Object.entries(formData).forEach(([key, value]) => {
     formDataToSend.append(key, value);
   });
+
+
+
+
+
+          
 
   console.log("API-ready FormData:", [...formDataToSend.entries()]);
   
@@ -125,7 +134,7 @@ const handleSubmit = async (e) => {
       
         </div>  
 {activeForm === "ai" &&(
-      <>  <Form  />
+      <>  <Form  fetchData={fetchData} />
                <Mobileform handleSubmit={handleSubmit} formData={formData} loading={loading} handleChange={handleChange} formSections={formSections} dashboardAi={true}  />
 </>
       )}

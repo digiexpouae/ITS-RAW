@@ -1,26 +1,31 @@
-import { useClerk, SignIn } from "@clerk/clerk-react";
-import { useEffect, useState } from "react";
-import { LoaderCircle } from "lucide-react";
+import { SignedIn, SignedOut, useAuth  ,useClerk} from '@clerk/nextjs';
+import { useEffect } from 'react';
+import { LoaderCircle } from 'lucide-react';
+import LoaderPopup from "../components/popup"; // make sure this matches your file
 
-export default function AuthWrapper({ children }) {
-  const clerk = useClerk();
-  const [loading, setLoading] = useState(true);
+
+export const AuthWrapper = ({ children}) => {
+  const { isSignedIn, isLoaded } = useAuth();
+      const clerk = useClerk();
 
   useEffect(() => {
-    if (clerk.loaded && clerk.isSignedIn) {
-      setLoading(false); // user is signed in, stop loading
+    if (isLoaded && !isSignedIn) {
+      // Redirect to Clerk-hosted Sign In page
+      clerk.redirectToSignIn();
     }
-  }, [clerk]);
+  }, [isLoaded, isSignedIn, clerk]);
 
-  if (!clerk.loaded || loading) {
-    return <LoaderCircle className="animate-spin" />;
+  if (!isLoaded && !isSignedIn ) {
+     return <LoaderPopup isOpen={true} />;
   }
 
-  // If user is NOT signed in, render Clerk's SignIn component
-  if (!clerk.isSignedIn) {
-    return <SignIn  />;
-  }
 
-  // If signed in, render children
-  return <>{children}</>;
-}
+  return( 
+    <>
+      <SignedIn>{children}</SignedIn>
+      <SignedOut>
+        {/* <Popup isOpen={true}/> */}
+      </SignedOut>
+    </>
+  )
+};

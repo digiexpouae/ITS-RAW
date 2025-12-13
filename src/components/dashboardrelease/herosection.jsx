@@ -1,6 +1,12 @@
 
 import Image from "next/image"
+import { useRouter } from 'next/router'
+
 const herosection=({image,btn,btn2})=>{
+const router=useRouter()
+
+
+
     return(
         <div className="h-[85%] w-full ">
 
@@ -19,7 +25,10 @@ Dashboard</span>
 <p className="mb-4 font-medium">Manage your press-release and track <br /> their performance</p>
 <div className="flex gap-4 mb-4">
 
-    <button className={` bg-[#EE3A3D] hover:bg-zinc-100 cursor-pointer ${btn}  text-white px-2 md:px-4 py-2 rounded-md font-medium transition-colors duration-200`}>
+    <button className={` bg-[#EE3A3D] hover:bg-red-300 cursor-pointer ${btn}  text-white px-2 md:px-4 py-2 rounded-md font-medium transition-colors duration-200`}
+    onClick={()=>router.push('/restaurant')}
+    
+    >
    Edit Restaurant Info 
             </button>
     

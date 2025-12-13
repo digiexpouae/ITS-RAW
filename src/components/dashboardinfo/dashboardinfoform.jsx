@@ -1,16 +1,22 @@
 import Image from 'next/image'
 import Formtwo from './form-two'
-import { useState } from 'react'
+import { useState ,useEffect} from 'react'
 import StepTwo from './step-2'
 import Mobileform from './mobileform'
 import {useForm,Controller} from 'react-hook-form'
 import * as Slider from '@radix-ui/react-slider';
-
+import axios from 'axios'
 import toast, { Toaster } from "react-hot-toast";
 import {zodResolver} from "@hookform/resolvers/zod";
 import {z} from "zod";
-import { register } from 'next/dist/next-devtools/userspace/pages/pages-dev-overlay-setup'
-const dashboardinfoform=()=>{
+import ENDPOINTS from '@/utils/ENDPOINTS'
+import { useAuth } from "@clerk/nextjs";
+import api from "../../api/axiosinterceptor"
+import { useRouter } from 'next/router'
+import {Popup} from '../../components/popup'
+const dashboardinfoform=({fetch})=>{
+const [data, setdata] = useState()
+
   const days = [
   "monday",
   "tuesday",
@@ -85,7 +91,10 @@ traits:'',
 
 
   })
+    const router = useRouter();
+
   
+const {getToken}=useAuth()
 const restaurantSchema = z.object({
   menu: z.string().url("Invalid URL format").optional().or(z.literal("")).optional(),
   website: z.string().url("Invalid URL format").optional().or(z.literal("")),
@@ -99,12 +108,44 @@ const restaurantSchema = z.object({
   location: z.string().optional(),
   cityArea: z.string().min(2, "Area must be at least 2 characters"),
   emirate: z.string().min(2, "Emirate must be selected"),
-  businessHours: z.record(z.object({
-open: z.string().optional(),
-close: z.string().optional(),
-    closed: z.boolean().optional()
-  }).optional()
-).optional(),
+// ... other fields ...
+  businessHours: z.object({
+    monday: z.object({
+      open: z.string().optional(),
+      close: z.string().optional(),
+      closed: z.boolean().optional()
+    }),
+    tuesday: z.object({
+      open: z.string().optional(),
+      close: z.string().optional(),
+      closed: z.boolean().optional()
+    }),
+    wednesday: z.object({
+      open: z.string().optional(),
+      close: z.string().optional(),
+      closed: z.boolean().optional()
+    }),
+    thursday: z.object({
+      open: z.string().optional(),
+      close: z.string().optional(),
+      closed: z.boolean().optional()
+    }),
+    friday: z.object({
+      open: z.string().optional(),
+      close: z.string().optional(),
+      closed: z.boolean().optional()
+    }),
+    saturday: z.object({
+      open: z.string().optional(),
+      close: z.string().optional(),
+      closed: z.boolean().optional()
+    }),
+    sunday: z.object({
+      open: z.string().optional(),
+      close: z.string().optional(),
+      closed: z.boolean().optional()
+    }),
+  }),
     restaurantName: z.string().min(2, "Restaurant name must be at least 2 characters").max(100),
   isLicensed: z.boolean().optional(),
   hasValetParking: z.boolean().optional(),
@@ -188,48 +229,193 @@ close: z.string().optional(),
   const { name, value } = e.target;
   setFormData(prev => ({ ...prev, [name]: value }));
 };
-  // Send data to API
+//  Send data to API
   const submitForm = async () => {
 
     try {
-        
+          const formValues = form.getValues();
+        console.log("formdata" + JSON.stringify(formValues.businessHours))
 
   // Temporarily set the plain object before validation
        const validation = await form.trigger();
     if (!validation) {
       console.log("❌ FORM ERRORS:", form.formState.errors);
-    console.log("❌ SPECIFIC FIELD ERRORS:", JSON.stringify(form.formState.errors, null, 2));
    const bh = form.getValues().businessHours;
   console.log("businessHours typeof:", typeof bh);
   console.log("businessHours keys:", bh ? Object(bh) : bh);
   console.log("monday value:", bh?.monday);
+ const result = restaurantSchema.safeParse(form.getValues());
+if (!result.success) {
+  console.log("Zod errors:", result.error.format());
+} else {
+  console.log("Parsed data:", result.data);
+}
+
+
     toast.error("Please fix the highlighted fields.");
     return;
     }
 
 
+
+    // Prepare data for API
+    const restaurantData = {
+      email: formValues.email,
+      custom: {
+        restaurantName: formValues.restaurantName,
+        menu: formValues.menu,
+        website: formValues.website,
+        whatsapp: formValues.whatsapp,
+        instagram: formValues.instagram,
+        facebook: formValues.facebook,
+        tiktok: formValues.tiktok,
+        youtube: formValues.youtube,
+        linkedin: formValues.linkedin,
+        bookingLink: formValues.bookingLink,
+        location: formValues.location,
+        cityArea: formValues.cityArea,
+        emirate: formValues.emirate,
+        businessHours: formValues.businessHours,
+        isLicensed: formValues.isLicensed,
+        hasValetParking: formValues.hasValetParking,
+        allowsSmoking: formValues.allowsSmoking,
+        isKidsFriendly: formValues.isKidsFriendly,
+        isPetsFriendly: formValues.isPetsFriendly,
+        hasTakeaway: formValues.hasTakeaway,
+        hasOutdoorDining: formValues.hasOutdoorDining,
+        cuisineType: formValues.cuisineType,
+        restaurantType: formValues.restaurantType,
+        averageSpend: formValues.averageSpend,
+        description: formValues.description,
+        personalityVibe: formValues.personalityVibe,
+        phone: formValues.phone
+      }
+    };
+
+const restaurantdata = {
+  custom: {
+    allowsSmoking: false,
+    averageSpend: "100-500",
+    bookingLink: "",
+    businessHours: {
+      monday: { open: "08:00", close: "18:00", closed: false },
+      tuesday: { open: "08:00", close: "18:00", closed: false },
+      wednesday: { open: "", close: "", closed: true },
+      thursday: { open: "", close: "", closed: true },
+      friday: { open: "", close: "", closed: true },
+      saturday: { open: "", close: "", closed: true },
+      sunday: { open: "", close: "", closed: true }
+    },
+    cityArea: "Dubai Marina",
+    cuisineType: ["Asian", "French"],
+    description: "test test test test",
+    emirate: "Dubai",
+    facebook: "",
+    hasOutdoorDining: false,
+    hasTakeaway: false,
+    hasValetParking: false,
+    instagram: "",
+    isKidsFriendly: true,
+    isLicensed: true,
+    isPetsFriendly: false,
+    linkedin: "",
+    location: "https://share.google/Xz4SyHJZOALPvpmg8",
+    menu: "",
+    personalityVibe: ["Refined", "Prestigious", "Inviting", "Welcoming", "Energetic", "Lively"],
+    phone: "+971 50 1234567",
+    restaurantName: "test 4",
+    restaurantType: ["Breakfast", "Afternoon Tea", "Dessert", "Pizzeria"],
+    tiktok: "",
+    website: "http://355294401173-frontend-dev.s3-website.me-central-1.amazonaws.com/",
+    whatsapp: "",
+    youtube: ""
+  },
+  email: "tech1.digiexpo@gmail.com",
+  pressReleaseDetails: {
+    primaryFocus: "venue-redesign",
+    goLiveDate: "2020-02-22",
+    duration: "week-long",
+    keyHighlights: "test",
+    priceRange: "",
+    bookingRequired: "",
+    primarySpokesperson: "general-manager",
+    spokespersonName: "test",
+    spokespersonTitle: "test",
+    spokespersonQuote: "test2",
+    style: "formal"
+  }
+};
       console.log("formdata" + form)
+const token = await getToken()
+console.log("token"+token)
+  const response =await api.put({url:ENDPOINTS.OTHER.RESTAURANT,data:restaurantData,token})
+   
 
-    // }
-      // const response = await fetch('/api/your-endpoint', {
-      //   method: 'POST',
-      //   headers: { 'Content-Type': 'application/json' },
-        // body: JSON.stringify(formData)
-      // })
+      const res = await response
+      console.log('Success:', res)
+      setdata(res)
+   
+      setCurrentPage(true)
+   
+      router.push('/dashboard')
 
-    //   if (!response.ok) {
-    //     throw new Error('Failed to submit form')
-    //   }
-
-    //   const data = await response.json()
-    //   console.log('Success:', data)
-      // Optionally go to next page
-      // Optionally go to next page
-      // setCurrentPage(true)
     } catch (error) {
       console.error('Error submitting form:', error)
     }
   }
+
+
+
+
+  useEffect(() => {
+  if (fetch) {
+    const data = fetch;
+    const averageSpend = data.custom.averageSpend || "100-500";
+
+    form.reset({
+      restaurantName: data.custom.restaurantName || "",
+      menu: data.custom.menu || "",
+      website: data.custom.website || "",
+      whatsapp: data.custom.whatsapp || "",
+      instagram: data.custom.instagram || "",
+      facebook: data.custom.facebook || "",
+      tiktok: data.custom.tiktok || "",
+      youtube: data.custom.youtube || "",
+      linkedin: data.custom.linkedin || "",
+      bookingLink: data.custom.bookingLink || "",
+      location: data.custom.location || "",
+      cityArea: data.custom.cityArea || "",
+      emirate: data.custom.emirate || "",
+      businessHours: data.custom.businessHours || {
+        monday: { open: "", close: "", closed: false },
+        tuesday: { open: "", close: "", closed: false },
+        wednesday: { open: "", close: "", closed: false },
+        thursday: { open: "", close: "", closed: false },
+        friday: { open: "", close: "", closed: false },
+        saturday: { open: "", close: "", closed: false },
+        sunday: { open: "", close: "", closed: false },
+      },
+      isLicensed: data.custom.isLicensed || false,
+      hasValetParking: data.custom.hasValetParking || false,
+      allowsSmoking: data.custom.allowsSmoking || false,
+      isKidsFriendly: data.custom.isKidsFriendly || false,
+      isPetsFriendly: data.custom.isPetsFriendly || false,
+      hasTakeaway: data.custom.hasTakeaway || false,
+      hasOutdoorDining: data.custom.hasOutdoorDining || false,
+      cuisineType: data.custom.cuisineType || [],
+      restaurantType: data.custom.restaurantType || [],
+      averageSpend: averageSpend,
+      description: data.custom.description || "",
+      personalityVibe: data.custom.personalityVibe || [],
+      email: data.email || "",
+      phone: data.custom.phone || ""
+    });
+  }
+}, [ fetch,form]);
+
+
+
+  //
 // add register in the form
 const Error = ({ name, form }) => {
   return form.formState.errors[name] ? (
@@ -258,7 +444,7 @@ const [currentPage,setCurrentPage]=useState(false)
 </label>
           <input type="email" {...form.register('email')} 
           // name='email' value={formData.email} 
-          placeholder="Example@gmail.com" className="border border-gray-300 bg-white  text-gray-500 rounded-md p-2 text-sm" />
+          placeholder="Example@gmail.com" className="border border-gray-300 bg-white   rounded-md p-2 text-sm" />
           <Error name="email" form={form} />
         </div>
              <div className="col-span-1 bg-[#FBDFDF]  w-[90%]  md:w-[500px]   h-[180px]  py-8  p-4 rounded-2xl flex flex-col justify-between">
@@ -269,7 +455,7 @@ const [currentPage,setCurrentPage]=useState(false)
           <input type="text" {...form.register('phone')}
           
            placeholder="phone no" 
-          className="border border-gray-300  text-gray-500 bg-white rounded-md p-2 text-sm" />
+          className="border border-gray-300   bg-white rounded-md p-2 text-sm" />
       <Error name="phone" form={form} />
         </div></div>
 </div>
@@ -281,7 +467,7 @@ const [currentPage,setCurrentPage]=useState(false)
           <label className="font-medium text-sm mb-1">Restaurant name*
 </label>
           <input 
-     {...form.register('restaurantName')} type="text"  placeholder="Intersect by Lexus" className="border border-gray-300 text-gray-500 bg-white rounded-md p-2 text-sm" />
+     {...form.register('restaurantName')} type="text"  placeholder="Intersect by Lexus" className="border border-gray-300  bg-white rounded-md p-2 text-sm" />
         {form.formState.errors.restaurantName && (
                       <p className="text-red-500 text-sm mt-1 mb-2">
                       {form.formState.errors.restaurantName.message }
@@ -294,7 +480,7 @@ const [currentPage,setCurrentPage]=useState(false)
           type="text" 
           {...form.register('menu')}
           // value={formData.menuUrl} onChange={handleChange}
-           placeholder="https://discoverlexus.com/stories/intersect-by-lexus" className="border border-gray-300 text-gray-500 bg-white rounded-md p-2 text-sm" />
+           placeholder="https://discoverlexus.com/stories/intersect-by-lexus" className="border border-gray-300  bg-white rounded-md p-2 text-sm" />
 <Error name="menu" form={form} />
 
         </div>
@@ -310,7 +496,7 @@ const [currentPage,setCurrentPage]=useState(false)
                   <label className="font-medium text-sm mb-1">Website</label>
                     <input type="text" 
                     {...form.register('website')}
-                    placeholder="https" className="border border-gray-300  text-gray-500 bg-white rounded-md p-2 text-sm" />
+                    placeholder="https" className="border border-gray-300   bg-white rounded-md p-2 text-sm" />
 <Error name="website" form={form} />
               </div>
                   
@@ -318,7 +504,7 @@ const [currentPage,setCurrentPage]=useState(false)
                   <label className="font-medium text-sm mb-1">TikTok</label>
                       <input
                       {...form.register('tiktok')}
-                       type="text" placeholder="https" className="border border-gray-300  text-gray-500 bg-white rounded-md p-2 text-sm" />
+                       type="text" placeholder="https" className="border border-gray-300  bg-white rounded-md p-2 text-sm" />
                        <Error name="tiktok" form={form} />
               </div>
                   </div>
@@ -326,7 +512,7 @@ const [currentPage,setCurrentPage]=useState(false)
            <div className="col-span-1 bg-[#FBDFDF] h-[150px] md:h-[200px] w-[90%] py-8 md:w-[250px] p-3 rounded-2xl flex flex-col justify-between">
                   <label className="font-medium text-sm mb-1">WhatsApp Business</label>
                     <input  
-            {...form.register('whatsapp')}           type="text" placeholder="https" className="border border-gray-300  text-gray-500 bg-white rounded-md p-2 text-sm" />
+            {...form.register('whatsapp')}           type="text" placeholder="https" className="border border-gray-300  bg-white rounded-md p-2 text-sm" />
 
             
                 {form.formState.errors._form && (
@@ -340,7 +526,7 @@ const [currentPage,setCurrentPage]=useState(false)
                   <label className="font-medium text-sm mb-1">Youtube</label>
                     <input type="text"
                     {...form.register('youtube')}
-                    placeholder="https" className="border border-gray-300  text-gray-500 bg-white rounded-md p-2 text-sm" />
+                    placeholder="https" className="border border-gray-300   bg-white rounded-md p-2 text-sm" />
                     <Error name="youtube" form={form} />
              </div>
                   </div>
@@ -349,14 +535,14 @@ const [currentPage,setCurrentPage]=useState(false)
                   <label className="font-medium text-sm mb-1">Instagram</label>
                     <input type="text"
                     {...form.register('instagram')}
-                    placeholder="https" className="border border-gray-300  text-gray-500 bg-white rounded-md p-2 text-sm" />
+                    placeholder="https" className="border border-gray-300   bg-white rounded-md p-2 text-sm" />
                     <Error name="instagram" form={form} />
             </div>
                         <div className="col-span-1 bg-[#FBDFDF] h-[150px] md:h-[200px] py-8  w-[90%]   md:w-[250px] p-3 rounded-2xl flex flex-col justify-between">
                   <label className="font-medium text-sm mb-1">Linkedin</label>
                     <input type="text"
                     {...form.register('linkedin')}
-                    placeholder="https" className="border border-gray-300  text-gray-500 bg-white rounded-md p-2 text-sm" />
+                    placeholder="https" className="border border-gray-300   bg-white rounded-md p-2 text-sm" />
                     <Error name="linkedin" form={form} />
              </div>
                   </div>
@@ -365,7 +551,7 @@ const [currentPage,setCurrentPage]=useState(false)
                   <label className="font-medium text-sm mb-1">Facebook</label>
                     <input type="text"
                     {...form.register('facebook')}
-                    placeholder="https" className="border border-gray-300  text-gray-500 bg-white rounded-md p-2 text-sm" />
+                    placeholder="https" className="border border-gray-300  bg-white rounded-md p-2 text-sm" />
                     <Error name="facebook" form={form} />
             </div>
                         {/* <div className="col-span-1 bg-[#FBEDDF] h-[150px] md:h-[250px] w-[90%]  md:w-[250px] py-8 p-3 rounded-2xl flex flex-col justify-between"> */}
@@ -394,7 +580,7 @@ const [currentPage,setCurrentPage]=useState(false)
                     // name="bookingLink"
                     // value={formData.bookingLink || ''}
                     // onChange={handleChange}
-                   placeholder="https" className="border border-gray-300 bg-white  text-gray-500 rounded-md p-2 text-sm" />
+                   placeholder="https" className="border border-gray-300 bg-white  rounded-md p-2 text-sm" />
               
               <Error name="bookingLink" form={form} />  </div>
                      <div className="col-span-1 bg-[#FBDFDF]  w-[90%] md:w-1/2 h-[180px] py-8 p-4 rounded-2xl flex flex-col justify-between">
@@ -410,7 +596,7 @@ const [currentPage,setCurrentPage]=useState(false)
                   //  name="location"
                     // value={formData.location || ''}
                     // onChange={handleChange}
-                  placeholder="https://discoverlexus.com/stories/intersect-by-lexus" className="border border-gray-300  text-gray-500 bg-white rounded-md p-2 text-sm" />
+                  placeholder="https://discoverlexus.com/stories/intersect-by-lexus" className="border border-gray-300   bg-white rounded-md p-2 text-sm" />
                 <Error name="location" form={form} />
                 </div></div>
         </div>
@@ -423,7 +609,7 @@ const [currentPage,setCurrentPage]=useState(false)
               // name="emirate"
               // value={formData.emirate || ''}
               // onChange={handleChange}
-              className="border border-gray-300 text-gray-500 bg-white rounded-md p-2 text-sm"
+              className="border border-gray-300 bg-white rounded-md p-2 text-sm"
             >
               <option value="">Select Emirate</option>
               <option value="Dubai">Dubai</option>
@@ -441,7 +627,7 @@ const [currentPage,setCurrentPage]=useState(false)
            <select
               name="cityArea"
             {...form.register("cityArea")}
-              className="border border-gray-300 text-gray-500 bg-white rounded-md p-2 text-sm"
+              className="border border-gray-300  bg-white rounded-md p-2 text-sm"
             >
             <option value="">Select Area</option>
   <option value="Al Barsha">Al Barsha</option>
@@ -477,7 +663,7 @@ const [currentPage,setCurrentPage]=useState(false)
       <p className="text-md text-black font-medium mb-6">Business Operating hours</p>
 
       <div className="flex flex-col gap-4 ">
-        {days.map((day, index) => (
+            {['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'].map((day, index) => (
           <div
             key={index}
             className="grid grid-cols-4 gap-4 h-[25px] gap-x-10 md:gap-0  md:grid-cols-[80px_auto_auto_auto_auto] items-center  text-[10px]"
