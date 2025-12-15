@@ -4,6 +4,7 @@ import Form from './form'
 import Herosection from "./herosection"
 import Mobileform from './mobileform'
 import { useState } from "react"
+
 const index=()=>{
     const formSections = [
     {
@@ -103,6 +104,20 @@ const index=()=>{
       setLoading(false)
     }, 5000);
   };
+
+
+
+
+
+
+
+
+
+    
+
+
+
+
     return(
         <>
         <div className="h-screen md:h-[90vh] w-full bg-cover relative overflow-hidden" style={{backgroundImage:'url(/assets/dashboard/raw.png)'}}>

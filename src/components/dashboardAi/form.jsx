@@ -1,15 +1,30 @@
 
 import { useRef, useState } from 'react';
-import Popup from '../popup'
-import Image from 'next/image';
+import LoaderPopup from '../popup'
+  import Image from 'next/image';
 import { useRouter } from "next/navigation";
-export default function CampaignForm() {
+import {generate} from '@/function'
+import ENDPOINTS from '@/utils/ENDPOINTS'
+import { useAuth } from '@clerk/nextjs';
+export default function CampaignForm({fetchData}) {
       const [loading, setLoading] = useState(false);
       const inputRef=useRef()
    
-   const [formData, setFormData] = useState({
-    file: null,
-  });
+const {getToken}=useAuth()
+
+ const [formData, setFormData] = useState({
+  file: null,                       // uploaded image
+  pressReleaseStyle: "",            // select: Formal / Fun
+  primarySpokesperson: "",          // select: Owner / GM / etc.
+  campaignFocus: "",                // select: primary focus
+  spokespersonName: "",             // textarea
+  designationTitle: "",
+  priceRange:"",             // input
+  goLiveDate: "",                   // input type date
+  duration: "",                      // select
+  keyHighlights: "",                // textarea
+  preferredQuote: "",               // textarea
+});
   const router=useRouter()
 
   // ⭐ Handle text/select/date changes
@@ -20,6 +35,8 @@ export default function CampaignForm() {
       [name]: value,
     }));
   };
+
+
 
   // ⭐ Handle file upload
   const handleFileChange = (e) => {
@@ -35,24 +52,112 @@ export default function CampaignForm() {
 
 
 
+
+
         const handleFileClick = () => {
     if (inputRef.current) inputRef.current.click();
   };
-    const handleSubmit = async (e) => {
-    e.preventDefault();
-    setLoading(true);
+  //   const handleSubmit = async (e) => {
+  //   e.preventDefault();
+  //   setLoading(true);
 
-    const form = new FormData();
-    Object.entries(formData).forEach(([key, value]) => {
-      if (value) form.append(key, value);
-    });
 
-    // Simulating API delay
-    setTimeout(() => {
-      setLoading(false);
-    }, 3000);
-       router.push("/dashboard-dashboard");
-  };
+  //   const form = new FormData();
+  //   Object.entries(formData).forEach(([key, value]) => {
+  //     if (value) form.append(key, value);
+  //   });
+
+  //   // Simulating API delay
+  //   setTimeout(() => {
+  //     setLoading(false);
+  //   }, 3000);
+  //      router.push("/dashboard-dashboard");
+  // };
+
+const handleSubmit = async (e) => {
+
+
+  e.preventDefault();
+  const token=await getToken()
+  const payload={
+ 
+          restaurantInfo: fetchData,
+          pressReleaseDetails: {
+            primaryFocus: formData.campaignFocus,
+            goLiveDate: formData.goLiveDate,
+            duration: formData.duration,
+            keyHighlights: formData.keyHighlights,
+            priceRange: formData.priceRange,
+            bookingRequired: formData.bookingRequired,
+            primarySpokesperson: formData.primarySpokesperson,
+            spokespersonName: formData.spokespersonName,
+            spokespersonTitle: formData.designationTitle,
+            spokespersonQuote: formData.preferredQuote,
+            style: formData.pressReleaseStyle
+        }
+}
+
+try{
+  const reponse=await generate(ENDPOINTS.OTHER.GENERATE,payload,token)
+
+  console.log("response",reponse)
+
+  
+  setLoading(true);
+  setTimeout(() => {
+    setLoading(false)
+  }, 5000)
+setFormData({
+  file: null,                       // uploaded image
+  pressReleaseStyle: "",            // select: Formal / Fun
+  primarySpokesperson: "",          // select: Owner / GM / etc.
+  campaignFocus: "",                // select: primary focus
+  spokespersonName: "",             // textarea
+  designationTitle: "",
+  priceRange:"",             // input
+  goLiveDate: "",                   // input type date
+  duration: "",                      // select
+  keyHighlights: "",                // textarea
+  preferredQuote: "",               // textarea
+})
+
+
+
+}
+
+
+
+ catch (error) {
+    console.log("error",error)
+}
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   return (<>
 
@@ -80,6 +185,8 @@ export default function CampaignForm() {
                   src={'/assets/dashboard/arrow.svg'}
                   alt="arrow"
                   fill
+
+
                   className="object-cover"
                 />
               </div>
@@ -231,6 +338,6 @@ Offer Date*</label>
 
 
     </div>
-                 <Popup isOpen={loading} />         
+                 <LoaderPopup isOpen={loading} />         
   </>)
 }

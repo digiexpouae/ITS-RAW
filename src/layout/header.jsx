@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
 import { SignInButton,
   SignUpButton,
   SignedIn,
   SignedOut,
   UserButton} from '@clerk/nextjs'
+import Image from 'next/image';
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -24,16 +24,14 @@ const Header = () => {
   }, []);
 
   const navLinks = [
-    { name: 'Home', path: '/' },
-    { name: 'About Us', path: '/about' },
-    { name: 'Services', path: '/services' },
-    { name: 'Portfolio', path: '/portfolio' },
-    { name: 'Blog', path: '/blog' },
+    { name: 'Dashboard', path: '/dashboard-dashboard' },
+ 
+   
   ];
 
   return (
     <header 
-      className={`top-0 z-50 left-0 w-full sticky h-[15vh] transition-all duration-300
+      className={`top-0 z-50 left-0 w-full h-[15vh] transition-all duration-300
        bg-transparent`}
     >
       <div className="container mx-auto h-full  w-[80%]">
@@ -46,38 +44,42 @@ const Header = () => {
           </div>
 
           {/* Desktop Navigation */}
-          {/* <nav className="hidden md:flex items-center space-x-8">
+          <nav className="hidden md:flex items-end justify-end space-x-8">
+           <SignedIn>
             {navLinks.map((link) => (
               <div
                 key={link.name}
                 // to={link.path}
-                className="text-gray-700 hover:text-blue-600 transition-colors duration-200 font-medium"
-              >
-                {link.name}
-              </div>
+                className=" hover:text-gray-700 font-medium  uppercase cursor-pointer transition-colors duration-200 "
+            //  style={{fontFamily:'Subscribe'}} 
+             >
+                <Link href={link.path}>  {link.name}</Link>
+                </div>
             ))}
-          </nav> */}
+</SignedIn>
+                 <div className="hidden md:flex gap-2 ">
+                      <SignedOut>
+                        <SignInButton >
+                            <button className="bg-white-600 hover:bg-zinc-100 cursor-pointer border text-black px-6 py-2 rounded-md font-medium transition-colors duration-200">
+                        Login
+                      </button>
+                        </SignInButton>
+                        <SignUpButton>
+                           <button className="bg-[#000000] hover:bg-zinc-500 cursor-pointer  text-white px-6 py-2 rounded-md font-medium transition-colors duration-200">
+                      Signup
+                      </button>
+                        </SignUpButton>
+                      </SignedOut>
+                      <SignedIn>
+                        <UserButton />
+                      </SignedIn>
+                    
+                    </div>
+        
+          </nav>
 
           {/* Contact Button */}
-          <div className="hidden md:flex gap-2 ">
-            <SignedOut>
-              <SignInButton >
-                  <button className="bg-white-600 hover:bg-zinc-100 cursor-pointer border text-black px-6 py-2 rounded-md font-medium transition-colors duration-200">
-              Login
-            </button>
-              </SignInButton>
-              <SignUpButton>
-                 <button className="bg-[#000000] hover:bg-zinc-500 cursor-pointer  text-white px-6 py-2 rounded-md font-medium transition-colors duration-200">
-            Signup
-            </button>
-              </SignUpButton>
-            </SignedOut>
-            <SignedIn>
-              <UserButton />
-            </SignedIn>
-          
-          </div>
-       
+        
 
           {/* Mobile menu button */}
           <div className="md:hidden">

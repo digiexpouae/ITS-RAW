@@ -3,6 +3,7 @@ import Herosection from "../dashboard/herosection"
 import Footer from '../../layout/footer'
 import Customform from './customform'
 const index=()=>{
+    
     return(
     <>
                <div className="h-auto md:h-[90vh] w-full bg-cover overflow-hidden" style={{backgroundImage:'url(/assets/dashboard/raw.png)'}}>

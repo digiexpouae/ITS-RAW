@@ -7,6 +7,9 @@ const ENDPOINTS = {
   OTHER:
 {
    RESTAURANT:`restaurants`,
+   PRS:`prs`,
+   GENERATE:`generate`,
+
 
 }
 

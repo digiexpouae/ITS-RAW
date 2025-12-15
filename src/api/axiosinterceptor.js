@@ -145,7 +145,7 @@ const api = {
   post: ({ url, data = null, config = {},token }) => request({ method: "POST", url, data, config ,token}),
   patch: ({ url, data = null, config = {} ,token}) => request({ method: "PATCH", url, data, config,token }),
   put: ({ url, data = null, config = {} ,token}) => request({ method: "PUT", url, data, config,token }),
-  delete: ({ url, config = {} }) => request({ method: "DELETE", url, config,token }),
+  delete: ({ url, config = {} ,token}) => request({ method: "DELETE", url, config,token }),
 };
 
 export default api;

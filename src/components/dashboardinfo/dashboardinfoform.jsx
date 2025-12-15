@@ -239,7 +239,7 @@ const restaurantSchema = z.object({
   // Temporarily set the plain object before validation
        const validation = await form.trigger();
     if (!validation) {
-      console.log("❌ FORM ERRORS:", form.formState.errors);
+      console.log(" FORM ERRORS:", form.formState.errors);
    const bh = form.getValues().businessHours;
   console.log("businessHours typeof:", typeof bh);
   console.log("businessHours keys:", bh ? Object(bh) : bh);
