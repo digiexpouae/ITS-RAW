@@ -52,7 +52,7 @@ Dashboard</span>
 </div>
 <div className=" h-[50%]  w-full  lg:w-1/2 lg:h-full flex items-center justify-center  ">
 <div className="w-full h-full flex items-center justify-center md:items-end md:justify-end ">
-<div className=" md:h-full relative h-full  w-[80%] lg:w-full md:w-[90%] flex items-center justify-end"><Image src={image} className="md:aspect-[16/14]" width={400} height={400}/></div>
+<div className=" md:h-full relative h-full  w-[80%] lg:w-full md:w-[90%] flex items-center justify-end"><Image src={image}  className="md:aspect-[16/14]" width={400} height={400}/></div>
 </div></div>
 
 </div>

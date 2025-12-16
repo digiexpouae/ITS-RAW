@@ -357,7 +357,7 @@ console.log("token"+token)
    
       setCurrentPage(true)
    
-      router.push('/dashboard')
+      router.push('/dashboard-dashboard')
 
     } catch (error) {
       console.error('Error submitting form:', error)

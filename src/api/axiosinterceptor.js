@@ -60,7 +60,7 @@ const checkUnAuth = async (error) => {
   }
 };
 
-const handleRequestError = (error) => {
+export const handleRequestError = (error) => {
   if (axios.isAxiosError(error)) {
     if (!error.response) {
       if (error.code === "ECONNABORTED") {

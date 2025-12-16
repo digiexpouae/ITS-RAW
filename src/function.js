@@ -19,13 +19,16 @@ if(response){
   
 }
 
-export async function DeleteImage(enpoints,id){
+export async function DeleteImage(enpoints,id,token){
 try{
-const response=await api.delete({
-    url:`${enpoints}/${id}`,
+    
+    const response=await api.delete({
+    url:`${enpoints}/${id}/image`,
+    token:token
 })
 if(response){
     console.log("prs deleted" ,response)
+    return response
 }
 }
   catch (error) {
@@ -33,7 +36,7 @@ if(response){
     }
   
 }
-export async function uploadPrImage(enpoints,id){
+export async function uploadPrImage(enpoints,id,token){
 try{
 const response=await api.delete({
     url:`${enpoints}/${id}/image`,
@@ -49,13 +52,15 @@ if(response){
 }
 
 
-export async function Preview(enpoints,id){
+export async function Preview(enpoints,id,token){
 try{
 const response=await api.get({
     url:`${enpoints}/${id}/preview`,
+token:token
 })
 if(response){
     console.log("prs preview" ,response)
+    return response
 }
 }
   catch (error) {
@@ -81,6 +86,22 @@ if(response){
     }
   
 }
+
+
+export async function UpdateImage(endpionts,id,token){
+    try{
+        const response=await api.put({
+            url:`${endpionts}/${id}/image`,
+            data:data,
+            token:token
+        })
+        return response
+    }
+    catch{
+        console.log("Error:")
+    }
+}
+
 
 
 

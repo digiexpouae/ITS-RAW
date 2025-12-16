@@ -2,8 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { Calendar, Edit, Eye, Send, Trash2, X } from 'lucide-react';
 import Image from 'next/image';
 import ENDPOINTS from '@/utils/ENDPOINTS';
-import { addorUpdateprs } from '@/function';
+import { addorUpdateprs,DeleteImage,uploadPrImage} from '@/function';
 import { useAuth } from '@clerk/nextjs';
+import Preview  from './preview';
 export default function PressReleaseCard({pr,editData,fetchPr,fetchPrs,DeletePr}) {
   const [showPreview, setShowPreview] = useState(false);
   const [showEdit, setShowEdit] = useState(false);
@@ -26,7 +27,7 @@ export default function PressReleaseCard({pr,editData,fetchPr,fetchPrs,DeletePr}
     return () => {
       document.body.style.overflow = "";
     };
-  }, [showEdit]);
+  }, [showEdit])
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -35,29 +36,35 @@ export default function PressReleaseCard({pr,editData,fetchPr,fetchPrs,DeletePr}
       [name]: value
     }));
   };
+const closeModal=()=>{
 
+
+   setShowEdit(false)
+   setFormData({  title: '',
+    subtitle: '',
+    date: '',
+    location: '',
+    content:'' ,image:""})
+
+
+}
 
 
 const openEditmodal= async (id)=>{ 
 
-await fetchPr(id)
-
-if(editData){
+const response=await fetchPr(id)
 setFormData({
 
 
-     title: editData.title,
-    subtitle: editData.subtitle,
-    date: editData.date,
-    location: editData.location,
-    content:editData.content ,image:editData.preview_image_uri
+     title: response.title,
+    subtitle: response.subtitle,
+    date: response.date,
+    location: response.location,
+    content:response.content ,image:response.preview_image_uri
 
 })
-}
-
 
 setShowEdit(true)
-  
 }
 const Delete= async(id)=>{
 await DeletePr(id)
@@ -79,8 +86,21 @@ setShowEdit(false)
 
 }
 
+const DeletePrImage= async(id)=>{
+const token =await getToken()
+  await DeleteImage(ENDPOINTS.OTHER.PRS,id,token)
 
 
+  await fetchPrs()
+  
+setShowEdit(false)
+
+
+}
+const UpdateImage = async (id)=>{
+  const token =await getToken()
+const response= await uploadPrImage(ENDPOINTS.OTHER.PRS,id,token)
+}
 
 
   return (
@@ -100,17 +120,17 @@ setShowEdit(false)
                 onClick={() => openEditmodal(pr.id)}
                 className="p-2  cursor-pointer rounded-lg transition-colors"
               >
-                <Edit className="w-5 h-5 text-gray-400" />
+                <Edit className="w-5 h-5 text-[#f19c83]" />
               </button>
               <button 
                 onClick={() => setShowPreview(true)}
                 className="flex items-center cursor-pointer gap-2 px-4 py-2  rounded-lg transition-colors"
               >
-                <Eye className="w-5 h-5 text-gray-400 " />
-                <span className="text-gray-400">Preview</span>
+                <Eye className="w-5 h-5 text-[#f19c83]" />
+                {/* <span className="text-black">Preview</span> */}
               </button>
               <button className="flex items-center gap-2 px-4 py-2 rounded-lg transition-colors">
-                <Send className="w-5 h-5 text-gray-400" />
+                <Send className="w-5 h-5 text-[#f19c83]" />
                 <span className="text-gray-400">Send (Insufficient Send Credits)</span>
               </button>
               <button 
@@ -146,65 +166,8 @@ setShowEdit(false)
 
       {/* Preview Modal */}
       {showPreview && (
-        <div className="fixed inset-0 backdrop-blur-xs  flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto relative">
-            {/* Close Button */}
-            <button
-              onClick={() => setShowPreview(false)}
-              className="absolute top-4 right-4 p-2 hover:bg-gray-100 rounded-lg transition-colors z-10"
-            >
-              <X className="w-6 h-6 text-gray-600" />
-            </button>
-
-            {/* Preview Content */}
-            <div className="p-12 text-center">
-              {/* Chef Icon */}
-              <div className="flex justify-center mb-8">
-                {/* <svg
-                  className="w-48 h-48"
-                  viewBox="0 0 200 200"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <ellipse cx="100" cy="50" rx="40" ry="20" stroke="#EF4444" strokeWidth="4" fill="none" />
-                  <path d="M60 50 L60 90 C60 95 65 100 70 100 L130 100 C135 100 140 95 140 90 L140 50" stroke="#EF4444" strokeWidth="4" fill="none" />
-                  <circle cx="100" cy="120" r="35" stroke="#EF4444" strokeWidth="4" fill="none" />
-                  <circle cx="90" cy="115" r="3" fill="black" />
-                  <circle cx="110" cy="115" r="3" fill="black" />
-                  <path d="M 90 128 Q 100 135 110 128" stroke="black" strokeWidth="2" fill="none" strokeLinecap="round" />
-                  <line x1="70" y1="45" x2="75" y2="40" stroke="black" strokeWidth="2" strokeLinecap="round" />
-                  <line x1="72.5" y1="42.5" x2="72.5" y2="42.5" stroke="black" strokeWidth="2" strokeLinecap="round" />
-                  <line x1="130" y1="45" x2="125" y2="40" stroke="black" strokeWidth="2" strokeLinecap="round" />
-                  <line x1="127.5" y1="42.5" x2="127.5" y2="42.5" stroke="black" strokeWidth="2" strokeLinecap="round" />
-                  <path d="M 70 155 Q 60 140 50 130" stroke="#EF4444" strokeWidth="4" fill="none" strokeLinecap="round" />
-                  <path d="M 130 155 Q 140 140 150 130" stroke="#EF4444" strokeWidth="4" fill="none" strokeLinecap="round" />
-                  <rect x="42" y="122" width="4" height="20" fill="black" transform="rotate(-45 44 132)" />
-                  <ellipse cx="48" cy="126" rx="6" ry="4" fill="#EF4444" transform="rotate(-45 48 126)" />
-                </svg> */}
-<Image src={pr.image_uri}   width={400} height={400} />
-
-
-              </div>
-
-              {/* Title */}
-              <h1 className="text-4xl font-bold text-black mb-6">
-                {pr.title}
-              </h1>
-
-              {/* Subtitle */}
-          
-
-              {/* Content */}
-              <div className="text-gray-800 space-y-4 leading-relaxed">
-                {pr.content.split('\n\n').map((paragraph, index) => (
-                  <p key={index} className="text-sm">
-                    {paragraph}
-                  </p>))}
-<p>{pr.content }</p>
-                  </div>
-            </div>
-          </div>
-        </div>
+       <Preview open={showPreview} setShowPreview={setShowPreview} pressReleaseId={pr.id} />
+  
       )}
 
       {/* Edit Modal */}
@@ -215,8 +178,8 @@ setShowEdit(false)
             <div className="  px-6 py-4 flex items-center justify-between z-10">
               <p className="text-xl text-black font-semibold ">Edit your press release</p>
               <button
-                onClick={() => setShowEdit(false)}
-                className="p-2 hover:bg-zinc-800 rounded-lg transition-colors"
+                onClick={() =>closeModal()}
+                className="p-2 cursor-pointer rounded-lg transition-colors"
               >
                 <X className="w-6 h-6 text-gray-400" />
               </button>
@@ -226,8 +189,47 @@ setShowEdit(false)
             <div className="p-6">
               <div className="grid grid-cols-1 gap-6">
                 {/* Left Column - Chef Image */}
-                <div className=" rounded-lg p-8 flex items-center justify-center">
-               <Image src={formData.image}  width={600} height={400}/>
+                <div className="relative rounded-lg p-8 flex items-center justify-center">
+                     {formData.image?(
+                     <>
+                      <button 
+                onClick={() =>DeletePrImage(pr.id) }
+                className="flex absolute top-0  right-20  cursor-pointer gap-2 px-4 py-2  rounded-lg transition-colors"
+              >
+                <X className="w-5 h-5  text-black" />
+                {/* <span className="text-black">Preview</span> */}
+              </button>
+               <Image src={formData.image}  width={400} height={400}/>
+
+                   </> ):(
+    <label
+      htmlFor="image-upload"
+      className="flex flex-col items-center justify-center w-full h-60 cursor-pointer rounded-lg bg-gray-50 hover:bg-gray-100 transition"
+    >
+      {/* <Upload className="w-10 h-10 text-gray-400 mb-2" /> */}
+      <p className="text-sm text-gray-600">
+        <span className="font-semibold">Click to upload</span> or drag and drop
+      </p>
+      <p className="text-xs text-gray-400 mt-1">PNG, JPG up to 5MB</p>
+
+      <input
+        id="image-upload"
+        type="file"
+        accept="image/*"
+        className="hidden"
+        onChange={(e) => {
+          const file = e.target.files?.[0];
+          if (!file) return;
+
+          const imageUrl = URL.createObjectURL(file);
+          setFormData((prev) => ({
+            ...prev,
+            image: imageUrl,
+            imageFile: file, // keep original file if needed
+          }));
+        }}
+      />
+    </label>)}
                 </div>
 
                 {/* Right Column - Form Fields */}
@@ -263,21 +265,25 @@ setShowEdit(false)
               {/* Action Buttons */}
               <div className="mt-6 flex items-center justify-between">
                 <button
-                  onClick={() => setShowEdit(false)}
+                  onClick={() =>closeModal()}
                   className="px-6 py-2  cursor-pointer transition-colors"
                 >
                   Cancel
                 </button>
                 <button
-                  onClick={() => Update(editData.id)}
+                  onClick={() => Update(pr.id)}
                   className="px-6 py-2 bg-red-600 hover:bg-red-500 cursor-pointer text-white rounded-lg transition-colors"
                 > 
-Update Draft                </button>
+Update Draft             
+
+   </button>
               </div>
             </div>
           </div>
         </div>
       )}
+
+
+
     </div>
-  );
-}
+  )}

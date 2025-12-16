@@ -107,19 +107,19 @@ try{
   setTimeout(() => {
     setLoading(false)
   }, 5000)
-setFormData({
-  file: null,                       // uploaded image
-  pressReleaseStyle: "",            // select: Formal / Fun
-  primarySpokesperson: "",          // select: Owner / GM / etc.
-  campaignFocus: "",                // select: primary focus
-  spokespersonName: "",             // textarea
-  designationTitle: "",
-  priceRange:"",             // input
-  goLiveDate: "",                   // input type date
-  duration: "",                      // select
-  keyHighlights: "",                // textarea
-  preferredQuote: "",               // textarea
-})
+// setFormData({
+//   file: null,                       // uploaded image
+//   pressReleaseStyle: "",            // select: Formal / Fun
+//   primarySpokesperson: "",          // select: Owner / GM / etc.
+//   campaignFocus: "",                // select: primary focus
+//   spokespersonName: "",             // textarea
+//   designationTitle: "",
+//   priceRange:"",             // input
+//   goLiveDate: "",                   // input type date
+//   duration: "",                      // select
+//   keyHighlights: "",                // textarea
+//   preferredQuote: "",               // textarea
+// })
 
 
 
@@ -205,6 +205,7 @@ setFormData({
         <div className="col-span-1 bg-[#FBDFDF] h-[250px]  w-[250px] p-3 py-8 rounded-2xl flex flex-col justify-between">
           <label className="font-medium text-sm mb-1">Press Release Style</label>
   <select   name="pressReleaseStyle"
+  value={formData.pressReleaseStyle}
                           onChange={handleChange}  className="border bg-white text-start  border-gray-400 rounded-md flex flex-col items-center justify-center p-2 text-sm text-gray-500">
             <option value="">Select</option>
           <option value="">Formal</option>
@@ -215,7 +216,7 @@ setFormData({
           <label className="font-medium text-sm mb-1">Primary Spokesperson
 (If Applicable)</label>
  <select    name="primarySpokesperson"
-                          onChange={handleChange} className="border bg-white text-start  border-gray-400 rounded-md flex flex-col items-center justify-center p-2 text-sm text-gray-500">
+                value={formData.primarySpokesperson}          onChange={handleChange} className="border bg-white text-start  border-gray-400 rounded-md flex flex-col items-center justify-center p-2 text-sm text-gray-500">
 <option value="">Owner</option>
 <option value="">General Manager</option>
 <option value="">Head Chef</option>
@@ -233,7 +234,7 @@ setFormData({
 of the campaign or release*</label>
 
            
-          <select       name="campaignFocus"
+          <select     value={formData.campaignFocus}  name="campaignFocus"
                           onChange={handleChange} className="border bg-white text-start  border-gray-400 rounded-md flex flex-col items-center justify-center p-2 text-sm text-gray-500">
 
             <option value="">New Opening</option>
@@ -252,7 +253,7 @@ of the campaign or release*</label>
         </div>
           <div className="col-span-1 bg-[#FBDFDF] h-[250px] p-3 py-8  rounded-2xl flex flex-col justify-between">
           <label className="font-medium text-sm mb-1">Name of spokesperson</label>
-          <textarea type="text"   name="spokespersonName"
+          <textarea type="text"   name="spokespersonName" value={formData.spokespersonName}
                           onChange={handleChange} placeholder="Enter the name of spokesperson" className="border border-gray-300 resize-none bg-white rounded-md p-2   text-sm" />
         </div>
         </div></div>
@@ -302,9 +303,7 @@ Offer Date*</label>
         </div>
           <div className="col-span-1 bg-[#FBEDDF] w-[500px]  h-[250px]  p-3 py-8 rounded-2xl flex flex-col justify-between">
           <label className="font-medium text-sm mb-1">Key highlights / Selling points (Max 3 bullet points)*</label>
-          <textarea type="text" placeholder="Enter upto 3 key highlights or selling points
-
-" className="border border-gray-300 resize-none bg-white rounded-md p-2 h-[120px] text-sm" />
+          <textarea type="text" placeholder="Enter upto 3 key highlights or selling points" className="border border-gray-300 resize-none bg-white rounded-md p-2 h-[120px] text-sm" />
         </div>
              
 

@@ -4,7 +4,7 @@ import { SignInButton,
   SignUpButton,
   SignedIn,
   SignedOut,
-  UserButton} from '@clerk/nextjs'
+  UserButton,useUser} from '@clerk/nextjs'
 import Image from 'next/image';
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -30,36 +30,39 @@ const Header = () => {
     { name: 'New', path: '/new' },
   ];
 
+const {isSignedIn,isLoaded}=useUser()
+
   return (
     <header 
       className={`top-0 z-50 left-0 w-full h-[15vh] transition-all duration-300
        bg-transparent`}
     >
       <div className="container mx-auto h-full  w-[80%]">
-        <div className="flex items-center h-full justify-between">
+        <div className="flex items-center h-full w-full justify-between">
           {/* Logo */}
           <div className="flex-shrink-0 w-[50%] sm:w-[40%] md:w-[20%] h-[70px]">
 <Link href="/">
-             <Image src={'/assets/home/r-logo.svg'} height={100} width={140} className='object-cover'/>
+             <Image src={'/assets/home/r-logo.svg'} height={100} width={140} priority className='object-cover'/>
              </Link>
           </div>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-end justify-end space-x-8">
-           <SignedIn>
-            {navLinks.map((link) => (
-              <div
-                key={link.name}
-                // to={link.path}
-                className=" hover:text-gray-700 font-medium  uppercase cursor-pointer transition-colors duration-200 "
-            //  style={{fontFamily:'Subscribe'}} 
-             >
-                <Link href={link.path}>  {link.name}</Link>
-                </div>
-            ))}
-</SignedIn>
-                 <div className="hidden md:flex gap-2 ">
-                      <SignedOut>
+          <nav className="hidden md:flex items-center justify-end w-[50%] space-x-8">
+     {isSignedIn &&
+  navLinks.map((link) => (
+    <div
+      key={link.name}
+      className="hover:text-gray-700 font-medium uppercase cursor-pointer transition-colors duration-200"
+    >
+      <Link href={link.path}>{link.name}</Link>
+    </div>
+  ))
+}   <div className="hidden md:flex gap-2 ">
+  <div className="w-[70px] h-[40px] flex items-center  relative">
+                      {isSignedIn &&  <UserButton />}
+
+                      {!isLoaded &&  !isSignedIn &&(
+                        <>
                         <SignInButton >
                             <button className="bg-white-600 hover:bg-zinc-100 cursor-pointer border text-black px-6 py-2 rounded-md font-medium transition-colors duration-200">
                         Login
@@ -70,11 +73,11 @@ const Header = () => {
                       Signup
                       </button>
                         </SignUpButton>
-                      </SignedOut>
-                      <SignedIn>
-                        <UserButton />
-                      </SignedIn>
-                    
+                                </>
+                      )
+}
+              
+                    </div>
                     </div>
         
           </nav>

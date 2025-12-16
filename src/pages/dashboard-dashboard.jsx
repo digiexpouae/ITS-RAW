@@ -26,6 +26,7 @@ const fetchPr= async (id)=>{
 
 const response=await fetchbyId(ENDPOINTS.OTHER.PRS,id,token)
 const res=response
+return res
 console.log("edit data",res)
 seteditData(res)
 }
