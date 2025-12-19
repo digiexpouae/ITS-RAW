@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { SignInButton,
+import {
+  SignInButton,
   SignUpButton,
   SignedIn,
   SignedOut,
-  UserButton,useUser} from '@clerk/nextjs'
+  UserButton, useUser
+} from '@clerk/nextjs'
 import Image from 'next/image';
+import { Settings, Send, Info } from 'lucide-react';
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -25,15 +28,15 @@ const Header = () => {
 
   const navLinks = [
     { name: 'Dashboard', path: '/dashboard-dashboard' },
- 
+
     { name: 'Restaurant Info', path: '/restaurant' },
     { name: 'New', path: '/new' },
   ];
 
-const {isSignedIn,isLoaded}=useUser()
+  const { isSignedIn, isLoaded } = useUser()
 
   return (
-    <header 
+    <header
       className={`top-0 z-50 left-0 w-full h-[15vh] transition-all duration-300
        bg-transparent`}
     >
@@ -41,49 +44,63 @@ const {isSignedIn,isLoaded}=useUser()
         <div className="flex items-center h-full w-full justify-between">
           {/* Logo */}
           <div className="flex-shrink-0 w-[50%] sm:w-[40%] md:w-[20%] h-[70px]">
-<Link href="/">
-             <Image src={'/assets/home/r-logo.svg'} height={100} width={140} priority className='object-cover'/>
-             </Link>
+            <Link href="/">
+              <Image src={'/assets/home/r-logo.svg'} height={100} width={140} priority className='object-cover' />
+            </Link>
           </div>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center justify-end w-[50%] space-x-8">
-     {isSignedIn &&
-  navLinks.map((link) => (
-    <div
-      key={link.name}
-      className="hover:text-gray-700 font-medium uppercase cursor-pointer transition-colors duration-200"
-    >
-      <Link href={link.path}>{link.name}</Link>
-    </div>
-  ))
-}   <div className="hidden md:flex gap-2 ">
-  <div className="w-[70px] h-[40px] flex items-center  relative">
-                      {isSignedIn &&  <UserButton />}
+          <nav className="hidden md:flex items-center justify-end w-[60%] space-x-4">
 
-                      {!isLoaded &&  !isSignedIn &&(
-                        <>
-                        <SignInButton >
-                            <button className="bg-white-600 hover:bg-zinc-100 cursor-pointer border text-black px-6 py-2 rounded-md font-medium transition-colors duration-200">
-                        Login
-                      </button>
-                        </SignInButton>
-                        <SignUpButton>
-                           <button className="bg-[#000000] hover:bg-zinc-500 cursor-pointer  text-white px-6 py-2 rounded-md font-medium transition-colors duration-200">
+            <div className="flex items-center gap-2  text-black px-5 py-2 rounded-xl mr-4">
+              <div className="flex items-center gap-2">
+                <Settings className="w-5 h-5" />
+                <span className="font-medium">20</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <Send className="w-5 h-5" />
+                <span className="font-medium">1</span>
+              </div>
+              <Info className="w-5 h-5" />
+            </div>
+
+            {isSignedIn &&
+              navLinks.map((link) => (
+                <div
+                  key={link.name}
+                  className="hover:text-gray-700 font-medium uppercase cursor-pointer transition-colors duration-200"
+                >
+                  <Link href={link.path}>{link.name}</Link>
+                </div>
+              ))
+            }
+            <div className="hidden md:flex gap-2 ">
+
+              {isSignedIn && <div className="w-[70px] h-[40px] flex items-center  relative">  <UserButton /></div>}
+
+              {!isSignedIn && (
+                <>
+                  <SignInButton >
+                    <button className="bg-white-600 hover:bg-zinc-100 cursor-pointer border text-black px-6 py-2 rounded-md font-medium transition-colors duration-200">
+                      Login
+                    </button>
+                  </SignInButton>
+                  <SignUpButton>
+                    <button className="bg-[#000000] hover:bg-zinc-500 cursor-pointer  text-white px-6 py-2 rounded-md font-medium transition-colors duration-200">
                       Signup
-                      </button>
-                        </SignUpButton>
-                                </>
-                      )
-}
-              
-                    </div>
-                    </div>
-        
+                    </button>
+                  </SignUpButton>
+                </>
+              )
+              }
+
+
+            </div>
+
           </nav>
 
           {/* Contact Button */}
-        
+
 
           {/* Mobile menu button */}
           <div className="md:hidden">

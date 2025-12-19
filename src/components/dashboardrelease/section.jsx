@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Calendar, Edit, Eye, Send, Trash2, X } from 'lucide-react';
 import Image from 'next/image';
 import ENDPOINTS from '@/utils/ENDPOINTS';
-import { addorUpdateprs,DeleteImage,uploadPrImage} from '@/function';
+import { addorUpdateprs,DeleteImage,uploadPrImage,UpdateImage} from '@/function';
 import { useAuth } from '@clerk/nextjs';
 import Preview  from './preview';
 export default function PressReleaseCard({pr,editData,fetchPr,fetchPrs,DeletePr}) {
@@ -69,22 +69,26 @@ setShowEdit(true)
 const Delete= async(id)=>{
 await DeletePr(id)
 }
-const Update= async (id)=>{
+const Update = async (id) => {
+  const token = await getToken();
 
-const payload={
-  title:formData.title,
-  content:formData.content,
-}
+  // Prepare payload for text fields
+  const payload = {
+    title: formData.title,
+    content: formData.content,
+  };
 
-const token=await getToken()
-const Updateddata=await addorUpdateprs(ENDPOINTS.OTHER.PRS,payload,id,token)
-console.log("Updated data"+ Updateddata)
+  const UpdatedData = await addorUpdateprs(ENDPOINTS.OTHER.PRS, payload, id, token);
+  console.log("Updated data:", UpdatedData);
+console.log("formdata",formData)
+if (formData.imageFile) {
+   const response=await UpdatePrImage(id, formData.imageFile);
+      console.log("image upadated",response)
+  }
 
-await fetchPrs()
-
-setShowEdit(false)
-
-}
+  await fetchPrs(); // Refresh the list
+  setShowEdit(false);
+};
 
 const DeletePrImage= async(id)=>{
 const token =await getToken()
@@ -97,10 +101,17 @@ setShowEdit(false)
 
 
 }
-const UpdateImage = async (id)=>{
-  const token =await getToken()
-const response= await uploadPrImage(ENDPOINTS.OTHER.PRS,id,token)
-}
+const UpdatePrImage = async (id, file) => {
+  if (!file) return; // no file, do nothing
+
+  const token = await getToken();
+  const formDataObj = new FormData();
+  formDataObj.append('image', file); // backend expects 'image'
+
+  const response = await UpdateImage(ENDPOINTS.OTHER.PRS, formDataObj, id, token);
+console.log("image " ,response)
+
+};
 
 
   return (
@@ -217,17 +228,22 @@ const response= await uploadPrImage(ENDPOINTS.OTHER.PRS,id,token)
         type="file"
         accept="image/*"
         className="hidden"
-        onChange={(e) => {
-          const file = e.target.files?.[0];
-          if (!file) return;
+      onChange={async (e) => {
+  const file = e.target.files?.[0];
+  if (!file) return;
 
-          const imageUrl = URL.createObjectURL(file);
-          setFormData((prev) => ({
-            ...prev,
-            image: imageUrl,
-            imageFile: file, // keep original file if needed
-          }));
-        }}
+  // Preview
+  const imageUrl = URL.createObjectURL(file);
+  setFormData((prev) => ({
+    ...prev,
+    image: imageUrl,
+    imageFile: file, // keep the file for upload
+  }));
+
+  // Upload immediately
+
+}}
+ 
       />
     </label>)}
                 </div>

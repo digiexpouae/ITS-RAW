@@ -16,6 +16,25 @@ const axiosInstance = axios.create({
 // token will pass in header on each request
 
 // Token utility component/hook
+axiosInstance.interceptors.request.use(
+  (config) => {
+    // Attach token
+    // if (config.token) {
+    //   config.headers.Authorization = `Bearer ${config.token}`;
+    // }
+
+    // IMPORTANT: only set JSON header if NOT FormData
+    if (config.data instanceof FormData) {
+      // Let Axios handle multipart boundary
+      delete config.headers["Content-Type"];
+    } else {
+      config.headers["Content-Type"] = "application/json";
+    }
+
+    return config;
+  },
+  (error) => Promise.reject(error)
+);
 
 
 
