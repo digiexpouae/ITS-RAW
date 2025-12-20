@@ -10,21 +10,21 @@ import Section7 from '../components/home/section7'
 import Section8 from '../components/home/section8'
 import Section9 from '../components/home/section9'
 import Footer from "@/layout/footer"
-const index=()=>{
-  return(<div className="relative
+const Home = () => {
+  return (<div className="relative
   ">
-<Header/>
-<Section1/>
-<Section2/>
-<Section3 />
-<Section4 />
-<Section5 />
-<Section6 />
-<Section7 />
-<Section8 />
-<Section9 />
+    <Header />
+    <Section1 />
+    <Section2 />
+    <Section3 />
+    <Section4 />
+    <Section5 />
+    <Section6 />
+    <Section7 />
+    <Section8 />
+    <Section9 />
 
-<Footer />
+    <Footer />
   </div>)
 }
-export default index
+export default Home

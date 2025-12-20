@@ -92,6 +92,24 @@ export async function getPrs(enpoints, token) {
 }
 
 
+export async function GETDATA(enpoints, token) {
+    try {
+        const response = await api.get({
+            url: `${enpoints}`,
+            token: token
+        })
+        if (response) {
+            console.log(" GENERATE CREDITS", response)
+            return response
+        }
+    }
+    catch (error) {
+        console.error("Error:", error);
+    }
+
+}
+
+
 export async function UpdateImage(endpionts, data, id, token) {
     try {
         const response = await api.put({

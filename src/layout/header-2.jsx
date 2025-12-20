@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from 'react';
+import { GETDATA } from '@/function';
+import ENDPOINTS from '@/utils/ENDPOINTS';
 import Link from 'next/link';
+import { useAuth } from '@clerk/nextjs';
 import {
   SignInButton,
   SignUpButton,
@@ -12,6 +15,34 @@ import { Settings, Send, Info } from 'lucide-react';
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [credits, setCredits] = useState(0);
+  const [sentCredits, setSentCredits] = useState(0);
+  const { getToken } = useAuth()
+
+
+  const getCredits = async () => {
+
+    const token = await getToken()
+    const response = await GETDATA(ENDPOINTS.OTHER.GENERATE_CREDITS, token)
+    if (response) {
+      setCredits(response)
+      console.log("credit" + response)
+    }
+  }
+  const sendCredits = async () => {
+
+    const token = await getToken()
+    const response = await GETDATA(ENDPOINTS.OTHER.SEND_CREDITS, token)
+    if (response) {
+      setSentCredits(response)
+      console.log("credit" + response)
+    }
+  }
+
+  useEffect(() => {
+    getCredits()
+    sendCredits()
+  }, [])
 
   useEffect(() => {
     const handleScroll = () => {
@@ -51,18 +82,44 @@ const Header = () => {
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center justify-end w-[60%] space-x-4">
+            {isSignedIn &&
+              <div className="flex items-center gap-2  text-black px-5 py-2 rounded-xl mr-4">
+                <div className="flex items-center gap-2">
+                  <Settings className="w-5 h-5" />
+                  <span className="font-medium">{credits}</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Send className="w-5 h-5" />
+                  <span className="font-medium">{sentCredits}</span>
+                </div>
+                <div className="relative group cursor-pointer">
+                  <Info className="w-5 h-5" />
 
-            <div className="flex items-center gap-2  text-black px-5 py-2 rounded-xl mr-4">
-              <div className="flex items-center gap-2">
-                <Settings className="w-5 h-5" />
-                <span className="font-medium">20</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <Send className="w-5 h-5" />
-                <span className="font-medium">1</span>
-              </div>
-              <Info className="w-5 h-5" />
-            </div>
+                  <div className="absolute right-0 top-full mt-4 w-max bg-[#fcd8d8] p-4 rounded-xl shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50 text-[#1a1a1a]">
+                    <div className="absolute -top-2 right-1 w-4 h-4 bg-[#fcd8d8] rotate-45"></div>
+
+                    <div className="relative z-10">
+                      <div className="flex flex-col gap-2 mb-2">
+                        <div className="flex items-center gap-2">
+                          <Settings className="w-4 h-4" />
+                          <span className="font-medium text-sm">{credits} generation credits</span>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <Send className="w-4 h-4" />
+                          <span className="font-medium text-sm">{sentCredits} send credits</span>
+                        </div>
+                      </div>
+
+                      <div className="text-xs mt-2 max-w-64 space-y-2">
+                        <p className="font-bold">Credits work on a rolling schedule.</p>
+                        <p>Generation credits renew daily and sending credits renew monthly.</p>
+                        <p>Example: a sending credit used on the 15th becomes available again on the 15th of next month
+                          while your subscription is active.</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>}
 
             {isSignedIn &&
               navLinks.map((link) => (
