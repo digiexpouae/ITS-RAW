@@ -7,6 +7,7 @@ import ENDPOINTS from '@/utils/ENDPOINTS';
 import { ulid } from 'ulid';
 import toast, { Toaster } from 'react-hot-toast';
 import { X } from 'lucide-react';
+
 const CustomForm = ({ pr, onSave, fetchPrs }) => {
   const isNew = !pr;
   const [loading, setLoading] = useState(false);
@@ -121,7 +122,7 @@ const CustomForm = ({ pr, onSave, fetchPrs }) => {
       // Simulate processing/delay as in AI form
       await new Promise((resolve) => setTimeout(resolve, 5000));
 
-      toast.success("Press Release Saved!");
+      toast.success("Press release submitted successfully!");
 
       if (onSave) {
         onSave();
@@ -254,6 +255,7 @@ const CustomForm = ({ pr, onSave, fetchPrs }) => {
       </div>
 
       <Popup isOpen={loading} />
+
     </div>
   );
 };

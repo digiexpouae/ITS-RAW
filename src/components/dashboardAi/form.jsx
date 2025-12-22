@@ -171,7 +171,7 @@ export default function CampaignForm({ fetchData }) {
       }
       await new Promise((resolve) => setTimeout(resolve, 5000));
 
-      toast.success("Campaign generated successfully!");
+      toast.success("Press release generated and submitted successfully!");
       router.push("/dashboard-dashboard");
 
     }

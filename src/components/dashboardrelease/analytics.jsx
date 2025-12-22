@@ -10,6 +10,7 @@ import { useApi } from '@/function';
 import ENDPOINTS from '@/utils/ENDPOINTS';
 // Helper component for Badges
 import { useSearchParams } from "next/navigation";
+import toast, { Toaster } from 'react-hot-toast';
 
 
 
@@ -136,7 +137,9 @@ const AnalyticsSection = ({ data, fetchPr, editData, DeletePr, fetchPrs }) => {
 
   const draftReleases = releasesWithAnalytics.filter(release => release.state === "draft");
   const sentReleases = releasesWithAnalytics.filter(release => release.state !== "draft");
-
+  const pendingReleases = releasesWithAnalytics.filter(release => release.state === "pending");
+  const sendingReleases = releasesWithAnalytics.filter(release => release.state === "sending");
+  const completedReleases = releasesWithAnalytics.filter(release => release.state === "sent");
   const totalMonthlyVisits = sentReleases.reduce((sum, release) => sum + release.monthlyVisits, 0);
   const totalAVE = sentReleases.reduce((sum, release) => sum + release.ave, 0);
 
@@ -153,15 +156,12 @@ const AnalyticsSection = ({ data, fetchPr, editData, DeletePr, fetchPrs }) => {
   };
   const sendPressRelease = async (releaseId) => {
     if (sentCredits <= 0) {
-      toast({
-        title: "Insufficient Credits",
-        description: "You need credits to send press releases. Please purchase more credits.",
-        variant: "destructive"
-      });
+      toast.error("Insufficient Credits. You need credits to send press releases.");
       return;
     }
     const response = await sendPr(ENDPOINTS.OTHER.SEND_PRS, releaseId)
     if (response) {
+      toast.success("Press release sent successfully!");
       fetchPrs()
     }
 
@@ -263,6 +263,26 @@ const AnalyticsSection = ({ data, fetchPr, editData, DeletePr, fetchPrs }) => {
               </div>
             ) : (
               <div className="space-y-4">
+                <div className="flex flex-wrap items-center justify-between gap-4 mb-6">
+                  <p className="font-medium text-xl">Sent Press Releases</p>
+                  <div className="flex items-center space-x-2">
+                    {pendingReleases.length > 0 && (
+                      <Badge className="bg-yellow-50 text-yellow-700 border border-yellow-300">
+                        {pendingReleases.length} pending
+                      </Badge>
+                    )}
+                    {sendingReleases.length > 0 && (
+                      <Badge className="bg-orange-50 text-orange-700 border border-orange-300">
+                        {sendingReleases.length} sending
+                      </Badge>
+                    )}
+                    {completedReleases.length > 0 && (
+                      <Badge className="bg-green-400 text-white">
+                        {completedReleases.length} sent
+                      </Badge>
+                    )}
+                  </div>
+                </div>
                 {sentReleases.length === 0 ? (
                   <div className="py-10 text-center flex flex-col items-center">
                     <Mail className="w-16 h-16 text-red-400 mb-4" strokeWidth={1.5} />
@@ -284,6 +304,15 @@ const AnalyticsSection = ({ data, fetchPr, editData, DeletePr, fetchPrs }) => {
                           <div className="flex flex-wrap justify-between items-start gap-2 mb-2">
                             <p className="font-semibold text-lg">{release.title}</p>
                             <div className="flex items-center space-x-2">
+                              <button
+                                onClick={() => {
+                                  setEditingPressRelease(release);
+                                  setShowPreview(true);
+                                }}
+                                className="flex items-center cursor-pointer gap-2 p-1 rounded-lg hover:bg-gray-100 transition-colors"
+                              >
+                                <Eye className="w-5 h-5 text-[#f19c83]" />
+                              </button>
                               {release.state === "pending" && (
                                 <Badge className="bg-yellow-50 text-yellow-700 border border-yellow-300">
                                   Pending
@@ -299,15 +328,6 @@ const AnalyticsSection = ({ data, fetchPr, editData, DeletePr, fetchPrs }) => {
                                   Sent
                                 </Badge>
                               )}
-                              <button
-                                onClick={() => {
-                                  setEditingPressRelease(release);
-                                  setShowPreview(true);
-                                }}
-                                className="flex items-center cursor-pointer gap-2 p-1 rounded-lg hover:bg-gray-100 transition-colors"
-                              >
-                                <Eye className="w-5 h-5 text-[#f19c83]" />
-                              </button>
                             </div>
                           </div>
 
@@ -359,6 +379,7 @@ const AnalyticsSection = ({ data, fetchPr, editData, DeletePr, fetchPrs }) => {
           pressReleaseId={editingPressRelease.id}
         />
       )}
+      <Toaster position="bottom-right" />
     </div>
   );
 };

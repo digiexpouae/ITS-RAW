@@ -6,20 +6,20 @@ import { useEffect, useState } from "react"
 const index = ({ data, fetchPr, editData, DeletePr, fetchPrs }) => {
         const [loading, setLoading] = useState(true);
 
-        useEffect(() => {
-                if (data) {
-                        setLoading(false); // stop loading once data is available
-                }
-        }, [data]);
+        // useEffect(() => {
+        //         if (data) {
+        //                 setLoading(false); // stop loading once data is available
+        //         }
+        // }, [data]);
 
 
-        if (loading) {
-                return (
-                        <div className="flex items-center justify-center h-screen w-full">
-                                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-red-600"></div>
-                        </div>
-                );
-        }
+        // if (loading) {
+        //         return (
+        //                 <div className="flex items-center justify-center h-screen w-full">
+        //                         <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-red-600"></div>
+        //                 </div>
+        //         );
+        // }
 
         return (
 
