@@ -1,33 +1,32 @@
 import Index from '../components/dashboardAi/index'
-import {AuthWrapper} from '../auth/auth'
+import { AuthWrapper } from '../auth/auth'
 import { useEffect, useState } from 'react'
-import { useAuth } from '@clerk/nextjs'
-import api from '@/api/axiosinterceptor'
 import ENDPOINTS from '@/utils/ENDPOINTS'
-const dashboard=()=>{
-const [fetchData, setfetchData] = useState(null)
-const {getToken}=useAuth()
+import { useApi } from "@/function"
+const dashboard = () => {
+    const [fetchData, setfetchData] = useState(null)
+
+    const { GETDATA } = useApi()
+
+    const fetchdata = async () => {
+
+        const response = await GETDATA(ENDPOINTS.OTHER.RESTAURANT)
+        setfetchData(response)
+        console.log("res")
+    }
+    useEffect(() => {
+        fetchdata()
+    }, [])
 
 
-const fetchdata= async ()=> {
-   
-        const token=await getToken()
-    const response=await api.get({url:ENDPOINTS.OTHER.RESTAURANT,token})
-   setfetchData(response)
-    console.log("res")
-}
-useEffect(()=>{
-    fetchdata()
-},[])
 
 
 
-
-    return(
+    return (
         <>
-        <AuthWrapper>
-        <Index fetchData={fetchData} />
-        </AuthWrapper>
+            <AuthWrapper>
+                <Index fetchData={fetchData} />
+            </AuthWrapper>
         </>
     )
 }

@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { GETDATA } from '@/function';
+// import { GETDATA } from '@/function';
 import ENDPOINTS from '@/utils/ENDPOINTS';
 import Link from 'next/link';
-import { useAuth } from '@clerk/nextjs';
+// import { useAuth } from '@clerk/nextjs';
+import { useApi } from '@/function';
+import { usePathname } from 'next/navigation';
+
 import {
   SignInButton,
   SignUpButton,
@@ -17,22 +20,24 @@ const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [credits, setCredits] = useState(0);
   const [sentCredits, setSentCredits] = useState(0);
-  const { getToken } = useAuth()
-
-
+  // const { getToken } = useAuth()
+  const { GETDATA } = useApi();
+  const pathname = usePathname();
+  const isHome = pathname === '/';
   const getCredits = async () => {
 
-    const token = await getToken()
-    const response = await GETDATA(ENDPOINTS.OTHER.GENERATE_CREDITS, token)
+    // const token = await getToken()
+    const response = await GETDATA(ENDPOINTS.OTHER.GENERATE_CREDITS)
     if (response) {
       setCredits(response)
+      return response
       console.log("credit" + response)
     }
   }
   const sendCredits = async () => {
 
-    const token = await getToken()
-    const response = await GETDATA(ENDPOINTS.OTHER.SEND_CREDITS, token)
+    // const token = await getToken()
+    const response = await GETDATA(ENDPOINTS.OTHER.SEND_CREDITS)
     if (response) {
       setSentCredits(response)
       console.log("credit" + response)
@@ -82,7 +87,7 @@ const Header = () => {
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center justify-end w-[60%] space-x-4">
-            {isSignedIn &&
+            {isSignedIn && !isHome &&
               <div className="flex items-center gap-2  text-black px-5 py-2 rounded-xl mr-4">
                 <div className="flex items-center gap-2">
                   <Settings className="w-5 h-5" />

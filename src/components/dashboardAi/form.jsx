@@ -1,32 +1,47 @@
+"use client";
 
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import LoaderPopup from '../popup'
 import Image from 'next/image';
 import { useRouter } from "next/navigation";
-import { generate, addorUpdateprs, UpdateImage, DeleteImage } from '@/function'
+import { useApi } from '@/function'
 import ENDPOINTS from '@/utils/ENDPOINTS'
-import { useAuth } from '@clerk/nextjs';
+// import { useAuth } from '@clerk/nextjs';
+// import { useAxios } from '@/hooks/useAxios';
 import toast, { Toaster } from 'react-hot-toast';
 import { ulid } from 'ulid';
 export default function CampaignForm({ fetchData }) {
   const [loading, setLoading] = useState(false);
-  const inputRef = useRef()
+  const inputRef = useRef(null)
+  const [imageFile, setImageFile] = useState(null);
 
-  const { getToken } = useAuth()
-
-  const [formData, setFormData] = useState({
-    file: null,
-    pressReleaseStyle: "",
-    primarySpokesperson: "",
-    campaignFocus: "",
-    spokespersonName: "",
-    designationTitle: "",
-    priceRange: "",             // input
-    goLiveDate: "",                   // input type date
-    duration: "",                      // select
-    keyHighlights: "",                // textarea
-    preferredQuote: "",               // textarea
-  });
+  const { generate, addorUpdateprs, UpdateImage, DeleteImage } = useApi();
+  // const axiosInstance = useAxios();
+  const [formData, setFormData] = useState(() => {
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem('generatePrForm');
+      if (saved) {
+        try {
+          const parsed = JSON.parse(saved);
+          return parsed;
+        } catch (e) {
+          console.error("Error parsing saved form data", e);
+        }
+      }
+    }
+    return {
+      pressReleaseStyle: "",
+      primarySpokesperson: "",
+      campaignFocus: "",
+      spokespersonName: "",
+      designationTitle: "",
+      priceRange: "",             // input
+      goLiveDate: "",                   // input type date
+      duration: "",                      // select
+      keyHighlights: "",                // textarea
+      preferredQuote: "",
+    };
+  })
   const router = useRouter()
 
   // ⭐ Handle text/select/date changes
@@ -43,13 +58,9 @@ export default function CampaignForm({ fetchData }) {
   // ⭐ Handle file upload
   const handleFileChange = (e) => {
     const file = e.target.files?.[0];
-    if (!file) return;
-
-    setFormData((prev) => ({
-      ...prev,
-      file,
-    }));
-
+    if (file) {
+      setImageFile(file);
+    }
   };
 
 
@@ -59,34 +70,25 @@ export default function CampaignForm({ fetchData }) {
   const handleFileClick = () => {
     if (inputRef.current) inputRef.current.click();
   };
-  //   const handleSubmit = async (e) => {
-  //   e.preventDefault();
-  //   setLoading(true);
 
+  useEffect(() => {
+    try {
+      localStorage.setItem('generatePrForm', JSON.stringify(formData));
+    } catch (e) {
+      // ignore quota errors
+    }
+  }, [formData]);
 
-  //   const form = new FormData();
-  //   Object.entries(formData).forEach(([key, value]) => {
-  //     if (value) form.append(key, value);
-  //   });
-
-  //   // Simulating API delay
-  //   setTimeout(() => {
-  //     setLoading(false);
-  //   }, 3000);
-  //      router.push("/dashboard-dashboard");
-  // };
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     // Required fields
     const requiredFields = [
-      "file",
       "pressReleaseStyle",
       "primarySpokesperson",
       "campaignFocus",
       "spokespersonName",
       "designationTitle",
-      "priceRange",
       "goLiveDate",
       "duration",
       "keyHighlights",
@@ -98,15 +100,14 @@ export default function CampaignForm({ fetchData }) {
       (key) => !formData[key] || formData[key].toString().trim() === ""
     );
 
-    if (emptyFields.length > 3) {
-      toast.error("Please fill all required fields before submitting.");
+    if (emptyFields.length >= 1) {
+      toast.error("Please fill all required fields .");
       return; // Stop submission if too many fields are empty
     }
 
     try {
       setLoading(true);
 
-      const token = await getToken();
       const payload = {
         restaurantInfo: fetchData,
         pressReleaseDetails: {
@@ -124,7 +125,7 @@ export default function CampaignForm({ fetchData }) {
         },
       };
 
-      const response = await generate(ENDPOINTS.OTHER.GENERATE, payload, token);
+      const response = await generate(ENDPOINTS.OTHER.GENERATE, payload);
       // ✅ Handle plain string or object responses
       // if (!response || response.error || response === "Out of generations. Credits reset at midnight UTC." || (typeof response !== 'string' && !response.success)) {
       //   let errorMessage = "";
@@ -153,18 +154,18 @@ export default function CampaignForm({ fetchData }) {
           content: content,
         };
 
-        const res = await addorUpdateprs(ENDPOINTS.OTHER.PRS, payload2, id, token)
+        const res = await addorUpdateprs(ENDPOINTS.OTHER.PRS, payload2, id)
         console.log("res", res)
 
         // 2. Handle Image: If file exists update it, otherwise delete any existing/default image
-        if (formData.file) {
+        if (imageFile) {
           const imagePayload = new FormData();
-          imagePayload.append('image', formData.file);
+          imagePayload.append('image', imageFile);
 
-          const uploadRes = await UpdateImage(ENDPOINTS.OTHER.PRS, imagePayload, id, token);
+          const uploadRes = await UpdateImage(ENDPOINTS.OTHER.PRS, imagePayload, id);
           console.log("Image upload res", uploadRes);
         } else {
-          const deleteRes = await DeleteImage(ENDPOINTS.OTHER.PRS, id, token);
+          const deleteRes = await DeleteImage(ENDPOINTS.OTHER.PRS, id);
           console.log("Image delete res", deleteRes);
         }
       }
@@ -196,11 +197,11 @@ export default function CampaignForm({ fetchData }) {
         <div className="py-8 w-full px-4 flex flex-col gap-2 justify-between h-[180px] bg-[#FBDFDF] rounded-xl">
           <label className="font-medium">Upload Your Image</label>
           <div
-            className="bg-white flex justify-between w-full items-center px-2 cursor-pointer text-white rounded-md font-medium transition-colors duration-200"
+            className="bg-white flex justify-between w-full items-center px-2 cursor-pointer  rounded-md font-medium transition-colors duration-200"
             onClick={handleFileClick}
           >
             <div className="rounded-md flex flex-col w-full p-2 cursor-pointer text-sm text-gray-500">
-              {formData.file ? formData.file.name : 'Drag & drop or browse here'}
+              {imageFile ? imageFile.name : 'Drag & drop or browse here'}
               <input
                 type="file"
                 ref={inputRef}

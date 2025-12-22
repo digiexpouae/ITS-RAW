@@ -1,190 +1,183 @@
-import api from "./api/axiosinterceptor";
+import { useAxios } from "./hooks/useAxios";
 import ENDPOINTS from "./utils/ENDPOINTS";
-import { ulid } from "ulid";
 
+export const useApi = () => {
+    const api = useAxios();
+    console.log("useApi api instance:", api);
 
-
-export async function addorUpdateprs(enpoints, data, id, token) {
-
-    try {
-        const response = await api.put({
-            url: `${enpoints}/${id}`,
-            data: data, token: token
-        })
-        if (response) {
-            console.log("prs added", response)
-            return response
+    const addorUpdateprs = async (enpoints, data, id) => {
+        try {
+            const response = await api.put(`${enpoints}/${id}`, data)
+            if (response.data) {
+                console.log("prs added", response.data)
+                return response.data
+            }
+        }
+        catch (error) {
+            console.error("Error:", error);
         }
     }
-    catch (error) {
-        console.error("Error:", error);
-    }
 
-}
-
-export async function DeleteImage(enpoints, id, token) {
-    try {
-
-        const response = await api.delete({
-            url: `${enpoints}/${id}/image`,
-            token: token
-        })
-        if (response) {
-            console.log("prs deleted", response)
-            return response
+    const DeleteImage = async (enpoints, id) => {
+        try {
+            const response = await api.delete(`${enpoints}/${id}/image`)
+            if (response.data) {
+                console.log("prs deleted", response.data)
+                return response.data
+            }
+        }
+        catch (error) {
+            console.error("Error:", error);
         }
     }
-    catch (error) {
-        console.error("Error:", error);
-    }
 
-}
-export async function uploadPrImage(enpoints, id, token) {
-    try {
-        const response = await api.delete({
-            url: `${enpoints}/${id}/image`,
-        })
-        if (response) {
-            console.log("prs deleted", response)
-            return response
+    const uploadPrImage = async (enpoints, id) => {
+        try {
+            // NOTE: Original code had api.delete here? Checking original logic:
+            // "const response = await api.delete..." in uploadPrImage? 
+            // That seems wrong in original file but preserving behavior unless it was a bug fix request.
+            // Wait, looking at original file content from step 22:
+            // export async function uploadPrImage(enpoints, id, token) { ... await api.delete ... }
+            // This looks like a copy-paste error in the original code, but I will keep it consistent or fix if obvious. 
+            // Given the name 'uploadPrImage', it should probably be a PUT/POST. 
+            // However, to be safe and avoid breaking unknown logic, I will replicate strict behavior or ask.
+            // Actually, I'll assume standard REST: delete image might be what it did? 
+            // But there is also DeleteImage function.
+            // Let's look at `UpdateImage` (put).
+            // `uploadPrImage` is seemingly unused or broken in original. I will stick to exact transcription.
+
+            const response = await api.delete(`${enpoints}/${id}/image`)
+            if (response.data) {
+                console.log("prs deleted", response.data)
+                return response.data
+            }
+        }
+        catch (error) {
+            console.error("Error:", error);
         }
     }
-    catch (error) {
-        console.error("Error:", error);
-    }
 
-}
-
-
-export async function Preview(enpoints, id, token) {
-    try {
-        const response = await api.get({
-            url: `${enpoints}/${id}/preview`,
-            token: token
-        })
-        if (response) {
-            console.log("prs preview", response)
-            return response
+    const Preview = async (enpoints, id) => {
+        try {
+            const response = await api.get(`${enpoints}/${id}/preview`)
+            if (response.data) {
+                console.log("prs preview", response.data)
+                return response.data
+            }
+        }
+        catch (error) {
+            console.error("Error:", error);
         }
     }
-    catch (error) {
-        console.error("Error:", error);
-    }
 
-}
-
-
-export async function getPrs(enpoints, token) {
-    try {
-        const response = await api.get({
-            url: `${enpoints}`,
-            token: token
-        })
-        if (response) {
-            console.log("prs get", response)
-            return response
+    const getPrs = async (enpoints) => {
+        try {
+            const response = await api.get(`${enpoints}`)
+            if (response.data) {
+                console.log("prs get", response.data)
+                return response.data
+            }
+        }
+        catch (error) {
+            console.error("Error:", error);
         }
     }
-    catch (error) {
-        console.error("Error:", error);
-    }
 
-}
-
-
-export async function GETDATA(enpoints, token) {
-    try {
-        const response = await api.get({
-            url: `${enpoints}`,
-            token: token
-        })
-        if (response) {
-            console.log(" GENERATE CREDITS", response)
-            return response
+    const GETDATA = async (enpoints) => {
+        try {
+            const response = await api.get(`${enpoints}`)
+            if (response.data) {
+                console.log(" GENERATE CREDITS", response.data)
+                return response.data
+            }
+        }
+        catch (error) {
+            console.error("Error:", error);
         }
     }
-    catch (error) {
-        console.error("Error:", error);
-    }
 
-}
-
-
-export async function UpdateImage(endpionts, data, id, token) {
-    try {
-        const response = await api.put({
-            url: `${endpionts}/${id}/image`,
-            data: data,
-            token: token
-        })
-        return response
-    }
-    catch {
-        console.log("Error:")
-    }
-}
-
-
-
-
-
-export async function fetchbyId(enpoints, id, token) {
-    try {
-        const response = await api.get({
-            url: `${enpoints}/${id}`,
-            token: token
-        })
-        if (response) {
-            console.log("prs get", response)
-            return response
+    const UpdateImage = async (endpionts, data, id) => {
+        try {
+            const response = await api.put(`${endpionts}/${id}/image`, data)
+            return response.data
+        }
+        catch (error) {
+            console.log("Error:", error)
         }
     }
-    catch (error) {
-        console.error("Error:", error);
-    }
 
-}
-
-
-
-
-
-
-
-export async function Delete(enpoints, id, token) {
-    try {
-        const response = await api.delete({
-            url: `${enpoints}/${id}`,
-            token: token
-        })
-        if (response) {
-            console.log("prs get", response)
-            return response
+    const fetchbyId = async (enpoints, id) => {
+        try {
+            const response = await api.get(`${enpoints}/${id}`)
+            if (response.data) {
+                console.log("prs get", response.data)
+                return response.data
+            }
+        }
+        catch (error) {
+            console.error("Error:", error);
         }
     }
-    catch (error) {
-        console.error("Error:", error);
-    }
 
-}
-// export async function generate(enpoints,data)
-export async function generate(enpoints, data, token) {
-
-    try {
-        const response = await api.post({
-            url: `${enpoints}`,
-            data: data, token: token
-        })
-        if (response) {
-            console.log("prs added", response)
-            return response
+    const Delete = async (enpoints, id) => {
+        try {
+            const response = await api.delete(`${enpoints}/${id}`)
+            if (response.data) {
+                console.log("prs get", response.data)
+                return response.data
+            }
+        }
+        catch (error) {
+            console.error("Error:", error);
         }
     }
-    catch (error) {
-        console.error("Error:", error);
+
+    const generate = async (enpoints, data) => {
+        try {
+            const response = await api.post(`${enpoints}`, data)
+            if (response.data) {
+                console.log("prs added", response.data)
+                return response.data
+            }
+        }
+        catch (error) {
+            console.error("Error:", error);
+            // Re-throw or handle? Original caught and logged.
+            // form.jsx tries to catch errors from generate. 
+            // If I catch here and don't rethrow, form.jsx won't see error?
+            // Original `function.js` line 183 caught and logged. 
+            // form.jsx line 177 catches error.
+            // If `generate` returns undefined (because of catch), form.jsx checks `if (response)`.
+            // So behavior is preserved.
+        }
     }
 
-}
 
 
+    const sendPr = async (enpoints, id) => {
+        try {
+            const response = await api.post(`${enpoints}/${id}`)
+            if (response) {
+                console.log("pr send ", response)
+                return response
+            }
+        }
+        catch (error) {
+            console.error("Error:", error);
 
+        }
+    }
+    return {
+        addorUpdateprs,
+        DeleteImage,
+        uploadPrImage,
+        Preview,
+        getPrs,
+        GETDATA,
+        UpdateImage,
+        fetchbyId,
+        Delete,
+        sendPr,
+        generate
+    };
+};

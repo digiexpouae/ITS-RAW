@@ -6,11 +6,12 @@ const ENDPOINTS = {
   },
   OTHER:
   {
-    RESTAURANT: `restaurants`,
-    PRS: `prs`,
-    GENERATE: `generate`,
-    GENERATE_CREDITS: `generate/credits`,
-    SEND_CREDITS: `prs/send/credits`
+    RESTAURANT: `/api/restaurants`,
+    PRS: `/api/prs`,
+    GENERATE: `/api/generate`,
+    GENERATE_CREDITS: `/api/generate/credits`,
+    SEND_CREDITS: `/api/prs/send/credits`,
+    SEND_PRS: `api/prs/send`
 
   }
 

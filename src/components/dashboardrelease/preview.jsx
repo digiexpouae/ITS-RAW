@@ -1,31 +1,31 @@
-import { Preview } from "@/function";
+import { useApi } from "@/function";
 import ENDPOINTS from "@/utils/ENDPOINTS";
 import { useAuth } from "@clerk/nextjs";
 import { useEffect, useState } from "react";
-import {X} from "lucide-react"
-function PressReleasePreview({ pressReleaseId,setShowPreview, open }) {
+import { X } from "lucide-react"
+function PressReleasePreview({ pressReleaseId, setShowPreview, open }) {
   const [preview, setPreview] = useState(null);
   const [loading, setLoading] = useState(false);
 
-  const [edit,setEdit]=useState(false)
-  const { getToken } = useAuth();
+  const [edit, setEdit] = useState(false)
 
+  const { Preview } = useApi()
   useEffect(() => {
     if (!open || !pressReleaseId) return;
 
     const fetchPreview = async () => {
       try {
         setLoading(true);
-        const token = await getToken();
+
         const response = await Preview(
           ENDPOINTS.OTHER.PRS,
           pressReleaseId,
-          token
+
         );
-const res=response
+        const res = response
         console.log("PreviewResponse", response);
-setPreview(res);
-      setEdit(true) // must be HTML string
+        setPreview(res);
+        setEdit(true) // must be HTML string
       } catch (error) {
         console.error("Preview error", error);
         setPreview(null);
@@ -37,7 +37,7 @@ setPreview(res);
     fetchPreview();
   }, [open, pressReleaseId]);
 
-   useEffect(() => {
+  useEffect(() => {
     if (open) {
       document.body.style.overflow = "hidden"; // Lock body scroll
     } else {
@@ -48,23 +48,23 @@ setPreview(res);
       document.body.style.overflow = "";
     };
   }, [open])
-useEffect(()=>{
+  useEffect(() => {
 
-console.log("preview Data",preview)
+    console.log("preview Data", preview)
 
-},[preview])
+  }, [preview])
 
 
   if (!open) return null;
 
   return (
-      <div className="h-screeen fixed inset-0 backdrop-blur-xs overflow-y-auto flex flex-col justify-center items-center   w-full">
+    <div className="h-screeen fixed inset-0 backdrop-blur-xs overflow-y-auto flex flex-col justify-center items-center   w-full">
 
-        <div className=" bg-white mb-4 relative w-[70%] rounded flex flex-col items-center justify-center">
+      <div className=" bg-white mb-4 relative w-[70%] rounded flex flex-col items-center justify-center">
 
-     <div className="absolute right-4 top-4 cursor-pointer" onClick={()=>setShowPreview(false)}>   <X size={20} /></div>
-          <span className="font-medium text-center mt-6 text-xl">Press Release Preview</span>
-        
+        <div className="absolute right-4 top-4 cursor-pointer" onClick={() => setShowPreview(false)}>   <X size={20} /></div>
+        <span className="font-medium text-center mt-6 text-xl">Press Release Preview</span>
+
 
         <div className="w-full">
           {loading ? (

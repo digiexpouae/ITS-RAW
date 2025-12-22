@@ -2,22 +2,28 @@ import React, { useEffect, useState } from 'react';
 import { Calendar, Edit, Eye, Send, Trash2, X } from 'lucide-react';
 import Image from 'next/image';
 import ENDPOINTS from '@/utils/ENDPOINTS';
-import { addorUpdateprs,DeleteImage,uploadPrImage,UpdateImage} from '@/function';
-import { useAuth } from '@clerk/nextjs';
-import Preview  from './preview';
-export default function PressReleaseCard({pr,editData,fetchPr,fetchPrs,DeletePr}) {
+import CustomForm from '../dashboardcustom/customform';
+import { useApi } from '@/function';
+// import { addorUpdateprs,DeleteImage,uploadPrImage,UpdateImage} from '@/function';
+// import { useAuth } from '@clerk/nextjs';
+import Preview from './preview';
+export default function PressReleaseCard({ pr, fetchPr, fetchPrs, DeletePr, sentCredits, sendPressRelease }) {
   const [showPreview, setShowPreview] = useState(false);
   const [showEdit, setShowEdit] = useState(false);
+  const [editData, setEditData] = useState()
   const [formData, setFormData] = useState({
     title: '',
     subtitle: '',
     date: '',
     location: '',
-    content:'' ,image:""
+    content: '', image: ""
   });
 
-  const {getToken}=useAuth()
-   useEffect(() => {
+
+
+  // const {getToken}=useAuth()
+  const { addorUpdateprs, DeleteImage, uploadPrImage, UpdateImage } = useApi();
+  useEffect(() => {
     if (showEdit) {
       document.body.style.overflow = "hidden"; // Lock body scroll
     } else {
@@ -36,82 +42,90 @@ export default function PressReleaseCard({pr,editData,fetchPr,fetchPrs,DeletePr}
       [name]: value
     }));
   };
-const closeModal=()=>{
+  const closeModal = () => {
 
 
-   setShowEdit(false)
-   setFormData({  title: '',
-    subtitle: '',
-    date: '',
-    location: '',
-    content:'' ,image:""})
+    setShowEdit(false)
+    setFormData({
+      title: '',
+      subtitle: '',
+      date: '',
+      location: '',
+      content: '', image: ""
+    })
 
 
-}
-
-
-const openEditmodal= async (id)=>{ 
-
-const response=await fetchPr(id)
-setFormData({
-
-
-     title: response.title,
-    subtitle: response.subtitle,
-    date: response.date,
-    location: response.location,
-    content:response.content ,image:response.preview_image_uri
-
-})
-
-setShowEdit(true)
-}
-const Delete= async(id)=>{
-await DeletePr(id)
-}
-const Update = async (id) => {
-  const token = await getToken();
-
-  // Prepare payload for text fields
-  const payload = {
-    title: formData.title,
-    content: formData.content,
-  };
-
-  const UpdatedData = await addorUpdateprs(ENDPOINTS.OTHER.PRS, payload, id, token);
-  console.log("Updated data:", UpdatedData);
-console.log("formdata",formData)
-if (formData.imageFile) {
-   const response=await UpdatePrImage(id, formData.imageFile);
-      console.log("image upadated",response)
   }
 
-  await fetchPrs(); // Refresh the list
-  setShowEdit(false);
-};
-
-const DeletePrImage= async(id)=>{
-const token =await getToken()
-  await DeleteImage(ENDPOINTS.OTHER.PRS,id,token)
+  useEffect(() => {
+    console.log("editData", editData)
 
 
-  await fetchPrs()
-  
-setShowEdit(false)
+  }, [editData])
+  const openEditmodal = async (id) => {
+
+    const response = await fetchPr(id)
+    setEditData(response)
+
+    setFormData({
 
 
-}
-const UpdatePrImage = async (id, file) => {
-  if (!file) return; // no file, do nothing
+      title: response.title,
+      subtitle: response.subtitle,
+      date: response.date,
+      location: response.location,
+      content: response.content, image: response.preview_image_uri
 
-  const token = await getToken();
-  const formDataObj = new FormData();
-  formDataObj.append('image', file); // backend expects 'image'
+    })
 
-  const response = await UpdateImage(ENDPOINTS.OTHER.PRS, formDataObj, id, token);
-console.log("image " ,response)
+    setShowEdit(true)
+  }
+  const Delete = async (id) => {
+    await DeletePr(id)
+  }
+  const Update = async (id) => {
+    // const token = await getToken();
 
-};
+    // Prepare payload for text fields
+    const payload = {
+      title: formData.title,
+      content: formData.content,
+    };
+
+    const UpdatedData = await addorUpdateprs(ENDPOINTS.OTHER.PRS, payload, id);
+    console.log("Updated data:", UpdatedData);
+    console.log("formdata", formData)
+    if (formData.imageFile) {
+      const response = await UpdatePrImage(id, formData.imageFile);
+      console.log("image upadated", response)
+    }
+
+    await fetchPrs(); // Refresh the list
+    setShowEdit(false);
+  };
+
+  const DeletePrImage = async (id) => {
+    // const token =await getToken()
+    await DeleteImage(ENDPOINTS.OTHER.PRS, id)
+
+
+    await fetchPrs()
+
+    setShowEdit(false)
+
+
+  }
+  const UpdatePrImage = async (id, file) => {
+    if (!file) return; // no file, do nothing
+
+    // const token = await getToken();
+    const formDataObj = new FormData();
+    formDataObj.append('image', file); // backend expects 'image'
+
+    const response = await UpdateImage(ENDPOINTS.OTHER.PRS, formDataObj, id);
+    console.log("image ", response)
+
+  };
 
 
   return (
@@ -124,29 +138,34 @@ console.log("image " ,response)
             <p className="text-xl font-semibold pr-8">
               {pr.title}
             </p>
-            
+
             {/* Action Buttons */}
             <div className="flex items-center gap-3 flex-shrink-0">
-              <button 
+              <button
                 onClick={() => openEditmodal(pr.id)}
                 className="p-2  cursor-pointer rounded-lg transition-colors"
               >
                 <Edit className="w-5 h-5 text-[#f19c83]" />
               </button>
-              <button 
+              <button
                 onClick={() => setShowPreview(true)}
                 className="flex items-center cursor-pointer gap-2 px-4 py-2  rounded-lg transition-colors"
               >
                 <Eye className="w-5 h-5 text-[#f19c83]" />
                 {/* <span className="text-black">Preview</span> */}
               </button>
-              <button className="flex items-center gap-2 px-4 py-2 rounded-lg transition-colors">
+              <button
+                className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-colors
+    ${!sentCredits ? 'cursor-not-allowed opacity-50' : 'cursor-pointer'}
+  `}
+                onClick={() => sentCredits && sendPressRelease(pr.id)}
+                disabled={!sentCredits}
+              >
                 <Send className="w-5 h-5 text-[#f19c83]" />
-                <span className="text-gray-400">Send (Insufficient Send Credits)</span>
               </button>
-              <button 
-              onClick={()=>Delete(pr.id)}
-              className="p-2  rounded-lg transition-colors cursor-pointer"  >
+              <button
+                onClick={() => Delete(pr.id)}
+                className="p-2  rounded-lg transition-colors cursor-pointer"  >
                 <Trash2 className="w-5 h-5 text-red-500" />
               </button>
             </div>
@@ -161,14 +180,19 @@ console.log("image " ,response)
           {/* Content with Icon */}
           <div className="flex gap-6">
             {/* Restaurant Icon */}
-            <div className="flex-shrink-0">
-             <Image src={pr.preview_image_uri} width={200} height={100} />
+            <div className="flex-shrink-0 w-[200px] h-[100px] flex items-center justify-center rounded">
+              {pr.preview_image_uri ? (
+                <Image src={pr.preview_image_uri} alt="Restaurant image" width={200} height={100} />
+              ) : (
+                <div className='text-gray-400'>     Image not available </div>
+              )
+              }
             </div>
 
             {/* Press Release Text */}
             <div className="flex-1">
               <p className=" leading-relaxed  line-clamp-3">
-                <span className="">#</span> {pr.content} 
+                <span className="">#</span> {pr.content}
               </p>
             </div>
           </div>
@@ -177,8 +201,8 @@ console.log("image " ,response)
 
       {/* Preview Modal */}
       {showPreview && (
-       <Preview open={showPreview} setShowPreview={setShowPreview} pressReleaseId={pr.id} />
-  
+        <Preview open={showPreview} setShowPreview={setShowPreview} pressReleaseId={pr.id} />
+
       )}
 
       {/* Edit Modal */}
@@ -189,7 +213,7 @@ console.log("image " ,response)
             <div className="  px-6 py-4 flex items-center justify-between z-10">
               <p className="text-xl text-black font-semibold ">Edit your press release</p>
               <button
-                onClick={() =>closeModal()}
+                onClick={() => closeModal()}
                 className="p-2 cursor-pointer rounded-lg transition-colors"
               >
                 <X className="w-6 h-6 text-gray-400" />
@@ -198,108 +222,19 @@ console.log("image " ,response)
 
             {/* Form Content */}
             <div className="p-6">
-              <div className="grid grid-cols-1 gap-6">
-                {/* Left Column - Chef Image */}
-                <div className="relative rounded-lg p-8 flex items-center justify-center">
-                     {formData.image?(
-                     <>
-                      <button 
-                onClick={() =>DeletePrImage(pr.id) }
-                className="flex absolute top-0  right-20  cursor-pointer gap-2 px-4 py-2  rounded-lg transition-colors"
-              >
-                <X className="w-5 h-5  text-black" />
-                {/* <span className="text-black">Preview</span> */}
-              </button>
-               <Image src={formData.image}  width={400} height={400}/>
-
-                   </> ):(
-    <label
-      htmlFor="image-upload"
-      className="flex flex-col items-center justify-center w-full h-60 cursor-pointer rounded-lg bg-gray-50 hover:bg-gray-100 transition"
-    >
-      {/* <Upload className="w-10 h-10 text-gray-400 mb-2" /> */}
-      <p className="text-sm text-gray-600">
-        <span className="font-semibold">Click to upload</span> or drag and drop
-      </p>
-      <p className="text-xs text-gray-400 mt-1">PNG, JPG up to 5MB</p>
-
-      <input
-        id="image-upload"
-        type="file"
-        accept="image/*"
-        className="hidden"
-      onChange={async (e) => {
-  const file = e.target.files?.[0];
-  if (!file) return;
-
-  // Preview
-  const imageUrl = URL.createObjectURL(file);
-  setFormData((prev) => ({
-    ...prev,
-    image: imageUrl,
-    imageFile: file, // keep the file for upload
-  }));
-
-  // Upload immediately
-
-}}
- 
-      />
-    </label>)}
-                </div>
-
-                {/* Right Column - Form Fields */}
-               
-              </div>
-
-              {/* Full Width Content */}
-              <div className="mt-6 space-y-2">
-                  <div>
-                    <label className="block text-sm font-medium text-gray-400 mb-2">
-                      Press Release Title
-                    </label>
-                    <input
-                      type="text"
-                      name="title"
-                      value={formData.title}
-                      onChange={handleInputChange}
-                      className="w-full  border border-zinc-700 rounded-lg px-4 py-3 text-black focus:outline-none focus:border-zinc-500"
-                    />
-                  </div>
-                <label className="block text-sm font-medium text-gray-400 mb-2">
-                  # Content
-                </label>
-                <textarea
-                  name="content"
-                  value={formData.content}
-                  onChange={handleInputChange}
-                  rows={12}
-                  className="w-full resize-none border border-zinc-700 rounded-lg px-4 py-3 text-black focus:outline-none focus:border-zinc-500  text-sm"
-                />
-              </div>
-
-              {/* Action Buttons */}
-              <div className="mt-6 flex items-center justify-between">
-                <button
-                  onClick={() =>closeModal()}
-                  className="px-6 py-2  cursor-pointer transition-colors"
-                >
-                  Cancel
-                </button>
-                <button
-                  onClick={() => Update(pr.id)}
-                  className="px-6 py-2 bg-red-600 hover:bg-red-500 cursor-pointer text-white rounded-lg transition-colors"
-                > 
-Update Draft             
-
-   </button>
-              </div>
+              <CustomForm
+                pr={editData}
+                fetchPrs={fetchPrs}
+                onSave={async () => {
+                  await fetchPrs();
+                  setShowEdit(false);
+                }}
+              />
             </div>
           </div>
         </div>
       )}
 
-
-
     </div>
-  )}
+  )
+}
