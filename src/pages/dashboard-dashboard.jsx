@@ -57,7 +57,6 @@ const dashboardrelease = () => {
 
 
 
-
   return (
     <Dashboard DeletePr={DeletePr} data={data} fetchPr={fetchPr} fetchPrs={fetchPrs} editData={editData} />
   )

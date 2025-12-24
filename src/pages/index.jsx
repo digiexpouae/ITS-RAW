@@ -11,11 +11,25 @@ import Section8 from '../components/home/section8'
 import Section9 from '../components/home/section9'
 import Footer from "@/layout/footer"
 import Index from "../components/dashboardtwo/index"
-import { SignedIn } from "@clerk/nextjs"
+import { useUser } from "@clerk/nextjs"
 const Home = () => {
+
+
+  const { isSignedIn, isLoaded } = useUser()
+
+  if (!isLoaded) {
+    return (
+      <div className="h-screen w-full flex items-center justify-center">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-red-600"></div>
+      </div>
+    )
+  }
+
   return (<div className="relative
   ">
-    {!SignedIn ?
+
+
+    {!isSignedIn ?
       (<>
         <Header />
         <Section1 />
@@ -34,6 +48,7 @@ const Home = () => {
         <Index />
       </>
       )}
+
   </div>)
 }
 export default Home

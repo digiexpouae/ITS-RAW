@@ -347,7 +347,6 @@ const dashboardinfoform = ({ fetch }) => {
       };
       console.log("formdata" + form)
       const token = await getToken()
-      console.log("token" + token)
       const response = await api.put({ url: ENDPOINTS.OTHER.RESTAURANT, data: restaurantData, token })
 
 
@@ -662,11 +661,11 @@ const dashboardinfoform = ({ fetch }) => {
                   <div className="w-full  text-[#9B9B9B] rounded-xl">
                     <p className="text-md text-black font-medium mb-6">Business Operating hours</p>
 
-                    <div className="flex flex-col gap-4 ">
+                    <div className="flex flex-col gap-4 space-y-6 md:space-y-0 ">
                       {['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'].map((day, index) => (
                         <div
                           key={index}
-                          className="grid grid-cols-4 gap-4 h-[25px] gap-x-10 md:gap-0  md:grid-cols-[80px_auto_auto_auto_auto] items-center  text-[10px]"
+                          className=" flex md:grid grid-cols-4  space-y-2 md:space-y-0 flex-wrap  space-x-4 md:space-x-0 h-[25px]  md:gap-0  md:grid-cols-[80px_auto_auto_auto_auto] items-center  text-[10px]"
                         >
                           {/* Day Name */}
                           <p className="font-medium text-[#9B9B9B]">{day}</p>
@@ -708,7 +707,7 @@ const dashboardinfoform = ({ fetch }) => {
                                 placeholder="_ _ : _ _"
                                 {...form.register(`businessHours.${day.toLowerCase()}.open`)}
 
-                                className="w-22 px-2 py-1 text-[10px] border rounded-md bg-white"
+                                className="w-24 px-2 py-1 text-[10px] border rounded-md bg-white"
                               />
                             </div>
 
@@ -719,7 +718,7 @@ const dashboardinfoform = ({ fetch }) => {
                                 type="time"
                                 id={`${day}-close`}
                                 placeholder="_ _ : _ _"
-                                className="w-22 px-2 py-1 border text-[10px] rounded-md bg-white"
+                                className="w-24 px-2 py-1 border text-[10px] rounded-md bg-white"
                                 {...form.register(`businessHours.${day.toLowerCase()}.close`)}
 
                               />

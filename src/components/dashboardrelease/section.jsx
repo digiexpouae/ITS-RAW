@@ -134,13 +134,8 @@ export default function PressReleaseCard({ pr, fetchPr, fetchPrs, DeletePr, sent
         {/* Press Release Card */}
         <div className="p-8 rounded-lg  shadow-lg transition-colors">
           {/* Header */}
-          <div className="flex items-start justify-between mb-6">
-            <p className="text-xl font-semibold pr-8">
-              {pr.title}
-            </p>
-
-            {/* Action Buttons */}
-            <div className="flex items-center gap-3 flex-shrink-0">
+          <div className="flex md:flex-row  gap-4 flex-col items-start justify-between mb-6">
+            <div className="   md:hidden flex items-center gap-3 flex-shrink-0">
               <button
                 onClick={() => openEditmodal(pr.id)}
                 className="p-2  cursor-pointer rounded-lg transition-colors"
@@ -149,13 +144,48 @@ export default function PressReleaseCard({ pr, fetchPr, fetchPrs, DeletePr, sent
               </button>
               <button
                 onClick={() => setShowPreview(true)}
-                className="flex items-center cursor-pointer gap-2 px-4 py-2  rounded-lg transition-colors"
+                className="flex items-center cursor-pointer gap-2 md:px-4  px-2 py-2  rounded-lg transition-colors"
               >
                 <Eye className="w-5 h-5 text-[#f19c83]" />
                 {/* <span className="text-black">Preview</span> */}
               </button>
               <button
-                className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-colors
+                className={`flex items-center gap-2 md:px-4  px-2py-2 rounded-lg transition-colors
+    ${!sentCredits ? 'cursor-not-allowed opacity-50' : 'cursor-pointer'}
+  `}
+                onClick={() => sentCredits && sendPressRelease(pr.id)}
+                disabled={!sentCredits}
+              >
+                <Send className="w-5 h-5 text-[#f19c83]" />
+              </button>
+              <button
+                onClick={() => Delete(pr.id)}
+                className="p-2  rounded-lg transition-colors cursor-pointer"  >
+                <Trash2 className="w-5 h-5 text-red-500" />
+              </button>
+            </div>
+
+            <p className="text-xl font-semibold pr-8">
+              {pr.title}
+            </p>
+
+            {/* Action Buttons */}
+            <div className="  hidden md:flex items-center gap-3 flex-shrink-0">
+              <button
+                onClick={() => openEditmodal(pr.id)}
+                className="p-2  cursor-pointer rounded-lg transition-colors"
+              >
+                <Edit className="w-5 h-5 text-[#f19c83]" />
+              </button>
+              <button
+                onClick={() => setShowPreview(true)}
+                className="flex items-center cursor-pointer gap-2 md:px-4  px-2 py-2  rounded-lg transition-colors"
+              >
+                <Eye className="w-5 h-5 text-[#f19c83]" />
+                {/* <span className="text-black">Preview</span> */}
+              </button>
+              <button
+                className={`flex items-center gap-2 md:px-4  px-2py-2 rounded-lg transition-colors
     ${!sentCredits ? 'cursor-not-allowed opacity-50' : 'cursor-pointer'}
   `}
                 onClick={() => sentCredits && sendPressRelease(pr.id)}
@@ -178,7 +208,7 @@ export default function PressReleaseCard({ pr, fetchPr, fetchPrs, DeletePr, sent
           </div>
 
           {/* Content with Icon */}
-          <div className="flex gap-6">
+          <div className="flex md:flex-row flex-col gap-6">
             {/* Restaurant Icon */}
             <div className="flex-shrink-0 w-[200px] h-[100px] flex items-center justify-center rounded">
               {pr.preview_image_uri ? (

@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { SignInButton,
+import {
+  SignInButton,
   SignUpButton,
   SignedIn,
   SignedOut,
-  UserButton} from '@clerk/nextjs'
+  UserButton
+} from '@clerk/nextjs'
 import Image from 'next/image';
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -25,12 +27,12 @@ const Header = () => {
 
   const navLinks = [
     { name: 'Dashboard', path: '/dashboard-dashboard' },
- 
-   
+
+
   ];
 
   return (
-    <header 
+    <header
       className={`top-0 z-50 left-0 w-full h-[15vh] transition-all duration-300
        bg-transparent`}
     >
@@ -38,48 +40,48 @@ const Header = () => {
         <div className="flex items-center h-full justify-between">
           {/* Logo */}
           <div className="flex-shrink-0 w-[50%] sm:w-[40%] md:w-[20%] h-[70px]">
-<Link href="/">
-             <Image src={'/assets/home/r-logo.svg'} height={100} width={140} className='object-cover'/>
-             </Link>
+            <Link href="/">
+              <Image src={'/assets/home/r-logo.svg'} height={100} width={140} className='object-cover' />
+            </Link>
           </div>
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-end justify-end space-x-8">
-           <SignedIn>
-            {navLinks.map((link) => (
-              <div
-                key={link.name}
-                // to={link.path}
-                className=" hover:text-gray-700 font-medium  uppercase cursor-pointer transition-colors duration-200 "
-            //  style={{fontFamily:'Subscribe'}} 
-             >
-                <Link href={link.path}>  {link.name}</Link>
+            <SignedIn>
+              {navLinks.map((link) => (
+                <div
+                  key={link.name}
+                  // to={link.path}
+                  className=" hover:text-gray-700 font-medium  uppercase cursor-pointer transition-colors duration-200 "
+                //  style={{fontFamily:'Subscribe'}} 
+                >
+                  <Link href={link.path}>  {link.name}</Link>
                 </div>
-            ))}
-</SignedIn>
-                 <div className="hidden md:flex gap-2 ">
-                      <SignedOut>
-                        <SignInButton >
-                            <button className="bg-white-600 hover:bg-zinc-100 cursor-pointer border text-black px-6 py-2 rounded-md font-medium transition-colors duration-200">
-                        Login
-                      </button>
-                        </SignInButton>
-                        <SignUpButton>
-                           <button className="bg-[#000000] hover:bg-zinc-500 cursor-pointer  text-white px-6 py-2 rounded-md font-medium transition-colors duration-200">
-                      Signup
-                      </button>
-                        </SignUpButton>
-                      </SignedOut>
-                      <SignedIn>
-                        <UserButton />
-                      </SignedIn>
-                    
-                    </div>
-        
+              ))}
+            </SignedIn>
+            <div className="hidden md:flex gap-2 ">
+              <SignedOut>
+                <SignInButton >
+                  <button className="bg-white-600 hover:bg-zinc-100 cursor-pointer border text-black px-6 py-2 rounded-md font-medium transition-colors duration-200">
+                    Login
+                  </button>
+                </SignInButton>
+                <SignUpButton>
+                  <button className="bg-[#000000] hover:bg-zinc-500 cursor-pointer  text-white px-6 py-2 rounded-md font-medium transition-colors duration-200">
+                    Signup
+                  </button>
+                </SignUpButton>
+              </SignedOut>
+              <SignedIn>
+                <UserButton />
+              </SignedIn>
+
+            </div>
+
           </nav>
 
           {/* Contact Button */}
-        
+
 
           {/* Mobile menu button */}
           <div className="md:hidden">

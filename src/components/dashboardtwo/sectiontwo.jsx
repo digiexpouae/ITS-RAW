@@ -1,6 +1,12 @@
 import Image from "next/image";
 import Link from "next/link";
+import { useUser, useClerk } from "@clerk/nextjs";
+import { useRouter } from "next/router";
+
 const StepsSection = () => {
+  const { isSignedIn, isLoaded } = useUser();
+  const router = useRouter();
+
   const steps = [
     {
       id: 1,
@@ -8,7 +14,7 @@ const StepsSection = () => {
       title: "CREATE CONTENT",
       description: "Use our AI or draft your own",
       borderColor: "border-[#EE3A3D]",
-      offset: "translate-y-0", // normal position
+      offset: "translate-y-0",
       link: '/new'
     },
     {
@@ -17,9 +23,8 @@ const StepsSection = () => {
       title: "SEND IT",
       description: "Check and send to media",
       borderColor: "border-[#EE3A3D]",
-      offset: "md:translate-y-[60px]", // lowered 60px
-      link: '/dashboard-dashboard?tab=draft'  //
-
+      offset: "md:translate-y-[60px]",
+      link: '/dashboard-dashboard?tab=draft'
     },
     {
       id: 3,
@@ -27,11 +32,26 @@ const StepsSection = () => {
       title: "REVIEW RESULTS",
       description: "See media hits and links",
       borderColor: "border-[#EE3A3D]",
-      offset: "translate-y-0", // normal position
-      link: '/dashboard-dashboard?tab=sent'   // <- open Sent tab
-
+      offset: "translate-y-0",
+      link: '/dashboard-dashboard?tab=sent'
     },
   ];
+
+
+
+  const { redirectToSignIn } = useClerk();
+  const handleClick = (link) => {
+    if (!isSignedIn) {
+      redirectToSignIn({
+        returnBackUrl: "/",
+      })// redirect to sign in if not logged in
+      return;
+    }
+    router.push(link);
+
+  };
+
+  if (!isLoaded) return null; // avoid flashing before user state loads
 
   return (
     <section className="w-full py-8">
@@ -39,26 +59,25 @@ const StepsSection = () => {
         {steps.map((item) => (
           <div
             key={item.id}
-            className={`border-[1.5px] border-dashed bg-white rounded-2xl flex flex-col items-center text-center p-4 md:p-10 w-full md:w-[300px] transition-transform duration-300 hover:scale-[1.05] hover:shadow-lg ${item.borderColor} ${item.offset}`}
+            className={`border-[1.5px] border-dashed bg-white rounded-2xl flex flex-col items-center text-center p-4 md:p-10 w-full md:w-[300px] transition-transform duration-300 hover:scale-[1.05] hover:shadow-lg ${item.borderColor} ${item.offset} cursor-pointer`}
+            onClick={() => handleClick(item.link)}
           >
-            <Link href={item.link}>
-              <div className="relative w-[120px] h-[120px] mb-6">
-                <Image
-                  src={item.image}
-                  alt={item.title}
-                  fill
-                  className="object-contain"
-                />
-              </div>
+            <div className="relative w-[120px] h-[120px] mb-6">
+              <Image
+                src={item.image}
+                alt={item.title}
+                fill
+                className="object-contain"
+              />
+            </div>
 
-              {/* Title */}
-              <h3 className="font-extrabold text-2xl md:text-3xl uppercase text-black ">
-                {item.title}
-              </h3>
+            {/* Title */}
+            <h3 className="font-extrabold text-2xl md:text-3xl uppercase text-black">
+              {item.title}
+            </h3>
 
-              {/* Description */}
-              <p className="text-gray-600 text-sm">{item.description}</p>
-            </Link>
+            {/* Description */}
+            <p className="text-gray-600 text-sm">{item.description}</p>
           </div>
         ))}
       </div>

@@ -17,9 +17,9 @@ export default function ReleaseCharts({ chartData }) {
   return (
     <div className="w-full">
       {/* Charts */}
-      <div className="flex md:flex-row flex-col gap-6 mb-6 w-full">
+      <div className="flex md:flex-row flex-col gap-24 mb-6 w-full">
         {/* Performance Chart */}
-        <div className="bg-white p-4 rounded-xl md:w-1/2">
+        <div className="bg-white p-4 rounded-xl w-full md:w-1/2">
           <p className="mb-2 text-xl mb-4">Performance by Release</p>
           <ResponsiveContainer width="100%" height={300}>
             <BarChart data={chartData}>

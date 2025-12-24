@@ -1,6 +1,6 @@
 "use client"
 import Image from "next/image";
-import { useUser, useAuth } from "@clerk/nextjs";
+import { useUser, useAuth, useClerk } from "@clerk/nextjs";
 import { useRouter } from "next/router";
 import {
   usePlans, CheckoutProvider,
@@ -250,6 +250,7 @@ export default function section5() {
 
   const router = useRouter();
   const { isSignedIn } = useUser();
+  const { redirectToSignIn } = useClerk();
 
   const handlePaymentSubmit = async (paymentMethodId) => {
     try {
@@ -275,6 +276,16 @@ export default function section5() {
 
   const handleSubscribe = async (plan) => {
     // If the plan has a checkout URL, redirect to it
+
+    // wait for Clerk to load
+
+    if (!isSignedIn) {
+      redirectToSignIn({
+        returnBackUrl: "/",
+      });
+      return;
+    }
+
     setSelectedPlan({
       id: plan.id,
       period: 'month'
