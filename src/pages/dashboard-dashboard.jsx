@@ -4,6 +4,7 @@ import Dashboard from '../components/dashboardrelease/index'
 // import { getPrs ,fetchbyId,Delete} from '@/function'
 // import { useAuth } from '@clerk/nextjs'
 import ENDPOINTS from '@/utils/ENDPOINTS'
+import { AuthWrapper } from '../auth/auth'
 import { useApi } from '@/function';
 const dashboardrelease = () => {
   // const {getToken}=useAuth()
@@ -58,7 +59,10 @@ const dashboardrelease = () => {
 
 
   return (
-    <Dashboard DeletePr={DeletePr} data={data} fetchPr={fetchPr} fetchPrs={fetchPrs} editData={editData} />
+
+    <AuthWrapper>
+      <Dashboard DeletePr={DeletePr} data={data} fetchPr={fetchPr} fetchPrs={fetchPrs} editData={editData} />
+    </AuthWrapper>
   )
 }
 export default dashboardrelease

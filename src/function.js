@@ -1,11 +1,16 @@
 import { useAxios } from "./hooks/useAxios";
 import ENDPOINTS from "./utils/ENDPOINTS";
+import { useUser } from "@clerk/nextjs";
+
+
 
 export const useApi = () => {
     const api = useAxios();
+    const { isSignedIn } = useUser()
     console.log("useApi api instance:", api);
 
     const addorUpdateprs = async (enpoints, data, id) => {
+        if (!isSignedIn) return;
         try {
             const response = await api.put(`${enpoints}/${id}`, data)
             if (response.data) {
@@ -71,6 +76,7 @@ export const useApi = () => {
     }
 
     const getPrs = async (enpoints) => {
+        if (!isSignedIn) return;
         try {
             const response = await api.get(`${enpoints}`)
             if (response.data) {
@@ -84,6 +90,7 @@ export const useApi = () => {
     }
 
     const GETDATA = async (enpoints) => {
+        if (!isSignedIn) return;
         try {
             const response = await api.get(`${enpoints}`)
             if (response.data) {
@@ -107,6 +114,7 @@ export const useApi = () => {
     }
 
     const fetchbyId = async (enpoints, id) => {
+
         try {
             const response = await api.get(`${enpoints}/${id}`)
             if (response.data) {
@@ -133,6 +141,7 @@ export const useApi = () => {
     }
 
     const generate = async (enpoints, data) => {
+        if (!isSignedIn) return;
         try {
             const response = await api.post(`${enpoints}`, data)
             if (response.data) {

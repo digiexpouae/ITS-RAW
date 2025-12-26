@@ -163,6 +163,7 @@ const AnalyticsSection = ({ data, fetchPr, editData, DeletePr, fetchPrs }) => {
     if (response) {
       toast.success("Press release sent successfully!");
       fetchPrs()
+      sendcredits()
     }
 
   }

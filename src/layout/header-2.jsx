@@ -29,10 +29,8 @@ import {
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [token, Settoken] = useState(null)
   const [credits, setCredits] = useState(0);
   const [sentCredits, setSentCredits] = useState(0);
-  const { getToken } = useAuth()
   const { GETDATA } = useApi();
 
   const { isSignedIn, isLoaded } = useUser()
@@ -41,7 +39,7 @@ const Header = () => {
 
   const sendCredits = async () => {
     // Only send credits if signed in
-    if (!isSignedIn || token == null) return;
+    if (!isSignedIn) return;
 
     try {
       const response = await GETDATA(ENDPOINTS.OTHER.SEND_CREDITS);
@@ -55,7 +53,7 @@ const Header = () => {
   };
 
   const getCredits = async () => {
-    if (!isSignedIn || token == null) return;
+    if (!isSignedIn) return;
 
     try {
       const response = await GETDATA(ENDPOINTS.OTHER.GENERATE_CREDITS);
@@ -73,19 +71,11 @@ const Header = () => {
 
   useEffect(() => {
     // Ensure user state is loaded
-    const isDesktop = typeof window !== 'undefined' && window.innerWidth >= 768; // md breakpoint
-    if (!isDesktop) return
-    if (!isLoaded || !isSignedIn || token == null) return;
-    ;
-    const authorization = async () => {
+    if (!isLoaded || !isSignedIn) return;
 
-      getCredits();
-      sendCredits();
-
-    }
-    authorization()
-    // Cleanup in case component unmounts before timeout
-  }, [isLoaded, isSignedIn]); // depends on both
+    getCredits();
+    sendCredits();
+  }, [isLoaded, isSignedIn, pathname]);
 
 
 
