@@ -6,12 +6,13 @@ import Dashboard from '../components/dashboardrelease/index'
 import ENDPOINTS from '@/utils/ENDPOINTS'
 import { AuthWrapper } from '../auth/auth'
 import { useApi } from '@/function';
+import { useUser } from '@clerk/nextjs';
 const dashboardrelease = () => {
   // const {getToken}=useAuth()
   const { getPrs, fetchbyId, Delete } = useApi();
   const [data, setData] = useState(null)
   const [editData, seteditData] = useState(null)
-
+  const { isSignedIn } = useUser()
   const fetchPrs = async () => {
 
     // const token= await getToken()
@@ -50,9 +51,10 @@ const dashboardrelease = () => {
 
 
   useEffect(() => {
+    if (!isSignedIn) return;
     fetchPrs()
 
-  }, [])
+  }, [isSignedIn])
 
 
 

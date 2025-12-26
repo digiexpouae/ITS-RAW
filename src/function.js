@@ -76,7 +76,8 @@ export const useApi = () => {
     }
 
     const getPrs = async (enpoints) => {
-        if (!isSignedIn) return;
+
+
         try {
             const response = await api.get(`${enpoints}`)
             if (response.data) {
