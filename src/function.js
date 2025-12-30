@@ -7,7 +7,7 @@ import { useUser } from "@clerk/nextjs";
 export const useApi = () => {
     const api = useAxios();
     const { isSignedIn } = useUser()
-    console.log("useApi api instance:", api);
+    // console.log("useApi api instance:", api);
 
     const addorUpdateprs = async (enpoints, data, id) => {
         if (!isSignedIn) return;

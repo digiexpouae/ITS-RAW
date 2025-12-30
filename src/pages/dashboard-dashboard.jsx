@@ -19,7 +19,7 @@ const dashboardrelease = () => {
 
     const response = await getPrs(ENDPOINTS.OTHER.PRS)
     const res = response
-    console.log("Response", res)
+    // console.log("Response", res)
     setData(response)
 
   }
@@ -32,7 +32,7 @@ const dashboardrelease = () => {
     const response = await fetchbyId(ENDPOINTS.OTHER.PRS, id)
     const res = response
     return res
-    console.log("edit data", res)
+    // console.log("edit data", res)
     seteditData(res)
   }
 
@@ -41,7 +41,7 @@ const dashboardrelease = () => {
 
     const response = await Delete(ENDPOINTS.OTHER.PRS, id)
     const res = response
-    console.log("Pr deleted", res)
+    // console.log("Pr deleted", res)
     await fetchPrs()
 
   }

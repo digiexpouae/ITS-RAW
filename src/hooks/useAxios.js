@@ -37,8 +37,8 @@ export const useAxios = () => {
         return instance;
     }, [getToken]);
 
-    console.log("useAxios returning:", axiosInstance);
-
-    console.log("Axios instance", axiosInstance)
+    // console.log("useAxios returning:", axiosInstance);
+    // 
+    // console.log("Axios instance", axiosInstance)
     return axiosInstance;
 };
