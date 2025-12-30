@@ -4,12 +4,12 @@ import { getToken } from "@clerk/nextjs"; // or pass a function
 // base url
 // adding url method url concatenate with base url
 const axiosInstance = axios.create({
-  baseURL: "https://1iv07ov9ub.execute-api.me-central-1.amazonaws.com",
+  baseURL: process.env.NEXT_PUBLIC_BACKEND_API_URL,
 
   timeout: 600000,
   headers: {
     Accept: "application/json",
-      "Content-Type": "application/json"
+    "Content-Type": "application/json"
   },
 });
 // set token on each request 
@@ -40,8 +40,8 @@ axiosInstance.interceptors.request.use(
 
 const setAuthToken = async (token) => {
   try {
-  
-const token = await getToken?.(); 
+
+    const token = await getToken?.();
     if (token) {
       axiosInstance.defaults.headers.common.Authorization = `Bearer ${token}`;
     } else {
@@ -114,57 +114,57 @@ const request = async ({
   isFile = false,
   token
 }) => {
- 
-  try{
 
-let requestData = data;
-console.log("data"+requestData)
-console.log("token"+ token)
+  try {
+
+    let requestData = data;
+    console.log("data" + requestData)
+    console.log("token" + token)
 
 
-// if (isFile) {
-//   const formData = new FormData();
-//   if (data) {
-//     Object.entries(data).forEach(([key, value]) => {
-//       // Handle File correctly
-//       if (value instanceof File) {
-//         formData.append(key, value, value.name);
-//       } else if (Array.isArray(value)) {
-//         // optional: handle arrays
-//         value.forEach(v => formData.append(`${key}[]`, v));
-//       } else if (value !== undefined && value !== null) {
-//         formData.append(key, value);
-//       }
-//     });
-//   }
-//   requestData = formData;
-// }
+    // if (isFile) {
+    //   const formData = new FormData();
+    //   if (data) {
+    //     Object.entries(data).forEach(([key, value]) => {
+    //       // Handle File correctly
+    //       if (value instanceof File) {
+    //         formData.append(key, value, value.name);
+    //       } else if (Array.isArray(value)) {
+    //         // optional: handle arrays
+    //         value.forEach(v => formData.append(`${key}[]`, v));
+    //       } else if (value !== undefined && value !== null) {
+    //         formData.append(key, value);
+    //       }
+    //     });
+    //   }
+    //   requestData = formData;
+    // }
 
 
     const response = await axiosInstance({
       method,
       url: addApiPrefix(url),
       data: requestData,
-    
-       headers: {
-    ...(config.headers || {}),
-        ...(token ? { Authorization: `Bearer ${token}` }:{}),
+
+      headers: {
+        ...(config.headers || {}),
+        ...(token ? { Authorization: `Bearer ${token}` } : {}),
       },
     });
-        console.log("response"+ response)
+    console.log("response" + response)
     return response.data;
   }
-  catch(error){
+  catch (error) {
     return (error)
   }
 };
 
 const api = {
-  get: ({ url, config = {},token }) => request({ method: "GET", url, config,token }),
-  post: ({ url, data = null, config = {},token }) => request({ method: "POST", url, data, config ,token}),
-  patch: ({ url, data = null, config = {} ,token}) => request({ method: "PATCH", url, data, config,token }),
-  put: ({ url, data = null, config = {} ,token}) => request({ method: "PUT", url, data, config,token }),
-  delete: ({ url, config = {} ,token}) => request({ method: "DELETE", url, config,token }),
+  get: ({ url, config = {}, token }) => request({ method: "GET", url, config, token }),
+  post: ({ url, data = null, config = {}, token }) => request({ method: "POST", url, data, config, token }),
+  patch: ({ url, data = null, config = {}, token }) => request({ method: "PATCH", url, data, config, token }),
+  put: ({ url, data = null, config = {}, token }) => request({ method: "PUT", url, data, config, token }),
+  delete: ({ url, config = {}, token }) => request({ method: "DELETE", url, config, token }),
 };
 
 export default api;
