@@ -53,10 +53,10 @@ const FoundPostsPopup = ({ foundPosts }) => {
 
 
 
-const AnalyticsSection = ({ data, fetchPr, editData, DeletePr, fetchPrs }) => {
+const AnalyticsSection = ({ data, setsendRelease, fetchPr, editData, DeletePr, fetchPrs }) => {
 
   const searchParams = useSearchParams();
-  const tabParam = searchParams.get("tab"); //
+  const tabParam = searchParams.get("tab");
 
 
   const [activeTab, setActiveTab] = useState(tabParam || "draft");
@@ -164,7 +164,9 @@ const AnalyticsSection = ({ data, fetchPr, editData, DeletePr, fetchPrs }) => {
       toast.success("Press release sent successfully!");
       fetchPrs()
       sendcredits()
+      setsendRelease(true)
     }
+
 
   }
 

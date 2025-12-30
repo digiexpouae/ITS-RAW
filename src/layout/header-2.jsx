@@ -26,7 +26,7 @@ import {
   Utensils,
   PlusCircle
 } from 'lucide-react';
-const Header = () => {
+const Header = ({ sendRelease }) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [credits, setCredits] = useState(0);
@@ -75,8 +75,15 @@ const Header = () => {
 
     getCredits();
     sendCredits();
-  }, [isLoaded, isSignedIn, pathname]);
 
+  }, [isLoaded, isSignedIn, pathname, sendRelease]);
+
+  useEffect(() => {
+    // Ensure user state is loaded
+    if (!sendRelease || !isSignedIn) return;
+    sendCredits();
+
+  }, [sendRelease]);
 
 
   useEffect(() => {

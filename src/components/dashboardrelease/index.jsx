@@ -5,7 +5,7 @@ import AnalyticsSection from "./analytics"
 import { useEffect, useState } from "react"
 const index = ({ data, fetchPr, editData, DeletePr, fetchPrs }) => {
         const [loading, setLoading] = useState(true);
-
+        const [sendRelease, setsendRelease] = useState(false)
         // useEffect(() => {
         //         if (data) {
         //                 setLoading(false); // stop loading once data is available
@@ -25,13 +25,13 @@ const index = ({ data, fetchPr, editData, DeletePr, fetchPrs }) => {
 
                 <>
                         <div className="h-auto md:h-[90vh] w-full bg-cover" style={{ backgroundImage: 'url(/assets/dashboard/raw.png)' }}>
-                                <Header />
+                                <Header sendRelease={sendRelease} />
 
 
                                 <Herosection image={'/assets/dashboardrelease/stats.png'} btn2={' bg-[#FFFFFF] hover:bg-zinc-100 !text-black'} />
                         </div>
 
-                        {data ? (<AnalyticsSection data={data} fetchPrs={fetchPrs} DeletePr={DeletePr} fetchPr={fetchPr} editData={editData} />) :
+                        {data ? (<AnalyticsSection data={data} setsendRelease={setsendRelease} fetchPrs={fetchPrs} DeletePr={DeletePr} fetchPr={fetchPr} editData={editData} />) :
 
                                 (
                                         <div className="flex items-center justify-center h-screen w-full">
