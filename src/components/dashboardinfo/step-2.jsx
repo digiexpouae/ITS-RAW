@@ -2,7 +2,7 @@
 
 export default function StepTwo({ formData, handleChange }) {
   const cuisines = [
-    'American','Asian','British','Chineese','European','French','Greek',
+    'American','Asian','British','Chinese','European','French','Greek',
     'Indian','Italian','Japenese','Korean','Latin American','Lebanese',
     'MENA','Mexican','Russian','Spanish','Thai','Other'
   ];

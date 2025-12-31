@@ -1,6 +1,12 @@
 import Image from "next/image";
+import Link from "next/link";
+import { useUser, useClerk } from "@clerk/nextjs";
+import { useRouter } from "next/router";
 
 const StepsSection = () => {
+  const { isSignedIn, isLoaded } = useUser();
+  const router = useRouter();
+
   const steps = [
     {
       id: 1,
@@ -8,7 +14,8 @@ const StepsSection = () => {
       title: "CREATE CONTENT",
       description: "Use our AI or draft your own",
       borderColor: "border-[#EE3A3D]",
-      offset: "translate-y-0", // normal position
+      offset: "translate-y-0",
+      link: '/new'
     },
     {
       id: 2,
@@ -16,17 +23,35 @@ const StepsSection = () => {
       title: "SEND IT",
       description: "Check and send to media",
       borderColor: "border-[#EE3A3D]",
-      offset: "md:translate-y-[60px]", // lowered 60px
+      offset: "md:translate-y-[60px]",
+      link: '/dashboard-dashboard?tab=draft'
     },
     {
       id: 3,
       image: "/assets/dashboardtwo/t-3.svg",
       title: "REVIEW RESULTS",
       description: "See media hits and links",
-       borderColor: "border-[#EE3A3D]",
-      offset: "translate-y-0", // normal position
+      borderColor: "border-[#EE3A3D]",
+      offset: "translate-y-0",
+      link: '/dashboard-dashboard?tab=sent'
     },
   ];
+
+
+
+  const { redirectToSignIn } = useClerk();
+  const handleClick = (link) => {
+    if (!isSignedIn) {
+      redirectToSignIn({
+        returnBackUrl: "/",
+      })// redirect to sign in if not logged in
+      return;
+    }
+    router.push(link);
+
+  };
+
+  if (!isLoaded) return null; // avoid flashing before user state loads
 
   return (
     <section className="w-full py-8">
@@ -34,9 +59,9 @@ const StepsSection = () => {
         {steps.map((item) => (
           <div
             key={item.id}
-            className={`border-[3px] border-dashed bg-white rounded-2xl flex flex-col items-center text-center p-4 md:p-10 w-full md:w-[300px] transition-transform duration-300 hover:scale-[1.05] hover:shadow-lg ${item.borderColor} ${item.offset}`}
+            className={`border-[1.5px] border-dashed bg-white rounded-2xl flex flex-col items-center text-center p-4 md:p-10 w-full md:w-[300px] transition-transform duration-300 hover:scale-[1.05] hover:shadow-lg ${item.borderColor} ${item.offset} cursor-pointer`}
+            onClick={() => handleClick(item.link)}
           >
-            {/* Icon */}
             <div className="relative w-[120px] h-[120px] mb-6">
               <Image
                 src={item.image}
@@ -47,7 +72,7 @@ const StepsSection = () => {
             </div>
 
             {/* Title */}
-            <h3 className="font-extrabold text-2xl md:text-3xl uppercase text-black ">
+            <h3 className="font-extrabold text-2xl md:text-3xl uppercase text-black">
               {item.title}
             </h3>
 

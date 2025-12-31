@@ -11,71 +11,40 @@ import {
   ResponsiveContainer,
 } from "recharts";
 
-const data = [
-  { release: "Release 1", performance: 100000, ave: 120000 },
-  { release: "Release 2", performance: 200000, ave: 250000 },
-  { release: "Release 3", performance: 700000, ave: 750000 },
-];
-
-export default function ReleaseCharts() {
-  const [tab, setTab] = useState("sent"); // "drafts" or "sent"
+export default function ReleaseCharts({ chartData }) {
+  if (!chartData || chartData.length === 0) return null;
 
   return (
-    <div className="w-full ">
+    <div className="w-full">
       {/* Charts */}
-      <div className="flex md:flex-row flex-col gap-6 mb-6 w-full">
+      <div className="flex md:flex-row flex-col md:gap-10 gap-14 mb-6 w-full ">
         {/* Performance Chart */}
-        <div className="bg-white p-4 rounded-xl md:w-1/2 ">
-          <p className=" mb-2 text-xl  mb-4">Performance by Release</p>
-          <ResponsiveContainer width="100%" height={300}>
-            <BarChart data={data}>
+        <div className="bg-white p-4 rounded-xl w-full md:w-1/2 ">
+          <p className="mb-2 text-xl mb-4">Performance by Release</p>
+          <ResponsiveContainer width="90%" height={300}>
+            <BarChart data={chartData}>
               <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="release" />
+              <XAxis dataKey="name" />
               <YAxis />
               <Tooltip />
-              <Bar dataKey="performance" fill="#FBDFDF" />
+              <Bar dataKey="visits" fill="#FBDFDF" name="Monthly Visits (k)" />
             </BarChart>
           </ResponsiveContainer>
         </div>
 
         {/* AVE Chart */}
-        <div className="bg-white p-4 rounded-xl  md:w-1/2">
-          <p className=" mb-2 text-xl  mb-4">AVE by Release</p>
-          <ResponsiveContainer width="100%" height={300}>
-            <BarChart data={data}>
+        <div className="bg-white p-4 rounded-xl md:w-1/2">
+          <p className="mb-2 text-xl mb-4">AVE by Release</p>
+          <ResponsiveContainer width="90%" height={300}>
+            <BarChart data={chartData}>
               <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="release" />
+              <XAxis dataKey="name" />
               <YAxis />
               <Tooltip />
-              <Bar dataKey="ave" fill="#fbeddfff" />
+              <Bar dataKey="ave" fill="#fbeddfff" name="AVE ($)" />
             </BarChart>
           </ResponsiveContainer>
         </div>
-      </div>
-
-      {/* Tabs */}
-      <div className="flex border rounded-lg overflow-hidden w-[240px] md:w-[600px] mx-auto">
-        <button
-          onClick={() => setTab("drafts")}
-          className={`flex-1 p-2 text-sm font-medium ${
-            tab === "drafts" ? "bg-white text-gray-800" : "bg-gray-200 text-gray-400"
-          }`}
-        >
-          Drafts Releases (0)
-        </button>
-        <button
-          onClick={() => setTab("sent")}
-          className={`flex-1 p-2 text-sm font-medium ${
-            tab === "sent" ? "bg-white text-gray-800" : "bg-gray-200 text-gray-400"
-          }`}
-        >
-          Sent Releases (3)
-        </button>
-      </div>
-
-      {/* Optional: Tab Content */}
-      <div className="mt-4 text-center text-gray-600">
-        {tab === "drafts" ? "No draft releases yet." : "Showing sent releases."}
       </div>
     </div>
   );

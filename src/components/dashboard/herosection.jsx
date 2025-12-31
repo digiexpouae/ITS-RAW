@@ -1,6 +1,6 @@
 
 import Image from "next/image"
-const herosection=({image,btn,btn2})=>{
+const herosection=({image,btn,btn2,activeForm,setActiveform})=>{
     return(
         <div className="h-[85%] w-full ">
 
@@ -17,10 +17,14 @@ press Release</span>
 </h2>
 <div className="flex gap-4 mb-4">
 
-    <button className={` bg-[#EE3A3D] hover:bg-zinc-100 cursor-pointer ${btn}  text-white px-2 md:px-4 py-2 rounded-md font-medium transition-colors duration-200`}>
+    <button className={` bg-[#EE3A3D] hover:bg-zinc-100 cursor-pointer ${btn}  text-white px-2 md:px-4 py-2 rounded-md font-medium transition-colors duration-200`}
+onClick={()=>{setActiveform("ai")}}
+    >
          Ai Generate
             </button>
-            <button className={`bg-[#EE3A3D] hover:bg-zinc-100 cursor-pointer ${btn2}   text-white px-2 md:px-4 py-2 rounded-md font-medium transition-colors duration-200`}>
+            <button className={`bg-[#EE3A3D] hover:bg-zinc-100 cursor-pointer ${btn2}   text-white px-2 md:px-4 py-2 rounded-md font-medium transition-colors duration-200`}
+            onClick={()=>{setActiveform("custom")}}
+    >
       Write Custom
             </button>
 </div>
@@ -43,7 +47,7 @@ press Release</span>
 </div>
 <div className=" h-[50%]  w-full  lg:w-1/2 lg:h-full flex items-center justify-center  ">
 <div className="w-full h-full flex items-center justify-center md:items-end md:justify-end ">
-<div className=" md:h-full relative h-full  w-[80%] lg:w-full md:w-[90%] flex items-end justiy-end"><Image src={image} className="md:aspect-[16/14]" width={800} height={800}/></div>
+<div className=" md:h-full relative h-full  w-[80%] lg:w-full md:w-[90%] flex items-end justiy-end"><Image src={image} priority className="md:aspect-[16/14]"  width={800} height={800} /></div>
 </div></div>
 
 </div>

@@ -1,13 +1,17 @@
 
 import Header from '../../layout/header-2'
- import Footer from '../../layout/footer'
- import Herosection from '../dashboard/herosection'
- import Mobileform from '../dashboard/mobileform'
+import Footer from '../../layout/footer'
+import Herosection from '../dashboard/herosection'
+import Mobileform from '../dashboard/mobileform'
 import Form from './form'
+import Customform from '../dashboardcustom/customform'
+
 import { useState } from 'react'
- const dashboardAi=()=>{
-        const formSections = [
-            {
+
+
+const dashboardAi = ({ fetchData }) => {
+  const formSections = [
+    {
       title: "Upload Your Image",
       type: "file",
       // options: ["Select", "Brand Awareness", "Product Launch", "Event"],
@@ -63,7 +67,7 @@ import { useState } from 'react'
       placeholder: "Enter upto 3 key highlights or selling points",
       bgColor: "bg-[#FBDFDF]",
       height: "h-[120px] md:h-[180px]",
-    //   fullWidth: isMobile
+      //   fullWidth: isMobile
     },
     {
       title: "Duration (If Applicable)",
@@ -81,52 +85,44 @@ import { useState } from 'react'
     }
   ]
   const initialFormData = formSections.reduce((acc, section) => {
-  acc[section.title] = section.type === "file" ? null : "";
-  return acc;
-}, {});
+    acc[section.title] = section.type === "file" ? null : "";
+    return acc;
+  }, {});
+  const [activeForm, setActiveform] = useState("ai")
+  const [loading, setLoading] = useState(false)
+  const [formData, setFormData] = useState(initialFormData)
 
-const [loading,setLoading]=useState(false)
-const [formData,setFormData]=useState(initialFormData)
+  console.log("fomdata:", formData);
 
-console.log("fomdata:", formData);
+  const handleChange = (key, value) => {
+    setFormData(prev => ({
+      ...prev,
+      [key]: value
+    }));
+  };
 
-const handleChange = (key, value) => {
-  setFormData(prev => ({
-    ...prev,
-    [key]: value
-  }));
-};
-const handleSubmit = async (e) => {
-  e.preventDefault();
-
-  const formDataToSend = new FormData();
-
-  Object.entries(formData).forEach(([key, value]) => {
-    formDataToSend.append(key, value);
-  });
-
-  console.log("API-ready FormData:", [...formDataToSend.entries()]);
-  
-  setLoading(true);
-  setFormData(initialFormData);
-  setTimeout(() => {
-    setLoading(false)
-  }, 5000);
-};
-
-  return(
-        <>
-                       <div className="h-auto md:h-[90vh] w-full bg-cover overflow-hidden" style={{backgroundImage:'url(/assets/dashboard/raw.png)'}}>
+  return (
+    <>
+      <div className="h-auto md:h-[90vh] w-full bg-cover overflow-hidden" style={{ backgroundImage: 'url(/assets/dashboard/raw.png)' }}>
 
         <Header />
-<Herosection image={'/assets/dashboardcustom/vector-2.svg'}  btn2={' bg-[#FFFFFF] hover:bg-zinc-100 !text-black'}/>
+        <Herosection image={'/assets/dashboardcustom/vector-2.svg'} activeForm={activeForm} setActiveform={setActiveform} btn2={' bg-[#FFFFFF] hover:bg-zinc-100 !text-black'} />
 
-      
-        </div>  
-        <Form  />
-         <Mobileform handleSubmit={handleSubmit} formData={formData} loading={loading} handleChange={handleChange} formSections={formSections} dashboardAi={true}  />
-              <Footer />
+
+      </div>
+      {activeForm === "ai" && (
+        <>  <Form fetchData={fetchData} />
+          <Mobileform formData={formData} loading={loading} handleChange={handleChange} formSections={formSections} dashboardAi={true} />
         </>
-    )
- }
- export default dashboardAi
+      )}
+
+
+      {activeForm === "custom" && (
+        <Customform />
+      )}
+
+      <Footer />
+    </>
+  )
+}
+export default dashboardAi

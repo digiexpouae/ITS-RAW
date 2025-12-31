@@ -14,6 +14,11 @@ const section2=()=>{
     const imageref=useRef(null)
     const section2=useRef(null)
     const text=useRef(null)
+      const scrollToPricing = () => {
+    const section = document.getElementById("pricing");
+    section?.scrollIntoView({ behavior: "smooth" });
+  };
+
 
     return (
       <>
@@ -57,7 +62,8 @@ const section2=()=>{
                 border-[#EE3A3D]
                 border-b-[4px] hover:brightness-110 hover:-translate-y-[1px] hover:border-b-[6px]
                 active:border-b-[2px] active:brightness-90 active:translate-y-[2px]"
-              >
+onClick={scrollToPricing}
+           >
                 Place Your Order
               </button>
             </div>
