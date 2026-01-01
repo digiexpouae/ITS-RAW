@@ -6,8 +6,8 @@
     "dev": "next dev -p 8080",
     "build": "next build",
     "start": "next start",
-    "deploy:dev": "aws s3 sync dist/ s3://355294401173-frontend-dev/ --exclude index.html && aws s3 cp dist/index.html s3://355294401173-frontend-dev/index.html --cache-control no-cache,no-store,must-revalidate --content-type text/html",
-    "deploy:prd": "aws s3 sync dist/ s3://355294401173-frontend-prd/ --exclude index.html && aws s3 cp dist/index.html s3://355294401173-frontend-prd/index.html --cache-control no-cache,no-store,must-revalidate --content-type text/html",
+    "deploy:dev": "aws s3 sync out/ s3://355294401173-frontend-dev/ --exclude index.html && aws s3 cp out/index.html s3://355294401173-frontend-dev/index.html --cache-control no-cache,no-store,must-revalidate --content-type text/html",
+    "deploy:prd": "aws s3 sync out/ s3://355294401173-frontend-prd/ --exclude index.html && aws s3 cp out/index.html s3://355294401173-frontend-prd/index.html --cache-control no-cache,no-store,must-revalidate --content-type text/html",
     "lint": "eslint"
   },
   "dependencies": {
