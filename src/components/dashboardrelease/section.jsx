@@ -204,13 +204,17 @@ export default function PressReleaseCard({ pr, fetchPr, fetchPrs, DeletePr, sent
           {/* Date */}
           <div className="flex items-center gap-2 text-gray-400 mb-6">
             <Calendar className="w-4 h-4" />
-            <span className="text-sm">{pr.updated}</span>
+            {new Date(pr.updated).toLocaleDateString("en-US", {
+              year: "numeric",
+              month: "short",
+              day: "2-digit",
+            })}
           </div>
 
           {/* Content with Icon */}
           <div className="flex md:flex-row flex-col gap-6">
             {/* Restaurant Icon */}
-            <div className="flex-shrink-0 w-[200px] h-[100px] flex items-center justify-center rounded">
+            <div className="flex-shrink-0 w-[200px] aspect-[16/8] flex items-center justify-center rounded">
               {pr.preview_image_uri ? (
                 <Image src={pr.preview_image_uri} alt="Restaurant image" width={200} height={100} />
               ) : (
@@ -220,7 +224,7 @@ export default function PressReleaseCard({ pr, fetchPr, fetchPrs, DeletePr, sent
             </div>
 
             {/* Press Release Text */}
-            <div className="flex-1">
+            <div className="flex-1 flex items-center">
               <p className=" leading-relaxed  line-clamp-3">
                 <span className="">#</span> {pr.content}
               </p>

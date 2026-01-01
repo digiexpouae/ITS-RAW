@@ -351,7 +351,7 @@ const AnalyticsSection = ({ data, setsendRelease, fetchPr, editData, DeletePr, f
 
                           <div className="flex gap-4">
                             {release.preview_image_uri && (
-                              <div className="shrink-0">
+                              <div className="shrink-0 ">
                                 <Image
                                   src={release.preview_image_uri}
                                   alt="Press release image"
