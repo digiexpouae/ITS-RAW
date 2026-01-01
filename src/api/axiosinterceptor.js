@@ -4,7 +4,7 @@ import { getToken } from "@clerk/nextjs"; // or pass a function
 // base url
 // adding url method url concatenate with base url
 const axiosInstance = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_BACKEND_API_URL,
+  baseURL: 'https://1iv07ov9ub.execute-api.me-central-1.amazonaws.com' || process.env.NEXT_PUBLIC_BACKEND_API_URL,
 
   timeout: 600000,
   headers: {
