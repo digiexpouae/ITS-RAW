@@ -120,6 +120,7 @@ const CustomForm = ({ pr, onSave, fetchPrs }) => {
       } catch { /* empty */ }
 
       // Simulate processing/delay as in AI form
+
       await new Promise((resolve) => setTimeout(resolve, 5000));
 
       toast.success("Press release submitted successfully!");
@@ -254,7 +255,7 @@ const CustomForm = ({ pr, onSave, fetchPrs }) => {
         </div>
       </div>
 
-      <Popup isOpen={loading} />
+      {!pr && <Popup isOpen={loading} />}
 
     </div>
   );
