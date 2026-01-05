@@ -14,7 +14,7 @@ const poppins = Poppins({
 
 export default function App({ Component, pageProps }) {
   return (
-    <ClerkProvider publishableKey={process.env.VITE_CLERK_PUBLISHABLE_KEY}>
+    <ClerkProvider publishableKey={process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY}>
 
       <PostHogProvider
         apiKey={process.env.VITE_PUBLIC_POSTHOG_HOST}

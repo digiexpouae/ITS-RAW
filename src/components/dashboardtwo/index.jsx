@@ -3,6 +3,8 @@ import Herosection from "./herosection"
 import Sectionthree from "./sectionthree"
 import Footer from '../../layout/footer'
 import Section4 from "./section4"
+import Section5 from '../../components/home/section5'
+
 const index = () => {
     return (
         <>
@@ -11,7 +13,10 @@ const index = () => {
                 <Herosection />
 
             </div>
-            <Sectionthree />
+
+            {/* <PricingTable /> */}
+            {/* <Sectionthree /> */}
+            <Section5 className={'!py-40'} />
             <Section4 />
             <Footer />
         </>
