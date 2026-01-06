@@ -1,5 +1,5 @@
 // components/AnalyticsSection.jsx
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Image from 'next/image'
 import Chart from './chart'
 import Link from 'next/link';
@@ -11,7 +11,6 @@ import ENDPOINTS from '@/utils/ENDPOINTS';
 // Helper component for Badges
 import { useSearchParams } from "next/navigation";
 import toast, { Toaster } from 'react-hot-toast';
-
 
 
 const Badge = ({ children, className }) => (
@@ -34,7 +33,7 @@ const FoundPostsPopup = ({ foundPosts }) => {
         View {foundPosts.length} published links
       </button>
       {isOpen && (
-        <div className="absolute z-10 bg-white border shadow-md p-2 rounded mt-1 left-0 w-64 text-left">
+        <div className="absolute z-10 bg-white border shadow-md p-2 rounded mt-1 left-0 w-64 text-left h-[120px] overflow-y-scroll">
           <ul className="text-xs space-y-1">
             {foundPosts.map((post, i) => (
               <li key={i}>
@@ -55,6 +54,7 @@ const FoundPostsPopup = ({ foundPosts }) => {
 
 const AnalyticsSection = ({ data, setsendRelease, fetchPr, editData, DeletePr, fetchPrs }) => {
 
+  const timeoutRef = useRef(null);
   const searchParams = useSearchParams();
   const tabParam = searchParams.get("tab");
 
@@ -165,6 +165,13 @@ const AnalyticsSection = ({ data, setsendRelease, fetchPr, editData, DeletePr, f
       fetchPrs()
       sendcredits()
       setsendRelease(true)
+
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+      }
+      timeoutRef.current = setTimeout(() => {
+        setsendRelease(false);
+      }, 1000);
     }
 
 
