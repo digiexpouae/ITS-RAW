@@ -17,9 +17,9 @@ export default function App({ Component, pageProps }) {
     <ClerkProvider publishableKey={process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY}>
 
       <PostHogProvider
-        apiKey={process.env.VITE_PUBLIC_POSTHOG_HOST}
+        apiKey={process.env.NEXT_PUBLIC_POSTHOG_KEY}
         options={{
-          api_host: process.env.VITE_PUBLIC_POSTHOG_HOST,
+          api_host: process.env.NEXT_PUBLIC_POSTHOG_HOST,
           capture_exceptions: true,
           debug: process.env.NODE_ENV === "development",
         }}
