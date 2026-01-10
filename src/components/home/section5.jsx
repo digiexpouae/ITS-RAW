@@ -10,7 +10,7 @@ import {
   usePaymentMethods,
   usePaymentElement,
 } from '@clerk/nextjs/experimental'
-import { PricingTable } from "@clerk/nextjs";
+import { useSubscription } from '@clerk/nextjs/experimental' // or @clerk/clerk-reactimport { PricingTable } from "@clerk/nextjs";
 
 import { useEffect, useRef, useState } from 'react'
 
@@ -154,7 +154,7 @@ import { useEffect, useRef, useState } from 'react'
 
 
 
-export default function section5({ className }) {
+export default function section5({ className, className_Two }) {
   const [selectedPlan, setSelectedPlan] = useState(null)
 
   const { data: plan, isLoading } = usePlans({
@@ -251,21 +251,6 @@ export default function section5({ className }) {
   const router = useRouter();
   const { isSignedIn } = useUser();
   const { redirectToSignIn } = useClerk();
-
-  // const handlePaymentSubmit = async (paymentMethodId) => {
-  //   try {
-  //     // Confirm checkout with selected payment method
-  //     await confirm({ paymentSourceId: paymentMethodId })
-  //     // Complete checkout and redirect
-  //     await finalize({
-  //       navigate: () => router.push('/dashboard'),
-  //     })
-  //   } catch (error) {
-  //     console.error('Payment failed:', error)
-  //   }
-  // }
-
-
   const handleGetStarted = () => {
     if (!isSignedIn) {
       router.push("'/sign-in(.*)");
@@ -293,20 +278,110 @@ export default function section5({ className }) {
   }
 
 
+  const [poll, setPoll] = useState(true);
 
-  // Helper to format price
-  const formatPrice = (p) => {
-    if (!p.amount || p.amount === 0) return <span style={{ fontFamily: 'Subscribe' }}>FREE</span>;
-    return <span className="font-sm" style={{ fontFamily: 'Subscribe' }}>{p.currency} {p.amount}</span>;
+  const { data } = useSubscription({
+    pollInterval: poll ? 3000 : undefined,
+  });
+
+  useEffect(() => {
+    if (!data) return;
+
+    const hasPendingChange = data.subscriptionItems?.some(
+      item => item.status === "upcoming"
+    );
+    console.log("subscription", data)
+    // Stop polling when everything is final
+    if (!hasPendingChange) {
+      setPoll(false);
+    }
+  }, [data?.updatedAt]);
+
+
+
+
+  const formatDate = (date) =>
+    new Date(date).toLocaleDateString("en-US", {
+      month: "short",
+      day: "numeric",
+      year: "numeric",
+    });
+
+  const getSubscriptionItem = (planId) => {
+    return data?.subscriptionItems?.find(
+      (item) => item.plan?.id === planId
+    );
   };
+
+
+  const resolvePlanUI = (planId) => {
+    const item = getSubscriptionItem(planId);
+
+    // No subscription at all
+    if (!data || !item) {
+      return {
+        badge: null,
+        cta: "Subscribe",
+        disabled: false,
+        status: ''
+      };
+    }
+
+    // Active plan (CURRENT)
+    if (item.status === "active") {
+      return {
+        badge: "Current plan",
+
+        cta: "Resubscribe",
+        disabled: false,
+        status: 'active'
+      };
+    }
+
+    // Upcoming (SCHEDULED)
+    if (item.status === "upcoming") {
+      return {
+        badge: `Starts on ${formatDate(item.periodStart)}`,
+        cta: "Scheduled",
+        disabled: true,
+        status: 'upcoming'
+      };
+    }
+
+    // Previously canceled → allow resubscribe
+    if (item.canceledAt) {
+      return {
+        badge: null,
+        cta: "Resubscribe",
+        disabled: false,
+      };
+    }
+
+    return {
+      badge: null,
+      cta: "Subscribe",
+      disabled: false,
+    };
+  };
+
+
+
+
+
+
 
   if (isLoading) return <div>Loading...</div>;
 
-  // Use fetched plans if available, otherwise fallback to empty or static
+
+
+
+
+
+
 
   return (
 
-    <section className={`py-20  flex flex-col items-center justify-center" id="pricing ${className}`}>
+    <section className={`py-20  flex flex-col items-center justify-center" id="pricing ${className} `}>
       <div className="text-center">
         <h2 className="text-[50px] md:text-[80px]">
           <span className="text-black">TRY IT FOR </span>
@@ -319,7 +394,7 @@ export default function section5({ className }) {
       </div>
 
 
-      <div className="mt-12 grid lg:grid-cols-3 gap-8 w-[75%]">
+      <div className={`mt-12 grid lg:grid-cols-3 gap-8 ${className_Two}`}>
 
         {displayPlans.map((p, idx) => {
           // Find matching static style by name
@@ -336,12 +411,28 @@ export default function section5({ className }) {
                 <div className="flex center">
                   <Image src={style.icon} width={50} height={50} alt={p.name} />
                   <div className="ml-3">
-                    <p className="text-sm text-gray-600">  {style.target}</p>
+                    <div className="flex items-center gap-4">
+                      <p className="text-sm text-gray-600">  {style.target}</p>
+                      {(() => {
+                        const { status } = resolvePlanUI(p.id);
+
+                        if (!status) return null;
+
+                        return (
+                          <span className="inline-block  text-xs font-semibold px-2 py-1 rounded-full bg-gray-100 text-gray-700">
+                            {status}
+                          </span>
+                        );
+                      })()}
+                    </div>
+
                     <h3 className="text-2xl " style={{ fontFamily: "DM Sans, sans-serif" }}>{p.name} </h3>
+
+
                   </div>
                 </div>
                 <p className="mt-4 text-3xl flex items-center " >
-                  <span className="text-sm font-normal">{p.fee.amountFormatted}/month</span>
+                  <span className="text-3xl font-normal" style={{ fontFamily: "subscribe, sans-serif" }}>${p.fee.amountFormatted}/month</span>
                 </p>
               </div>
 
@@ -360,15 +451,36 @@ export default function section5({ className }) {
               </div>
 
               {/* Button */}
-              <button
-                onClick={() => handleSubscribe(p)}
-                className={`cursor-pointer transition-all  -6 py-2 rounded-lg
-               border-[#EE3A3D]
-               border-b-[4px] hover:brightness-110 hover:-translate-y-[1px] hover:border-b-[6px]
-               active:border-b-[2px] active:brightness-90 active:translate-y-[2px] mt-auto w-full py-3 rounded-lg font-semibold ${style.buttonColor}`}
-              >
-                Get started
-              </button>
+              {(() => {
+                const { cta, disabled, badge, status, item } = resolvePlanUI(p.id);
+                const hideResubscribe =
+                  status === "active" &&
+                  data?.subscriptionItems?.length === 1;
+                return (
+                  !hideResubscribe && (
+                    <button
+                      disabled={disabled}
+                      onClick={() => !disabled && handleSubscribe(p)}
+                      className={`cursor-pointer transition-all  -6 py-2 rounded-lg
+
+               active:border-b-[2px] active:brightness-90 active:translate-y-[2px] mt-auto w-full py-3 rounded-lg font-semibold
+        ${disabled
+                          ? "bg-gray-200 text-gray-500 cursor-not-allowed"
+                          : `${style.buttonColor}                border-[#EE3A3D]
+               border-b-[4px] hover:brightness-110 hover:-translate-y-[1px] hover:border-b-[6px]`
+                        }
+      `}
+
+
+
+
+                    >
+
+                      {status == "upcoming" ? badge : cta}
+                    </button>)
+                );
+              })()}
+
             </div>
           )
         })}
@@ -411,8 +523,8 @@ function CheckoutModal({ planId, onClose }) {
   if (!planId) return null;
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-      <div className="bg-white rounded-lg p-8 max-w-md w-full">
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-start justify-center z-50 overflow-auto h-screen ">
+      <div className="bg-white rounded-lg p-8 max-w-md w-full ">
         <button onClick={onClose} className="float-right text-gray-500">✕</button>
         <CustomCheckout />
       </div>
@@ -440,10 +552,11 @@ function PaymentSection({ checkout, start }) {
 
   const { isConfirming, confirm, finalize, status, subscription } = checkout
   const { isFormReady, submit } = usePaymentElement()
-  const { data, isLoading } = usePaymentMethods()
+  const { data: paymentMethods, isLoading } = usePaymentMethods()
   const [isSubmitting, setIsSubmitting] = useState(false);
   const router = useRouter()
   const startedRef = useRef(false);
+  const [submittingCardId, setSubmittingCardId] = useState(null);
 
   useEffect(() => {
     if (!startedRef.current) {
@@ -461,25 +574,30 @@ function PaymentSection({ checkout, start }) {
 
       const { data, error } = await submit();
 
-      console.log("Clerk submit:", data);
-      console.log("Error", error)
-      console.log("Checkout", checkout)
+      // console.log("Clerk submit:", data);
+      // console.log("Error", error)
+      // console.log("Checkout", checkout)
 
-      if (checkout.totals?.totalDueNow?.amount == 0) {
+      // if (checkout.totals?.totalDueNow?.amount == 0) {
 
-        alert("You already own this plan.")
-        router.push("/dashboard")
-        return;
-      }
+      //   alert("You already own this plan.")
+      //   router.push("/dashboard")
+      //   return;
+      // }
 
       const result = await confirm(data)
       console.log("Result", result)
 
       if (result.data.status == "completed" || result.data.status == "succeeded") {
-        return await finalize({
-          navigate: () => router.push("/dashboard"),
-        });
+
+        // finalize first
+        await finalize();
+        // Use window.location.origin to ensure a clean redirect if router.push hangs
+        window.location.href = "/dashboard-dashboard";
       }
+
+
+
     }
     catch (error) {
 
@@ -489,10 +607,60 @@ function PaymentSection({ checkout, start }) {
     }
   }
 
+  const subscribe_method = async (method) => {
+    if (isSubmitting) return;
+    setIsSubmitting(true);
+
+    try {
+      // If you're using an existing payment method, you might skip the form submission
+      // and just confirm the checkout using this method
+      const result = await confirm({ paymentMethodId: method.id });
+      console.log("Result", result);
+
+      if (result.data.status === "completed" || result.data.status === "succeeded") {
+        await finalize({
+          navigate: () => {
+            router.push("/dashboard-dashboard");
+            router.refresh();
+          }
+        });
+      }
+    } catch (error) {
+      console.log("Checkout failed:", error);
+      setIsSubmitting(false);
+    }
+  };
+
+  const Billing = !isFormReady
   return (
     <>
 
 
+      {paymentMethods?.length > 0 && (
+        <div className="mb-4">
+          <h4 className="text-sm font-semibold mb-2">Saved Payment Methods</h4>
+          <div className="space-y-2">
+
+            {paymentMethods.map((method) => (
+              <button
+                key={method.id}
+                disabled={Billing || submittingCardId === method.id} // disable only this button
+
+                onClick={() => subscribe_method(method)}
+                className={`
+          ${Billing ? ' mt-4 bg-red-400 opacity-10 cursor-not-allowed  px-4 w-full py-4' : '  mt-4  bg-red-500 hover:bg-red-400 w-full py-4 cursor-pointer px-4 rounded text-white'}
+          ${submittingCardId === method.id ? ' mt-4 bg-red-400 opacity-10 cursor-not-allowed  px-4 w-full py-4' : '  mt-4  bg-red-500 hover:bg-red-400 w-full py-4 cursor-pointer px-4 rounded text-white'}`}
+              >
+
+                {submittingCardId === method.id ? 'Processing…' : `${method.cardType} **** **** **** ${method.last4}`}
+
+
+                {/* Expiry */}
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
 
 
       <PaymentElement fallback={<div>Loading payment element...</div>} />
@@ -511,7 +679,9 @@ function PaymentSection({ checkout, start }) {
         // key={method.id}
         disabled={!isFormReady || isSubmitting}
         onClick={subscribe}
-        className={isSubmitting ? ' mt-4 bg-red-400 opacity-10 cursor-not-allowed  px-4 w-full py-4' : '  mt-4  bg-red-500 hover:bg-red-400 w-full py-4 cursor-pointer px-4 rounded text-white'}
+        className={`
+          ${Billing ? ' mt-4 bg-red-400 opacity-10 cursor-not-allowed  px-4 w-full py-4' : '  mt-4  bg-red-500 hover:bg-red-400 w-full py-4 cursor-pointer px-4 rounded text-white'}
+          ${isSubmitting ? ' mt-4 bg-red-400 opacity-10 cursor-not-allowed  px-4 w-full py-4' : '  mt-4  bg-red-500 hover:bg-red-400 w-full py-4 cursor-pointer px-4 rounded text-white'}`}
       >
         {isSubmitting ? 'Processing…' : `Pay `}
       </button>
