@@ -3,7 +3,6 @@ import Herosection from "./herosection"
 import Sectionthree from "./sectionthree"
 import Footer from '../../layout/footer'
 import Section4 from "./section4"
-import { PricingTable } from "@clerk/nextjs"
 import Section5 from '../../components/home/section5'
 
 const index = () => {
@@ -18,7 +17,6 @@ const index = () => {
 
             {/* <Sectionthree /> */}
             <Section5 className={'!py-40'} />
-            <PricingTable />
             <Section4 />
             <Footer />
         </>

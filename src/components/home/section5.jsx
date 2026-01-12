@@ -558,22 +558,46 @@ function PaymentSection({ checkout, start }) {
   const startedRef = useRef(false);
   const [submittingCardId, setSubmittingCardId] = useState(null);
 
+  // useEffect(() => {
+  //   if (!startedRef.current) {
+  //     start();
+  //     startedRef.current = true; // ← YOU MUST HAVE THIS
+  //   }
+  // }, [start]);
+  const [isCheckoutReady, setIsCheckoutReady] = useState(false);
+
   useEffect(() => {
+    let mounted = true;
+
     if (!startedRef.current) {
-      start();
-      startedRef.current = true; // ← YOU MUST HAVE THIS
+      (async () => {
+        try {
+          await start();
+          if (mounted) {
+            startedRef.current = true;
+            setIsCheckoutReady(true);
+          }
+        } catch (e) {
+          console.error("Checkout start failed", e);
+        }
+      })();
     }
+
+    return () => {
+      mounted = false;
+    };
   }, [start]);
 
-
   const subscribe = async () => {
-    if (isSubmitting) return; // hard guard
+    if (isSubmitting || !isCheckoutReady || !isFormReady) return;
     setIsSubmitting(true);
 
     try {
 
       const { data, error } = await submit();
-
+      if (error || !data) {
+        throw error || new Error("Submit failed");
+      }
       // console.log("Clerk submit:", data);
       // console.log("Error", error)
       // console.log("Checkout", checkout)
@@ -594,8 +618,10 @@ function PaymentSection({ checkout, start }) {
         await finalize();
         // Use window.location.origin to ensure a clean redirect if router.push hangs
         window.location.href = "/dashboard-dashboard";
+        return;
       }
 
+      throw new Error(`Unexpected status: ${status}`);
 
 
     }
@@ -603,12 +629,15 @@ function PaymentSection({ checkout, start }) {
 
 
       console.log("Checkout failed:", error);
-      setIsSubmitting(false)
+
+    }
+    finally {
+      setIsSubmitting(false);
     }
   }
 
   const subscribe_method = async (method) => {
-    if (isSubmitting) return;
+    if (isSubmitting || !isCheckoutReady) return;
     setIsSubmitting(true);
 
     try {
@@ -620,13 +649,16 @@ function PaymentSection({ checkout, start }) {
       if (result.data.status === "completed" || result.data.status === "succeeded") {
         await finalize({
           navigate: () => {
-            router.push("/dashboard-dashboard");
-            router.refresh();
+            window.location.href = "/dashboard-dashboard";
           }
         });
       }
+      throw new Error(`Unexpected status: ${status}`);
     } catch (error) {
       console.log("Checkout failed:", error);
+
+    }
+    finally {
       setIsSubmitting(false);
     }
   };
