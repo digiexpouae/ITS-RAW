@@ -1,12 +1,12 @@
-import { SignedIn, SignedOut, useAuth  ,useClerk} from '@clerk/nextjs';
+import { SignedIn, SignedOut, useAuth, useClerk } from '@clerk/nextjs';
 import { useEffect } from 'react';
 import { LoaderCircle } from 'lucide-react';
 import LoaderPopup from "../components/popup"; // make sure this matches your file
 
 
-export const AuthWrapper = ({ children}) => {
+export const AuthWrapper = ({ children }) => {
   const { isSignedIn, isLoaded } = useAuth();
-      const clerk = useClerk();
+  const clerk = useClerk();
 
   useEffect(() => {
     if (isLoaded && !isSignedIn) {
@@ -15,12 +15,13 @@ export const AuthWrapper = ({ children}) => {
     }
   }, [isLoaded, isSignedIn, clerk]);
 
-  if (!isLoaded && !isSignedIn ) {
-     return <LoaderPopup isOpen={true} />;
+  if (!isLoaded && !isSignedIn) {
+    //  return <LoaderPopup isOpen={true} />;
+    return;
   }
 
 
-  return( 
+  return (
     <>
       <SignedIn>{children}</SignedIn>
       <SignedOut>

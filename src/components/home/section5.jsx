@@ -251,13 +251,13 @@ export default function section5({ className, className_Two }) {
   const router = useRouter();
   const { isSignedIn } = useUser();
   const { redirectToSignIn } = useClerk();
-  const handleGetStarted = () => {
-    if (!isSignedIn) {
-      router.push("'/sign-in(.*)");
-      return;
-    }
-    router.push("/dashboard");
-  };
+  // const handleGetStarted = () => {
+  //   if (!isSignedIn) {
+  //     router.push("'/sign-in(.*)");
+  //     return;
+  //   }
+  //   router.push("/dashboard");
+  // };
 
   const handleSubscribe = async (plan) => {
     // If the plan has a checkout URL, redirect to it
