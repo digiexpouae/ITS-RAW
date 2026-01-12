@@ -33,7 +33,7 @@ const Header = () => {
 
   return (
     <header
-      className={`top-0 z-50 left-0 w-full h-[15vh] transition-all duration-300
+      className={`top-0 z-50 left-0 w-full py-4 transition-all duration-300
        bg-transparent`}
     >
       <div className="container mx-auto h-full  w-[80%]">

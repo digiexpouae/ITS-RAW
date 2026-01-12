@@ -323,6 +323,7 @@ export default function CampaignForm({ fetchData }) {
 
 
                     <select name="duration" value={formData.duration} onChange={handleChange} className="border bg-white text-start  border-gray-400 rounded-md flex flex-col items-center justify-center p-2 text-sm text-gray-500">
+                      <option value="">Select</option>
                       <option value="one-day">One-day only</option>
                       <option value="week-long">Week-long</option>
                       <option value="month-long">Month-long</option>

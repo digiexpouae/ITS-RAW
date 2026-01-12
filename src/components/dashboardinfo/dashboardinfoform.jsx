@@ -95,7 +95,6 @@ const dashboardinfoform = ({ fetch }) => {
   const router = useRouter();
 
 
-  const { getToken } = useAuth()
   const restaurantSchema = z.object({
     menu: z.string().url("Invalid URL format").optional().or(z.literal("")).optional(),
     website: z.string().url("Invalid URL format").optional().or(z.literal("")),
