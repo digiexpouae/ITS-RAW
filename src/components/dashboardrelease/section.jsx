@@ -3,6 +3,7 @@ import { Calendar, Edit, Eye, Send, Trash2, X } from 'lucide-react';
 import Image from 'next/image';
 import ENDPOINTS from '@/utils/ENDPOINTS';
 import CustomForm from '../dashboardcustom/customform';
+
 import { useApi } from '@/function';
 // import { addorUpdateprs,DeleteImage,uploadPrImage,UpdateImage} from '@/function';
 // import { useAuth } from '@clerk/nextjs';
@@ -127,6 +128,11 @@ export default function PressReleaseCard({ pr, fetchPr, fetchPrs, DeletePr, sent
 
   };
 
+  const Badge = ({ children, className }) => (
+    <span className={`px-2 py-1 rounded-full text-xs font-semibold ${className}`}>
+      {children}
+    </span>
+  );
 
   return (
     <div className="py-8">
@@ -207,6 +213,9 @@ export default function PressReleaseCard({ pr, fetchPr, fetchPrs, DeletePr, sent
               month: "short",
               day: "2-digit",
             })}
+            <Badge className="bg-orange-50 text-orange-700 border border-orange-300">
+              Draft
+            </Badge>
           </div>
 
           {/* Content with Icon */}
