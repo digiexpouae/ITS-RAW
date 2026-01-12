@@ -104,6 +104,25 @@ export const useApi = () => {
         }
     }
 
+    const GET_RESTAURANT_DATA = async (endpoints) => {
+        try {
+            const response = await api.get(endpoints);
+            return response?.data ?? [];
+
+        } catch (error) {
+            // ✅ Restaurant does not exist
+            if (error?.response?.status === 404) {
+                console.warn("Restaurant data not found (404)");
+                return []; // empty state, not an error
+            }
+
+            console.error("API error:", error);
+            return null;
+        }
+    };
+
+
+
     const UpdateImage = async (endpionts, data, id) => {
         try {
             const response = await api.put(`${endpionts}/${id}/image`, data)
@@ -177,6 +196,20 @@ export const useApi = () => {
 
         }
     }
+
+
+    const Restaurantinfo = async (enpoints, data) => {
+
+
+        try {
+            const response = await api.put(`${enpoints}`, data)
+            return response.data
+        }
+        catch (error) {
+            console.log("Error:", error)
+        }
+
+    }
     return {
         addorUpdateprs,
         DeleteImage,
@@ -187,6 +220,8 @@ export const useApi = () => {
         UpdateImage,
         fetchbyId,
         Delete,
+        GET_RESTAURANT_DATA,
+        Restaurantinfo,
         sendPr,
         generate
     };

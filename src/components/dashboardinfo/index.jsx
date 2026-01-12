@@ -12,16 +12,33 @@ const index = () => {
 
 
     const [data, setData] = useState(null)
-    const { GETDATA } = useApi()
+    const { GET_RESTAURANT_DATA } = useApi()
 
 
 
     const fetchdata = async () => {
+        const response = await GET_RESTAURANT_DATA(
+            ENDPOINTS.OTHER.RESTAURANT
+        );
 
-        const response = await GETDATA(ENDPOINTS.OTHER.RESTAURANT)
-        setData(response)
-        console.log("fetch restaurant ", response)
-    }
+        // Server error / auth error
+        if (response === null) {
+            setData([]);
+            console.log("Something went wrong while fetching restaurant");
+            return;
+        }
+
+        // No restaurant exists yet
+        if (response.length === 0) {
+            setData([]);
+            console.log("No restaurant data found – show empty form");
+            return;
+        }
+
+        // Restaurant exists
+        setData(response);
+        console.log("fetch restaurant", response);
+    };
 
 
     useEffect(() => {

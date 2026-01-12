@@ -11,11 +11,12 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import ENDPOINTS from '@/utils/ENDPOINTS'
 import { useAuth } from "@clerk/nextjs";
-import api from "../../api/axiosinterceptor"
 import { useRouter } from 'next/router'
 import { Popup } from '../../components/popup'
+import { useApi } from '../../function'
 const dashboardinfoform = ({ fetch }) => {
   const [data, setdata] = useState()
+  const { Restaurantinfo } = useApi()
 
   const days = [
     "monday",
@@ -225,6 +226,9 @@ const dashboardinfoform = ({ fetch }) => {
       phone: ""
     }
   });
+
+
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
@@ -346,8 +350,7 @@ const dashboardinfoform = ({ fetch }) => {
         }
       };
       console.log("formdata" + form)
-      const token = await getToken()
-      const response = await api.put({ url: ENDPOINTS.OTHER.RESTAURANT, data: restaurantData, token })
+      const response = Restaurantinfo(ENDPOINTS.OTHER.RESTAURANT, restaurantData)
 
 
       const res = await response
@@ -367,6 +370,50 @@ const dashboardinfoform = ({ fetch }) => {
 
 
   useEffect(() => {
+    if (!fetch || !fetch.custom) {
+      form.reset({
+        restaurantName: "",
+        menu: "",
+        website: "",
+        whatsapp: "",
+        instagram: "",
+        facebook: "",
+        tiktok: "",
+        youtube: "",
+        linkedin: "",
+        bookingLink: "",
+        location: "",
+        cityArea: "",
+        emirate: "",
+        businessHours: {
+          monday: { open: "", close: "", closed: false },
+          tuesday: { open: "", close: "", closed: false },
+          wednesday: { open: "", close: "", closed: false },
+          thursday: { open: "", close: "", closed: false },
+          friday: { open: "", close: "", closed: false },
+          saturday: { open: "", close: "", closed: false },
+          sunday: { open: "", close: "", closed: false },
+        },
+        isLicensed: false,
+        hasValetParking: false,
+        allowsSmoking: false,
+        isKidsFriendly: false,
+        isPetsFriendly: false,
+        hasTakeaway: false,
+        hasOutdoorDining: false,
+        cuisineType: [],
+        restaurantType: [],
+        averageSpend: "100-500",
+        description: "",
+        personalityVibe: [],
+        email: "",
+        phone: ""
+      });
+
+      console.log("No restaurant data found – empty form loaded");
+      return;
+    }
+
     if (fetch) {
       const data = fetch;
       const averageSpend = data.custom.averageSpend || "100-500";
