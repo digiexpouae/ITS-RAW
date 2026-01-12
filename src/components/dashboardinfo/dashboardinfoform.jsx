@@ -95,6 +95,7 @@ const dashboardinfoform = ({ fetch }) => {
   const router = useRouter();
 
 
+  const { getToken } = useAuth()
   const restaurantSchema = z.object({
     menu: z.string().url("Invalid URL format").optional().or(z.literal("")).optional(),
     website: z.string().url("Invalid URL format").optional().or(z.literal("")),
@@ -107,7 +108,7 @@ const dashboardinfoform = ({ fetch }) => {
     bookingLink: z.string().url("Invalid URL format").optional().or(z.literal("")),
     location: z.string().optional(),
     cityArea: z.string().min(2, "Area must be at least 2 characters"),
-    emirate: z.string().min(2, "Emirate must be selected"),
+    emirate: z.string().min(1, "Emirate must be selected"),
     // ... other fields ...
     businessHours: z.object({
       monday: z.object({
