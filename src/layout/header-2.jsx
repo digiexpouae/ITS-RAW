@@ -129,13 +129,13 @@ const Header = ({ sendRelease }) => {
 
   return (
     <header
-      className={`top-0 z-50 left-0 w-full py-4  transition-all duration-300
+      className={`top-0 z-50 left-0 w-full pt-2 pb-4  md:py-2  transition-all duration-300
        bg-transparent`}
     >
       <div className="container mx-auto h-full  w-[80%]">
         <div className="flex items-center h-full w-full justify-between">
           {/* Logo */}
-          <div className="flex-shrink-0 w-[50%] sm:w-[40%] md:w-[20%] h-[70px]">
+          <div className="flex-shrink-0 w-[50%] sm:w-[40%] md:w-[20%] h-[50px]">
             <Link href="/">
               <Image src={'/assets/home/r-logo.svg'} height={100} width={140} priority className='object-cover' />
             </Link>
