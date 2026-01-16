@@ -182,10 +182,10 @@ const AnalyticsSection = ({ data, setsendRelease, fetchPr, editData, DeletePr, f
       {/* Top Metrics */}
       <div className="flex flex-col md:flex-row justify-between gap-4">
         <div className='flex flex-col md:w-1/2 justify-center bg-[#FBDFDF] p-4 rounded-lg'>
-          <div className="flex-1 flex items-center justify-between">
-            <div className='md:w-1/2'>
+          <div className="flex-1 flex items-center gap-4 md:gap-0 justify-between">
+            <div className='md:w-1/2 '>
               <p className="text-sm text-gray-600">Site monthly visits</p>
-              <span className="text-5xl text-[#EE3A3D]" style={{ fontFamily: 'Subscribe' }}>
+              <span className="text-4xl md:text-5xl text-[#EE3A3D]" style={{ fontFamily: 'Subscribe' }}>
                 {totalMonthlyVisits.toLocaleString()}
               </span>
               <p className='text-sm'>(Via Hypestat)</p>
@@ -203,10 +203,10 @@ const AnalyticsSection = ({ data, setsendRelease, fetchPr, editData, DeletePr, f
         </div>
 
         <div className='bg-[#FBEDDF] md:w-1/2 p-4 rounded-lg'>
-          <div className="flex-1 flex items-center justify-between">
+          <div className="flex-1 flex items-center gap-4 md:gap-0 justify-between">
             <div>
               <p className="text-sm text-gray-600">Total AVE</p>
-              <span className="text-5xl text-[#EE3A3D] flex items-center" style={{ fontFamily: 'Subscribe,sans-serif' }}>
+              <span className="text-4xl md:text-5xl text-[#EE3A3D] flex items-center" style={{ fontFamily: 'Subscribe,sans-serif' }}>
                 ${totalAVE.toLocaleString()}
               </span>
               <p className='text-sm'>(Via Hypestat)</p>

@@ -8,7 +8,6 @@ export default function Pricing() {
   const words = [
 
 
-    'idiot',
     'baguette',
     'bap',
     'roll',
@@ -36,7 +35,7 @@ export default function Pricing() {
   const displayTime = 1.0; // seconds each word stays before transitioning
   const transitionDuration = 0.6; // duration of fade / slide
   const activeIndexRef = useRef(0);
-  const articleRef = useRef(null);
+
   useEffect(() => {
     if (!sectionRef.current) return;
     if (!words || words.length === 0) return;
@@ -88,24 +87,7 @@ export default function Pricing() {
           { opacity: 0, xPercent: 20 },
           { opacity: 1, xPercent: 0, duration: transitionDuration, ease: "power2.inOut" }
         );
-      const isChanging = (currentIndex === 0 || nextIndex === 0);
 
-      if (isChanging) {
-        activeTween.current.to(articleRef.current, {
-          opacity: 0,
-
-
-          onComplete: () => {
-            articleRef.current.textContent = nextIndex === 0 ? "AN" : "A";
-          }
-        }, 0.4) // Start at the beginning of the timeline
-          .to(articleRef.current, {
-            opacity: 1,
-            y: 0,
-            duration: transitionDuration * 1.5,
-            ease: "power2.out",
-          });
-      }
     };
 
     const startAnimation = () => {
@@ -154,16 +136,16 @@ export default function Pricing() {
         </div>
 
         <div className=" w-full md:w-1/2 flex flex-col md:items-center">
-          <h2 className="text-5xl md:w-full text-start mb-8 md:mb-0  md:text-6xl font-extrabold leading-[1] md:leading-none relative">
-            <span className="text-black  "> DON'T BE <span ref={articleRef} className="transition-opacity duration-1000 ease-out">AN</span></span>{" "}
+          <h2 className="text-5xl md:w-full text-start mb-8  md:text-6xl font-extrabold leading-[1] md:leading-none relative md:mb-4 lg:mb-0">
+            <span className="text-black  " style={{ whiteSpace: 'nowrap' }}> DON'T BE AN IDIOT </span>
             {words.map((word, i) => (
 
 
               <span
                 key={i}
                 ref={(el) => (wordRefs.current[i] = el)}
-                className={`    ${i === 0 ? "text-black" : "text-red-500"} 
-           top-10 mt-2 md:mt-0 left-0 md:left-auto md:top-0 md:px-4 absolute uppercase`}
+                className={`     text-red-500
+           top-10 mt-2 md:mt-0 left-0 md:left-auto lg:top-0 md:px-4 absolute uppercase`}
                 style={{ whiteSpace: 'nowrap' }}
               >
                 {word}
