@@ -24,7 +24,7 @@ const index = ({ data, fetchPr, editData, DeletePr, fetchPrs }) => {
         return (
 
                 <>
-                        <div className="h-auto md:h-[90vh] w-full bg-cover" style={{ backgroundImage: 'url(/assets/dashboard/raw.png)' }}>
+                        <div className="h-auto md:h-[75vh] w-full bg-cover" style={{ backgroundImage: 'url(/assets/dashboard/raw.png)' }}>
                                 <Header sendRelease={sendRelease} />
 
 
