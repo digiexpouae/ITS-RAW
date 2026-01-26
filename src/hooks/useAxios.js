@@ -7,7 +7,7 @@ export const useAxios = () => {
 
     const axiosInstance = useMemo(() => {
         const instance = axios.create({
-            baseURL: 'https://ovnbfq0ckh.execute-api.me-central-1.amazonaws.com' || process.env.NEXT_PUBLIC_API_BASE_URL,
+            baseURL: process.env.NEXT_PUBLIC_API_BASE_URL,
             timeout: 600000,
             headers: {
                 Accept: "application/json",

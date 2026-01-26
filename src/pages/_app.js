@@ -7,12 +7,21 @@ import {
   ClerkProvider,
 
 } from '@clerk/nextjs'
+import { useEffect } from "react";
 const poppins = Poppins({
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"], // choose weights you need
 });
 
 export default function App({ Component, pageProps }) {
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      console.log("Clerk env test:");
+      console.log("  Publishable key exists?", !!process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY);
+      console.log("  Current hostname:", window.location.hostname);
+    }
+  }, []);
   return (
     <ClerkProvider publishableKey={process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY}>
 
