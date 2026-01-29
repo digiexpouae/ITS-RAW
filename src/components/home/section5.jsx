@@ -157,10 +157,20 @@ import { useEffect, useRef, useState } from 'react'
 export default function section5({ className, className_Two }) {
   const [selectedPlan, setSelectedPlan] = useState(null)
 
-const { data: orgPlans,isLoading } = usePlans({ for: "organization", pageSize: 10 });
- console.log("orgPlans", orgPlans)
-const { data: userPlans } = usePlans({ for: "user", pageSize: 10 });
+const {
+  data: orgPlans,
+  isLoading: orgLoading,
+  error: orgError,
+} = usePlans({ for: "organization", pageSize: 10 }); console.log("orgPlans", orgPlans)
+const {
+  data: userPlans,
+  isLoading: userLoading,
+  error: userError,
+} = usePlans({ for: "user", pageSize: 10 });
  console.log("userPlans", userPlans)
+
+ const isLoading = orgLoading || userLoading;
+const error = orgError || userError;
   const displayPlans = orgPlans?.length ? orgPlans : userPlans || [];
  
 
@@ -187,6 +197,7 @@ const { data: userPlans } = usePlans({ for: "user", pageSize: 10 });
       bg: "bg-white",
     }, {
       target: "For Restaurants",
+      
       icon: "/assets/home/ic-2.svg",
       buttonColor: "bg-white text-black",
       borderColor: "border-transparent",
@@ -268,7 +279,7 @@ const { data: userPlans } = usePlans({ for: "user", pageSize: 10 });
       });
       return;
     }
-
+    
     setSelectedPlan({
       id: plan.id,
       period: 'month'
@@ -368,15 +379,6 @@ const { data: userPlans } = usePlans({ for: "user", pageSize: 10 });
 
 
 
-  if (isLoading) return <div>Loading...</div>;
-
-
-
-
-
-
-
-
   return (
 
     <section className={`py-20  flex flex-col items-center justify-center" id="pricing ${className} `}>
@@ -392,6 +394,30 @@ const { data: userPlans } = usePlans({ for: "user", pageSize: 10 });
       </div>
 
 
+    {isLoading && (
+      <div className="py-20 text-center">
+        <p className="text-gray-600">Loading plans…</p>
+      </div>
+    )}
+
+     {!isLoading && error && (
+      <div className="py-20 text-center">
+        <h2 className="text-xl font-semibold text-red-600">
+          Failed to load plans
+        </h2>
+        <p className="mt-2 text-sm text-gray-600">
+          {error.message || "Something went wrong while fetching plans."}
+        </p>
+      </div>
+    )}
+{!isLoading && !error && displayPlans.length === 0 && (
+      <div className="py-20 text-center">
+        <p className="text-gray-600">
+          No plans are available at the moment.
+        </p>
+      </div>
+    )}
+ {!isLoading && !error && displayPlans.length > 0 && (
       <div className={`mt-12 grid lg:grid-cols-3 gap-8 ${className_Two}`}>
 
         {displayPlans.map((p, idx) => {
@@ -482,7 +508,7 @@ const { data: userPlans } = usePlans({ for: "user", pageSize: 10 });
             </div>
           )
         })}
-      </div>
+      </div>)}
       <div className=" text-center mt-10">
         <h2 className="text-4xl  ">
           <span className="text-red-500 uppercase p-2">Can’t Find What You’re Looking For? </span>
@@ -552,6 +578,7 @@ function PaymentSection({ checkout, start }) {
   const { isFormReady, submit } = usePaymentElement()
   const { data: paymentMethods, isLoading } = usePaymentMethods()
   const [isSubmitting, setIsSubmitting] = useState(false);
+ 
   const router = useRouter()
   const startedRef = useRef(false);
   const [submittingCardId, setSubmittingCardId] = useState(null);
@@ -637,7 +664,7 @@ function PaymentSection({ checkout, start }) {
   const subscribe_method = async (method) => {
     if (isSubmitting || !isCheckoutReady) return;
     setIsSubmitting(true);
-
+ setSubmittingCardId(method.id);
     try {
       // If you're using an existing payment method, you might skip the form submission
       // and just confirm the checkout using this method
@@ -651,7 +678,7 @@ function PaymentSection({ checkout, start }) {
           }
         });
       }
-      throw new Error(`Unexpected status: ${status}`);
+      // throw new Error(`Unexpected status: ${status}`);
     } catch (error) {
       console.log("Checkout failed:", error);
 
@@ -674,7 +701,7 @@ function PaymentSection({ checkout, start }) {
             {paymentMethods.map((method) => (
               <button
                 key={method.id}
-                disabled={Billing || submittingCardId === method.id} // disable only this button
+                disabled={Billing || isSubmitting || submittingCardId === method.id} // disable only this button
 
                 onClick={() => subscribe_method(method)}
                 className={`
