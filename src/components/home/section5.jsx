@@ -157,14 +157,12 @@ import { useEffect, useRef, useState } from 'react'
 export default function section5({ className, className_Two }) {
   const [selectedPlan, setSelectedPlan] = useState(null)
 
-  const { data: plan, isLoading } = usePlans({
-    for: 'user', // or 'organization' for B2B
-    pageSize: 10,
-  });
-
-  console.log("plan", plan)
-  const displayPlans = plan || [];
-
+const { data: orgPlans,isLoading } = usePlans({ for: "organization", pageSize: 10 });
+ console.log("orgPlans", orgPlans)
+const { data: userPlans } = usePlans({ for: "user", pageSize: 10 });
+ console.log("userPlans", userPlans)
+  const displayPlans = orgPlans?.length ? orgPlans : userPlans || [];
+ 
 
   const planStyles = [
     {
@@ -432,7 +430,7 @@ export default function section5({ className, className_Two }) {
                   </div>
                 </div>
                 <p className="mt-4 text-3xl flex items-center " >
-                  <span className="text-3xl font-normal" style={{ fontFamily: "subscribe, sans-serif" }}>${p.fee.amountFormatted}/month</span>
+                  <span className="text-3xl font-normal" style={{ fontFamily: "subscribe, sans-serif" }}>  ${p?.fee?.amountFormatted ?? "N/A"}/month</span>
                 </p>
               </div>
 
