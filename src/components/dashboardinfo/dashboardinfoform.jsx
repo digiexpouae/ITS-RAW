@@ -107,7 +107,7 @@ const dashboardinfoform = ({ fetch }) => {
     linkedin: z.string().optional(),
     bookingLink: z.string().url("Invalid URL format").optional().or(z.literal("")),
     location: z.string().optional(),
-    cityArea: z.string().min(2, "Area must be at least 2 characters"),
+    cityArea: z.string().optional(),
     emirate: z.string().min(1, "Emirate must be selected"),
     // ... other fields ...
     businessHours: z.object({
@@ -155,8 +155,8 @@ const dashboardinfoform = ({ fetch }) => {
     isPetsFriendly: z.boolean().optional(),
     hasTakeaway: z.boolean().optional(),
     hasOutdoorDining: z.boolean().optional(),
-    cuisineType: z.array(z.string()).min(1, "Please select at least two cuisine type").max(2, "Maximum 2 cuisine types allowed"),
-    restaurantType: z.array(z.string()).min(1, "Please select at least four restaurant type").max(4, "Maximum 4 restaurant types allowed"),
+    cuisineType: z.array(z.string()).min(2, "Please select at least two cuisine type").max(2, "Maximum 2 cuisine types allowed"),
+    restaurantType: z.array(z.string()).min(4, "Please select at least four restaurant type").max(4, "Maximum 4 restaurant types allowed"),
     averageSpend: z.string().regex(/^\d+-\d+$/, "Invalid price range format").optional(),
     description: z.string().min(10, "Description must be at least 10 characters").max(700, "Description cannot exceed 700 words"),
     personalityVibe: z.array(z.string()).optional(),
@@ -182,6 +182,15 @@ const dashboardinfoform = ({ fetch }) => {
         message: "Please provide at least one of Website, WhatsApp, Instagram, Facebook, TikTok, YouTube, or LinkedIn.",
         path: ["website"]
       });
+    }
+    if (data.emirate === "Dubai") {
+      if (!data.cityArea || data.cityArea.length < 2) {
+        ctx.addIssue({
+          path: ["cityArea"],
+          message: "Area must be at least 2 characters",
+          code: z.ZodIssueCode.custom,
+        });
+      }
     }
   });
 
@@ -670,6 +679,11 @@ const dashboardinfoform = ({ fetch }) => {
                   </div>
                   {form.watch("emirate") == "Dubai" && <div className="col-span-1 bg-[#FBEDDF] h-1/2    w-full p-3 py-8 rounded-2xl flex flex-col justify-between">
                     <label className="font-medium text-sm mb-1">Dubai Area</label>
+                    {form.watch("emirate") == "Dubai" && form.formState.errors.cityArea && (
+                      <p className="text-red-500 text-sm mt-1 mb-2">
+                        {form.formState.errors.cityArea.message}
+                      </p>
+                    )}
                     <select
                       name="cityArea"
                       {...form.register("cityArea")}
@@ -698,7 +712,7 @@ const dashboardinfoform = ({ fetch }) => {
                       <option value="Sheikh Zayed Road">Sheikh Zayed Road</option>
                       <option value="Umm Suqeim">Umm Suqeim</option>
                     </select>
-                    <Error name="dubaiArea" form={form} />
+
 
 
                   </div>}
@@ -778,9 +792,9 @@ const dashboardinfoform = ({ fetch }) => {
 
                   </div>
                 </div>
-                <div className="flex md:hidden bg-[#FBEDDF] py-8 h-[280px] md:h-[180px] px-4 w-[90%] md:w-full  flex-col justify-between rounded-xl mb-6">
+                {/* <div className="flex md:hidden bg-[#FBEDDF] py-8 h-[280px] md:h-[180px] px-4 w-[90%] md:w-full  flex-col justify-between rounded-xl mb-6">
                   <p className="font-medium mb-3">Restaurant Features</p>
-                  <div className="flex flex-wrap text-[#9B9B9B] font-medium gap-4 text-sm">
+                  <div className="grid grid-cols-1 text-[#9B9B9B] font-medium gap-4 text-sm">
                     {[
                       'Is licensed (i.e. serves alcohol)',
                       'Allows smoking',
@@ -804,92 +818,94 @@ const dashboardinfoform = ({ fetch }) => {
                     ))}
                   </div>
 
-                </div>
+                </div> */}
+
 
               </div>
-              <div className="hidden md:flex bg-[#FBEDDF] py-4 h-[280px] md:h-[230px] px-4 w-[90%] md:w-full  flex-col justify-between rounded-xl mb-6">
-                <p className="font-medium mb-3">Restaurant Features</p>
-                <div className="grid md:grid-cols-2 gap-y-2 gap-x-8">
-                  <div className="flex  space-x-2">
-                    <input
-                      type="checkbox"
-                      id="isLicensed"
-                      className='accent-red-500 h-4 w-4'
-                      {...form.register('isLicensed')}
-                    />
-                    <Error name="isLicensed" form={form} />
+              <div className='w-full flex w-full justify-center items-center'>
+                <div className="flex bg-[#FBEDDF] py-4 h-[280px] md:h-[230px] px-4  w-[90%] md:w-full  flex-col justify-between rounded-xl mb-6">
+                  <p className="font-medium mb-3">Restaurant Features</p>
+                  <div className="grid  md:grid-cols-2 gap-y-2 gap-x-8 text-gray-500">
+                    <div className="flex  space-x-2">
+                      <input
+                        type="checkbox"
+                        id="isLicensed"
+                        className='accent-red-500 h-4 w-4'
+                        {...form.register('isLicensed')}
+                      />
+                      <Error name="isLicensed" form={form} />
 
-                    <label htmlFor="isLicensed">Is licensed (i.e. serves alcohol)</label>
-                  </div>
+                      <label htmlFor="isLicensed">Is licensed (i.e. serves alcohol)</label>
+                    </div>
 
-                  <div className="flex items-center space-x-2">
-                    <input
-                      type="checkbox"
-                      id="hasValetParking"
-                      className='accent-red-500 h-4 w-4'
+                    <div className="flex items-center space-x-2">
+                      <input
+                        type="checkbox"
+                        id="hasValetParking"
+                        className='accent-red-500 h-4 w-4'
 
-                      {...form.register('hasValetParking')}
-                    />
-                    <label htmlFor="hasValetParking">Valet parking available</label>
-                  </div>
+                        {...form.register('hasValetParking')}
+                      />
+                      <label htmlFor="hasValetParking">Valet parking available</label>
+                    </div>
 
-                  <div className="flex items-center space-x-2">
-                    <input
-                      type="checkbox"
-                      id="allowsSmoking"
-                      className='accent-red-500 h-4 w-4'
+                    <div className="flex items-center space-x-2">
+                      <input
+                        type="checkbox"
+                        id="allowsSmoking"
+                        className='accent-red-500 h-4 w-4'
 
-                      {...form.register('allowsSmoking')}
-                    />
-                    <label htmlFor="allowsSmoking">Allows smoking</label>
-                  </div>
+                        {...form.register('allowsSmoking')}
+                      />
+                      <label htmlFor="allowsSmoking">Allows smoking</label>
+                    </div>
 
-                  <div className="flex items-center space-x-2">
-                    <input
-                      type="checkbox"
-                      id="isKidsFriendly"
-                      className='accent-red-500 h-4 w-4'
+                    <div className="flex items-center space-x-2">
+                      <input
+                        type="checkbox"
+                        id="isKidsFriendly"
+                        className='accent-red-500 h-4 w-4'
 
-                      {...form.register('isKidsFriendly')}
-                    />
-                    <label htmlFor="isKidsFriendly">Kids friendly</label>
-                  </div>
+                        {...form.register('isKidsFriendly')}
+                      />
+                      <label htmlFor="isKidsFriendly">Kids friendly</label>
+                    </div>
 
-                  <div className="flex items-center space-x-2">
-                    <input
-                      type="checkbox"
-                      id="isPetsFriendly"
-                      className='accent-red-500 h-4 w-4'
+                    <div className="flex items-center space-x-2">
+                      <input
+                        type="checkbox"
+                        id="isPetsFriendly"
+                        className='accent-red-500 h-4 w-4'
 
-                      {...form.register('isPetsFriendly')}
-                    />
-                    <label htmlFor="isPetsFriendly">Pets friendly</label>
-                  </div>
+                        {...form.register('isPetsFriendly')}
+                      />
+                      <label htmlFor="isPetsFriendly">Pets friendly</label>
+                    </div>
 
-                  <div className="flex items-center space-x-2">
-                    <input
-                      type="checkbox"
-                      id="hasTakeaway"
-                      className='accent-red-500 h-4 w-4'
+                    <div className="flex items-center space-x-2">
+                      <input
+                        type="checkbox"
+                        id="hasTakeaway"
+                        className='accent-red-500 h-4 w-4'
 
-                      {...form.register('hasTakeaway')}
-                    />
-                    <label htmlFor="hasTakeaway">Take away</label>
-                  </div>
+                        {...form.register('hasTakeaway')}
+                      />
+                      <label htmlFor="hasTakeaway">Take away</label>
+                    </div>
 
-                  <div className="flex items-center space-x-2">
-                    <input
-                      type="checkbox"
-                      id="hasOutdoorDining"
-                      className='accent-red-500 h-4 w-4'
+                    <div className="flex items-center space-x-2">
+                      <input
+                        type="checkbox"
+                        id="hasOutdoorDining"
+                        className='accent-red-500 h-4 w-4'
 
-                      {...form.register('hasOutdoorDining')}
-                    />
-                    <label htmlFor="hasOutdoorDining">Has outdoor dining area</label>
+                        {...form.register('hasOutdoorDining')}
+                      />
+                      <label htmlFor="hasOutdoorDining">Has outdoor dining area</label>
+                    </div>
                   </div>
                 </div>
               </div>
-
 
             </div>
 
@@ -941,7 +957,7 @@ const dashboardinfoform = ({ fetch }) => {
                             }}
                           />
                           {item}
-                          <Error name="cuisineType" form={form} />
+
 
                         </label>
 

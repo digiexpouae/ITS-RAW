@@ -345,7 +345,7 @@ export default function CampaignForm({ fetchData }) {
 
               <div className="col-span-1 bg-[#FBDFDF] h-[180px] w-[500px]  p-3 py-8 rounded-2xl flex flex-col justify-between">
                 <label className="font-medium text-sm mb-1">Preferred quote for Press (if any)  </label>
-                <textarea type="text" name="preferredQuote" value={formData.preferredQuote} onChange={handleChange} placeholder="Enter the title and designation of spokesperson" className="border border-gray-300 bg-white rounded-md p-2 resize-none h-[70px] text-sm" />
+                <textarea type="text" name="preferredQuote" value={formData.preferredQuote} onChange={handleChange} className="border border-gray-300 bg-white rounded-md p-2 resize-none h-[70px] text-sm" />
               </div>
               {/* <div className="col-span-1 bg-[#FBEDDF]  h-[335px] p-4 rounded-2xl flex flex-col justify-between">
           <label className="font-medium text-sm mb-1">Headline / Subject</label>
