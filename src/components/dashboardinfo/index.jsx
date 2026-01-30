@@ -55,7 +55,7 @@ const index = () => {
 
     return (
         <>
-            <div className="h-screen md:h-[90vh] w-full bg-cover relative overflow-hidden" style={{ backgroundImage: 'url(/assets/dashboard/raw.png)' }}>
+            <div className="h-auto md:h-[90vh] w-full bg-cover relative overflow-hidden" style={{ backgroundImage: 'url(/assets/dashboard/raw.png)' }}>
 
                 <Header />
                 <Herosection image={'/assets/dashboardinfo/vector-info.svg'} btn2={' bg-[#FFFFFF] hover:bg-zinc-100 !text-black'} />

@@ -100,7 +100,7 @@ export default function CampaignForm({ fetchData }) {
       (key) => !formData[key] || formData[key].toString().trim() === ""
     );
 
-    if (emptyFields.length >= 1) {
+    if (emptyFields.length > 1) {
       toast.error("Please fill all required fields .");
       return; // Stop submission if too many fields are empty
     }
@@ -276,6 +276,7 @@ export default function CampaignForm({ fetchData }) {
                         <option value="awards">Awards / Recognitions</option>
                         <option value="brand-partnership">Brand Partnership</option>
                         <option value="csr-initiative">CSR Initiative / Sustainability Update</option>
+                        <option value="new-opening">New Opening</option>
                         <option value="other">Other</option>
 
                       </select>
@@ -368,5 +369,196 @@ export default function CampaignForm({ fetchData }) {
 
     </div>
     <LoaderPopup isOpen={loading} />
+
+    {/* ================= MOBILE FORM ================= */}
+    <div className="min-h-screen lg:hidden block px-4 py-6 my-20">
+      <form className="flex flex-col gap-4">
+
+        {/* Upload Image */}
+        <div className="bg-[#FBDFDF] p-4 rounded-xl flex flex-col gap-2">
+          <label className="font-medium text-sm mb-2">Upload Image</label>
+          <div
+            className="bg-white p-3 rounded-md text-sm text-gray-500 cursor-pointer"
+            onClick={handleFileClick}
+          >
+            {imageFile ? imageFile.name : "Tap to upload image"}
+            <input
+              type="file"
+              ref={inputRef}
+              className="hidden"
+              onChange={handleFileChange}
+            />
+          </div>
+        </div>
+
+        {/* Press Release Style */}
+        <div className="bg-[#FBDFDF] p-4 rounded-xl">
+          <label className="text-sm font-medium mb-2 block">
+            Press Release Style
+          </label>
+          <select
+            name="pressReleaseStyle"
+            value={formData.pressReleaseStyle}
+            onChange={handleChange}
+            className="w-full border bg-white border-gray-400 rounded-md p-2 text-sm"
+          >
+            <option value="">Select</option>
+            <option value="formal">Formal</option>
+            <option value="fun">Fun</option>
+          </select>
+        </div>
+        {/* Campaign Focus */}
+        <div className="bg-[#FBEDDF] p-4 rounded-xl">
+          <label className="text-sm font-medium mb-2 block">
+            Select the primary focus of the campaign or release*
+          </label>
+          <select
+            name="campaignFocus"
+            value={formData.campaignFocus}
+            onChange={handleChange}
+            className="w-full border bg-white border-gray-400 rounded-md p-2 text-sm"
+          >
+            <option value="">Select</option>
+            <option value="new-chef">New Chef Announcement</option>
+            <option value="collaboration">Collaboration / Guest Chef</option>
+            <option value="new-offer">New Offer / Deal</option>
+            <option value="seasonal-campaign">Seasonal Campaign</option>
+            <option value="special-event">Special Event</option>
+            <option value="venue-redesign">Venue Redesign</option>
+            <option value="awards">Awards</option>
+            <option value="brand-partnership">Brand Partnership</option>
+            <option value="csr-initiative">CSR Initiative</option>
+            <option value="new-opening">New Opening</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+        {/* Go Live Date */}
+        <div className="bg-[#FBEDDF] p-4 rounded-xl">
+          <label className="text-sm font-medium mb-2 block">
+            Go-Live Date / Event / Offer Date*
+          </label>
+          <input
+            type="date"
+            name="goLiveDate"
+            value={formData.goLiveDate}
+            onChange={handleChange}
+            className="w-full border bg-white border-gray-300 rounded-md p-2 text-sm"
+          />
+        </div>
+
+        {/* Duration */}
+        <div className="bg-[#FBDFDF] p-4 rounded-xl">
+          <label className="text-sm font-medium mb-2 block">
+            Duration (If Applicable)
+
+          </label>
+          <select
+            name="duration"
+            value={formData.duration}
+            onChange={handleChange}
+            className="w-full border bg-white border-gray-400 rounded-md p-2 text-sm"
+          >
+            <option value="">Select</option>
+            <option value="one-day">One Day</option>
+            <option value="week-long">Week Long</option>
+            <option value="month-long">Month Long</option>
+            <option value="ongoing">Ongoing</option>
+            <option value="seasonal">Seasonal</option>
+          </select>
+        </div>
+        {/* Primary Spokesperson */}
+        <div className="bg-[#FBEDDF] p-4 rounded-xl">
+          <label className="text-sm font-medium mb-2 block">
+            Primary Spokesperson (If Applicable)
+          </label>
+          <select
+            name="primarySpokesperson"
+            value={formData.primarySpokesperson}
+            onChange={handleChange}
+            className="w-full border bg-white border-gray-400 rounded-md p-2 text-sm"
+          >
+            <option value="">Select</option>
+            <option value="owner">Owner</option>
+            <option value="general-manager">General Manager</option>
+            <option value="head-chef">Head Chef</option>
+            <option value="marketing-manager">Marketing Manager</option>
+            <option value="fb-director">F&B Director</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+
+
+
+        {/* Spokesperson Name */}
+        <div className="bg-[#FBDFDF] p-4 rounded-xl">
+          <label className="text-sm font-medium mb-2 block">
+            Name of spokesperson
+          </label>
+          <input
+            type="text"
+            name="spokespersonName"
+            value={formData.spokespersonName}
+            onChange={handleChange}
+            className="w-full border bg-white border-gray-300 rounded-md p-2 text-sm"
+          />
+        </div>
+
+
+
+        {/* Key Highlights */}
+        <div className="bg-[#FBEDDF] p-4 rounded-xl">
+          <label className="text-sm font-medium mb-2 block">
+            Key highlights / Selling points (Max 3 bullet points)*
+          </label>
+          <textarea
+            name="keyHighlights"
+            value={formData.keyHighlights}
+            onChange={handleChange}
+            rows={4}
+            className="w-full border bg-white border-gray-300 rounded-md p-2 text-sm resize-none"
+          />
+        </div>
+
+        {/* Designation */}
+        <div className="bg-[#FBEDDF] p-4 rounded-xl">
+          <label className="text-sm font-medium mb-2 block">
+            Designation Title of spokesperson
+          </label>
+          <input
+            type="text"
+            name="designationTitle"
+            value={formData.designationTitle}
+            onChange={handleChange}
+            className="w-full border bg-white border-gray-300 rounded-md p-2 text-sm"
+          />
+        </div>
+
+
+        {/* Preferred Quote */}
+        <div className="bg-[#FBDFDF] p-4 rounded-xl">
+          <label className="text-sm font-medium mb-2 block">
+            Preferred quote for Press (if any)
+          </label>
+          <textarea
+            name="preferredQuote"
+            value={formData.preferredQuote}
+            onChange={handleChange}
+            rows={3}
+            className="w-full border bg-white border-gray-300 rounded-md p-2 text-sm resize-none"
+          />
+        </div>
+
+        {/* Submit */}
+        <button
+          onClick={handleSubmit}
+          className="mt-4 bg-[#EE3A3D] text-white py-3 rounded-lg font-medium"
+        >
+          Generate
+        </button>
+
+        <Toaster position="bottom-right" />
+      </form>
+    </div>
+
   </>)
 }

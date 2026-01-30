@@ -712,7 +712,7 @@ const dashboardinfoform = ({ fetch }) => {
                       {['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'].map((day, index) => (
                         <div
                           key={index}
-                          className=" flex md:grid grid-cols-4  space-y-2 md:space-y-0 flex-wrap  space-x-4 md:space-x-0 h-[25px]  md:gap-0  md:grid-cols-[80px_auto_auto_auto_auto] items-center  text-[10px]"
+                          className=" flex md:grid grid-cols-4  space-y-2 md:space-y-0 flex-wrap  space-x-4 md:space-x-0 h-auto md:h-[25px] md:gap-0  md:grid-cols-[80px_auto_auto_auto_auto] items-center  text-[10px]"
                         >
                           {/* Day Name */}
                           <p className="font-medium text-[#9B9B9B]">{day}</p>

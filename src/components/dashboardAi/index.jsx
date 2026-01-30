@@ -22,31 +22,37 @@ const dashboardAi = ({ fetchData }) => {
     {
       title: "Press Release Style",
       type: "select",
-      options: ["Select", "Brand Awareness", "Product Launch", "Event"],
+      options: ["Select", "Formal", "Fun"],
       bgColor: "bg-[#FBDFDF]",
       height: "h-[120px] md:h-[300px]",
       fullWidth: true
     },
     {
-      title: "Primary Spokesperson (If Applicable)",
-      type: "select",
-      options: ["Select", "Brand Awareness", "Product Launch", "Event"],
-      bgColor: "bg-[#FBEDDF]",
-      height: "h-[120px] md:h-[180px]"
-    },
-    {
-      title: "Designation Title of spokesperson",
-      type: "text",
-      placeholder: "Enter the title and designation of spokesperson",
-      bgColor: "bg-[#FBEDDF]",
-      height: "h-[120px] md:h-[180px]"
-    },
-    {
       title: "Select the primary focus of the campaign or release*",
       type: "select",
-      options: ["Select", "Brand Awareness", "Product Launch", "Event"],
+      options: ["New Chef Announcement", "Collaboration / Guest Chef", "New Offer / Deal", "Seasonal Campaign", "Special Event", "Venue Redesign / Refurbishment", "Awards / Recognitions", "Brand Partnership", "CSR Initiative / Sustainability Update", "New Opening", "Other"],
       bgColor: "bg-[#FBDFDF]",
       height: "h-[120px] md:h-[300px]"
+    },
+    {
+      title: "Go-Live Date / Event / Offer Date*",
+      type: "date",
+      bgColor: "bg-[#FBEDDF]",
+      height: "h-[120px] md:h-[300px]"
+    },
+
+    {
+      title: "Duration (If Applicable)",
+      type: "select",
+      options: ["Select", "One-day only", "Week-long", "Month-long", "Ongoing", "Seasonal"],
+      bgColor: "bg-[#FBEDDF]",
+      height: "h-[120px] md:h-[180px]"
+    },
+    {
+      title: "Primary Spokesperson (If Applicable)",
+      type: "select",
+      options: ["Select", "Owner", "General Manager", "Head Chef", "Marketing Manager", "F&B Director", "Other"], bgColor: "bg-[#FBEDDF]",
+      height: "h-[120px] md:h-[180px]"
     },
     {
       title: "Name of spokesperson",
@@ -54,12 +60,6 @@ const dashboardAi = ({ fetchData }) => {
       placeholder: "Enter the name of spokesperson",
       bgColor: "bg-[#FBEDDF]",
       height: "h-[120px] md:h-[180px]"
-    },
-    {
-      title: "Go-Live Date / Event / Offer Date*",
-      type: "date",
-      bgColor: "bg-[#FBEDDF]",
-      height: "h-[120px] md:h-[300px]"
     },
     {
       title: "Key highlights / Selling points (Max 3 bullet points)*",
@@ -70,12 +70,17 @@ const dashboardAi = ({ fetchData }) => {
       //   fullWidth: isMobile
     },
     {
-      title: "Duration (If Applicable)",
-      type: "select",
-      options: ["Select", "Brand Awareness", "Product Launch", "Event"],
+      title: "Designation Title of spokesperson",
+      type: "text",
+      placeholder: "Enter the title and designation of spokesperson",
       bgColor: "bg-[#FBEDDF]",
       height: "h-[120px] md:h-[180px]"
     },
+
+
+
+
+
     {
       title: "Preferred quote for Press (if any) ",
       type: "text",
@@ -112,7 +117,7 @@ const dashboardAi = ({ fetchData }) => {
       </div>
       {activeForm === "ai" && (
         <>  <Form fetchData={fetchData} />
-          <Mobileform formData={formData} loading={loading} handleChange={handleChange} formSections={formSections} dashboardAi={true} />
+          {/* <Mobileform formData={formData} loading={loading} handleChange={handleChange} formSections={formSections} dashboardAi={true} /> */}
         </>
       )}
 
